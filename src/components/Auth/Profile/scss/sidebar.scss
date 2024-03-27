@@ -1,0 +1,81 @@
+.profile-container {
+  
+   
+        // min-height: 100% !important;
+        min-height: 35vh !important;
+        height: auto;
+    width: 100%;
+    max-width: 1180px;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: row !important;
+    @media (max-width:767px) {
+        display: flex;
+        flex-direction: column !important;
+        
+    }
+
+    .dashboard-container{
+        width: 100%;
+        height: auto;
+        padding: 1rem;
+        // overflow: hidden;
+    
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+
+        @media (max-width:767px) {
+            padding: 0.5rem !important;
+            
+        }
+        .activities-heading{
+            color: #00ccff;
+
+            @media (max-width:767px) {
+                font-size: 1.1rem !important;
+                
+            }
+        }
+        .cards-wrapper{
+            width: 100%;
+            height: auto;
+            padding: 0;
+        }
+
+        .tabs-container{
+            width: 100%;
+            height: auto;
+            padding: 0;
+
+            .css-19kzrtu {
+                padding: 0 !important;
+            }
+        }
+    }
+    .admin-title {
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        padding: 1rem;
+    }
+
+    .profile-tabs-sidebar {
+        min-width: 20%;
+        background-color: #ffe93d;
+            // background-color: #eee;
+            border-radius: 10px;
+ .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        color: #000;
+    }  
+            
+    // .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    //     color: #00C2FF;
+    // }  
+    }
+
+
+   
+}

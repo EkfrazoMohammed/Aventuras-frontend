@@ -1,0 +1,127 @@
+.cancelation-policy-page-container {
+    height: auto;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+
+    .cancelation-policy-page-wrapper{
+        width: 100%;
+        height: auto;
+        display: flex;
+            justify-content: center;
+            align-items: center;
+            gap:1rem;
+            padding: 2rem 1rem;
+
+        .cancelation-policy-text-container{
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+            line-height: 1.5rem;
+          
+
+            
+
+            .heading{
+                font-size: 2rem;
+                font-weight: 600;
+                color: #00c2ff;
+
+
+            }
+
+            .para-container{
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                gap:1rem;
+                flex-direction: column;
+
+                .sections{
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                    gap: .6rem;
+                    .cancel-bold-text{
+                        font-weight: 600;
+                        padding:5px;
+                        font-size: 1.1rem;
+                        color: #6e6b6b;
+                    }
+                    .subheading{
+                        width: 100%;
+                        height: auto;
+                        font-size: 1.6rem;
+                        font-weight: 600;
+
+                        @media (max-width:767px){
+                            font-size: 1.3rem;
+                        }
+                    }
+                    .title{
+                        width: 100%;
+                        height: auto;
+                        font-size: 1.3rem;
+                        font-weight: 500;
+                    }
+                    .para{
+                        width: 100%;
+                        height: auto;
+                        font-size: 1.1rem;
+
+                    }
+
+                    .list-container{
+                        width: 100%;
+                        height: auto;
+
+                        .list-wrapper{
+                                width: 100%;
+                                height: auto;
+                                list-style-position: initial;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 1rem;
+                                padding: 0 2rem;
+
+                                @media (max-width:767px){
+                                    padding: 0 1rem;
+                                }
+                          
+
+                            .list-items{
+                                width: 100%;
+                                height: auto;
+                                font-size: 1.1rem;
+                               
+                                
+                                .bold-text{
+                                    font-weight: 600;
+                                    padding:0 5px;
+                                }
+                                .more{
+
+                                    padding:5px;
+                                }
+
+                                .link-address{
+                                    font-weight: 600;
+                                    color:#00c2ff;
+                                    text-decoration: underline !important;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
+    }
+}

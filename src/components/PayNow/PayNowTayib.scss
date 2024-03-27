@@ -1,0 +1,548 @@
+// .pay-page-container {
+//     // width: 100%;
+//     height: auto;
+//     width: 100%;
+//     max-width: 1180px;
+//     margin: 0 auto;
+//     .pay-pages{
+//         min-height: 55vh;
+//         display: flex;
+//         @media(max-width:1024px){
+//             flex-direction: column;
+//             gap:1rem;
+//         }
+//         .form-button {
+//             padding: 0.5rem 1rem;
+//             color: #000;
+//             font-weight: 500;
+//             border-radius: 4px;
+//             text-transform: capitalize;
+//             background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+//             border: none;
+//             outline: none;
+//         }
+//         .page-heading {
+          
+//             font-size: 2rem;
+//             font-weight: 600;
+//             color: #00c2ff;
+//         }
+//         .left{
+//             display: flex;
+//             flex-direction: column;
+//             gap: 2rem;
+//             width: 100%;
+//             height: auto;
+//             padding: 1rem;
+//             align-items: center;
+//             justify-content: center;
+//             .formContainer{
+//                 width: 42%;
+//     height: auto;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 1rem;
+//     @media(max-width:1024px){
+//         width: 90%;
+//     }
+//     @media(max-width:1024px){
+//        gap:.5rem;
+//     }
+   
+
+//                 .inputField{
+//                     display: flex;
+//                     gap: 1rem;
+//                     justify-content: space-between;
+//                     font-size: 1.1rem;
+
+//                     @media (max-width:767px){
+//                         display: flex;
+//                         gap: 0.5rem;
+//                         /* font-size: 1.1rem; */
+//                         /* justify-content: space-between; */
+//                         /* flex-wrap: wrap; */
+//                         flex-direction: column;
+// }
+                    
+//                     @media(max-width:1024px){
+//                         font-size: 1rem;
+
+//                     }
+//                     input,textarea {
+//                         padding: 0.3rem;
+//     border-radius: 5px;
+//     border: 2px solid #000 !important;
+//     outline: none;
+//     @media (max-width:767px){
+//         width: 300px;
+//     }
+//                     }
+//                 }
+//             }
+//         }
+//         .right{
+//             width: 30%;
+//             height: auto;
+//             border:4px solid #eee;
+//             padding: 1rem;
+//             margin: 1rem;
+//             border-radius: 10px;
+//             @media(max-width:1024px){
+//                 width: 90%;
+//                 height: auto;
+//             }
+
+//             .qr-image-container{
+//                 width: 100%;
+//                 height: auto;
+
+//                 img{
+//                     width: 100%;
+//                     height: auto;
+//                 }
+
+//                 .text-content{
+//                     text-align: center;
+//                     .headings{
+//                         font-size: 1rem;
+//                     }
+//                 }
+
+//             }
+//         }
+//     }
+
+   
+// }
+
+
+
+// ========= ASHIK =====================
+
+// .inputField{
+//     width: 50%;
+//     height: 50px;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     gap: 1rem;
+// }
+
+.pay-page-container {
+
+    .coupons-text{
+        font-size: 1.1rem;
+        margin: 0.5rem;
+        color: #00c2ff;
+
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+    // width: 100%;
+    height: auto;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    .pay-pages{
+        min-height: 55vh;
+        display: flex;
+        @media(max-width:1024px){
+            flex-direction: column;
+            gap:1rem;
+        }
+        .form-button {
+            padding: 1rem 1rem;
+            color: #000;
+            font-weight: 500;
+            border-radius: 4px;
+            text-transform: capitalize;
+            background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+            border: none;
+            outline: none;
+            width: 50%;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+        .page-heading {
+          
+            font-size: 2rem;
+            font-weight: 600;
+            color: #00c2ff;
+        }
+        .left{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+            height: auto;
+            padding: 1rem;
+            align-items: center;
+            justify-content: center;
+
+            @media (max-width:767px) {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                width: 100%;
+                height: auto;
+                padding: .5rem;
+                align-items: center;
+                justify-content: center;
+                
+            }
+            .formContainer{
+                width: 42%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @media(max-width:1024px){
+        width: 90%;
+    }
+    @media(max-width:1024px){
+       gap:.5rem;
+    }
+   
+
+                .inputField{
+                    display: flex;
+                    gap: 1rem;
+                    justify-content: space-between;
+                    font-size: 1.1rem;
+
+                    @media (max-width:767px){
+                        display: flex;
+                        gap: 0.5rem;
+                        /* font-size: 1.1rem; */
+                        /* justify-content: space-between; */
+                        /* flex-wrap: wrap; */
+                        flex-direction: column;
+}
+                    
+                    @media(max-width:1024px){
+                        font-size: 1rem;
+
+                    }
+                    input,textarea {
+                        padding: 0.3rem;
+    border-radius: 5px;
+    border: 2px solid #000 !important;
+    outline: none;
+    @media (max-width:767px){
+        width: 300px;
+    }
+                    }
+                }
+            }
+        }
+        .right{
+            width: 30%;
+            height: auto;
+            border:4px solid #eee;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 10px;
+            @media(max-width:1024px){
+                width: 90%;
+                height: auto;
+            }
+
+            .qr-image-container{
+                width: 100%;
+                height: auto;
+
+                img{
+                    width: 100%;
+                    height: auto;
+                }
+
+                .text-content{
+                    text-align: center;
+                    .headings{
+                        font-size: 1rem;
+                    }
+                }
+
+            }
+        }
+    }
+
+   
+}
+// ================================ Ashik css ====================
+.payment-main-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+.payment_wrapper{
+    display: flex;
+    width: 50%;
+    border: 2px solid rgba(249, 231, 33, 0.867); 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    
+}
+.Payment_header{
+    color: aqua;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.card_section{
+    width: 100%;
+    border: 2px solid rgb(248,156,27);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    gap:10px;
+    flex-direction: column;
+    padding: 10px;
+    
+}
+.text_value{
+    font-size:20px;
+    font-weight: bold;
+}
+.details_input_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+    flex-direction: column;
+    height: 60%
+    
+}
+.input_tag{
+    height: 30px;
+    width: 100%;
+}
+.details_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+} 
+.pay-now-form-button{
+    background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 30%;
+    height:50px !important;
+    display:flex;
+    justify-content:center;
+    align-items:    center;
+    cursor:pointer;
+}
+
+.input-container {
+    position: relative;
+  }
+  
+  .edit-button {
+    display: none; 
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007bff; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .input-container:hover .edit-button {
+    display: block;
+  }
+  
+
+  .myformContainer{
+    display: flex;
+    flex-direction: column;
+        justify-content: center;
+          align-items: center;
+          gap: 20px;
+          padding: 20px;
+          width: 100%;
+
+          @media (max-width:767px){
+         
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                padding: 10px;
+           
+          }
+  
+  .inputField {
+        width: 40%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        @media (max-width:767px){
+            display: flex;
+            gap: .5rem;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        label{
+            font-weight: 400 !important;
+        }
+        input,textarea{
+
+            border: 2px solid #eee;
+              width:270px;
+            min-height: 50px;
+              border-radius: 5px;
+              padding:10px;
+
+              @media (max-width:767px){
+                width:270px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                min-height: 40px;
+                  border-radius: 5px;
+                  padding:10px;
+              }
+        }
+    
+  }
+  
+        }
+
+        .nextButton,.prevButton{
+        
+                padding: 8px;
+                background: linear-gradient(90deg, rgb(247, 151, 30) 0%, rgb(255, 210, 0) 100%);
+                font-weight: bold;
+                color: black;
+                width: 20%;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                @media (max-width:767px) {
+                    width: 50%;
+                    height: 30px;
+                    
+                }
+          
+        }
+
+        .mypayButton{
+        
+            padding: 8px;
+            background: green;
+            font-weight: bold;
+            color: #fff !important;
+            width: 20%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+
+            @media (max-width:767px) {
+                width: 45%;
+                height: 30px;
+                
+            }
+      
+    }
+        .Payment_card_section{
+     
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          display:flex; gap:10px;
+           width: 40%;
+            cursor: pointer;
+           @media (max-width:767px) {
+            width: 100%;
+            
+           }
+        }
+
+        .mytbody{
+            width: 100%;
+
+            .mytd{
+                width: 60%;
+            }
+        }
+
+        .step3tableContainer{
+            display: flex;
+            justify-content: center;
+    
+            width: 100%;
+            height: auto;
+            @media (max-width:767px){
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .step3tableColumn{
+                    max-width: 100% !important;
+                    height: auto;
+                    width: 100%;
+
+                    .total_row{
+                   
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            font-size: 1.1rem;
+                            font-weight: bold;
+                            box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+                            padding: 10px;
+                            align-items: center;
+                            @media (max-width:767px) {
+                                font-size: 1rem;
+                                
+                            }
+                   
+                    }
+             
+                    .mylasttd{
+                        width: 60%;
+                    }
+            }
+
+
+
+
+
+
+
+        }

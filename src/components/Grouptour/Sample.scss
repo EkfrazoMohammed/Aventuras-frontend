@@ -1,0 +1,24 @@
+.group-page-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+
+    .rbc-event,
+    .rbc-day-slot .rbc-background-event {
+        border: none;
+        box-sizing: border-box;
+        box-shadow: none;
+        margin: 0;
+        padding: 2px 5px;
+        // background-color: #3174ad;
+        background-color: green;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        width: 100%;
+        text-align: left;
+    }
+}

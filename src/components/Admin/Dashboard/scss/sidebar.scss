@@ -1,0 +1,46 @@
+.admin-container {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+
+    .dashboard-container{
+        width: 100%;
+        height: auto;
+        padding: 1rem;
+        // overflow: hidden;
+    
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+        .cards-wrapper{
+            width: 100%;
+            height: auto;
+            padding: 0;
+        }
+
+        .tabs-container{
+            width: 100%;
+            height: auto;
+            padding: 0;
+
+            .css-19kzrtu {
+                padding: 0 !important;
+            }
+        }
+    }
+    .admin-title {
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        padding: 1rem;
+    }
+
+    .tabs-sidebar {
+        background-color: #ffe93d;
+        min-width: 15%;
+     
+    }
+   
+}
