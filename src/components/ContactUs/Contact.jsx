@@ -1,28 +1,19 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { API, baseURL } from "../../api/apirequest";
+import { API } from "../../api/apirequest";
 import "./Contact.scss";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import { message } from "antd";
 import { notification } from "antd";
 import { Skeleton } from "antd";
 import CallIcon from "@mui/icons-material/Call";
 import MailIcon from "@mui/icons-material/Mail";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-
 const theme = createTheme();
 
 export default function Contact() {
@@ -65,8 +56,6 @@ export default function Contact() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Check if the field is 'user_name' and if the value is empty or contains only spaces
     if (name === "user_name" && !value.trim()) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -87,92 +76,8 @@ export default function Contact() {
         setErrors((prevErrors) => ({ ...prevErrors, user_email: "" }));
       }
     }
-
-    // Update the data state
     setData((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  //     const handleChange = (e) =>{
-  //         const { name, value } = e.target;
-
-  //         setData(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
-  //         // Validate email
-  // if (name === 'user_email') {
-  //     if (!validateEmail(value)) {
-  //       setErrors((prevErrors) => ({ ...prevErrors, user_email: 'Invalid email address' }));
-  //     } else {
-  //       setErrors((prevErrors) => ({ ...prevErrors, user_email: '' }));
-  //     }
-  //   }
-
-  //   else {
-  //     setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
-  //   }
-  //         setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: '' }));
-
-  //     }
-
-  // const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     const userDataString = localStorage.getItem("user");
-  //     const userData = JSON.parse(userDataString);
-
-  //     if (userData && userData.jwt) {
-  //       const authToken = userData.jwt;
-
-  //       const config = {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${authToken}`,
-  //         },
-  //       };
-
-  //     try {
-
-  //         let ob = {
-  //             data
-  //         }
-  //         const res = await API.post('/api/pay-nows', ob, config);
-  //         notification.success({
-  //           message: 'Enquiry Sent successfully!',
-  //           // description: 'You have successfully logged in.',
-
-  //           duration: 2, // Duration in seconds (adjust as needed)
-  //         });
-  //         // console.log(res.data)
-  //         setData(null)
-
-  //     }
-
-  //     catch (error) {
-  //         console.log(error)
-  //         if(error.response.status==403){
-  //           notification.error({
-  //             message: 'Please Login to send Payments!',
-  //             description: '',
-
-  //             duration: 2, // Duration in seconds (adjust as needed)
-  //           });
-  //         }else{
-  //           notification.error({
-  //             message: 'Unable to send Enquiry!',
-  //             description: 'Please fill all details to send enquiry',
-
-  //             duration: 2, // Duration in seconds (adjust as needed)
-  //           });
-  //         }
-
-  //     }
-  //   }else{
-  //     notification.info({
-  //       message: 'Login to Pay Now!',
-  //       // description: 'You have successfully logged in.',
-
-  //       duration: 2, // Duration in seconds (adjust as needed)
-  //     });
-  //   }
-  //     // console.log(data)
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -206,19 +111,11 @@ export default function Contact() {
       let ob = {
         data,
       };
-      // if (!data.user_name || !data.user_email) {
-      //     // Display an error message or take any other appropriate action
-      //     return;
-      //   }else{
       const res = await API.post("/api/contact-uses", ob, config);
-
-      // console.log(res)
       if (res.status === 200) {
         notification.success({
           message: "Enquiry Sent!",
-          // description: 'You have successfully logged in.',
-
-          duration: 2, // Duration in seconds (adjust as needed)
+          duration: 2,
         });
         setData({
           user_name: "",
@@ -230,21 +127,18 @@ export default function Contact() {
         }, 2000);
       }
     } catch (error) {
-      // }
-      // console.log(error)
       if (error.response.status == 403) {
         notification.error({
           message: "Please Login to send requests!",
           description: "",
-
-          duration: 2, // Duration in seconds (adjust as needed)
+          duration: 2,
         });
       } else {
         notification.error({
           message: "Unable to send Enquiry!",
           description: "Please Enter valid Details",
 
-          duration: 2, // Duration in seconds (adjust as needed)
+          duration: 2,
         });
       }
       setTimeout(() => {
@@ -406,8 +300,8 @@ export default function Contact() {
                       multiline
                       rows={4}
 
-                      // error={!!errors.query}
-                      // helperText={errors.query}
+                    // error={!!errors.query}
+                    // helperText={errors.query}
                     />
 
                     <button className="form-button">Send Enquiry</button>
