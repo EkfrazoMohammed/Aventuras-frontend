@@ -145,10 +145,6 @@ function App() {
           />
 
           <Route path="/group-tour-pay-now" element={<PayWithGrouptour />} />
-          {/* <Route
-              path="/single-group-tour/demo/:package_id"
-              element={<DemoMonth />}
-            /> */}
 
           <Route path="/all-themes" element={<AllThemes />} />
           <Route path="/single-theme/:id" element={<SingleTheme />} />
