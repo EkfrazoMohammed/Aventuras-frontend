@@ -24,7 +24,6 @@ import Flight from "./components/Flight/Flight";
 import Contact from "./components/ContactUs/Contact";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
 import NotFound from "./components/Home/NotFound";
@@ -77,15 +76,6 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={<Home />} />
-
-          <Route
-            path="/admin/dashboard"
-            element={
-              // <Protected>
-              <AdminRoutes />
-              // </Protected>
-            }
-          />
 
           <Route path="/register" element={<Register />} />
           {/* <Route path="/login" element={<Login />} /> */}
@@ -186,10 +176,5 @@ function App() {
   );
 }
 
-const AdminRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Dashboard />} />
-  </Routes>
-);
 
 export default App;
