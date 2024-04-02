@@ -4,17 +4,17 @@
     max-width: 1180px;
     margin: 0 auto;
 
-    .disclaimer-page-wrapper{
+    .disclaimer-page-wrapper {
         width: 100%;
         height: auto;
         display: flex;
-            justify-content: center;
-            align-items: center;
-            gap:1rem;
-            padding: 2rem 1rem;
-            line-height: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding: 2rem 1rem;
+        line-height: 1.5rem;
 
-        .disclaimer-text-container{
+        .disclaimer-text-container {
             width: 100%;
             height: auto;
             display: flex;
@@ -22,30 +22,30 @@
             align-items: center;
             flex-direction: column;
             gap: 1rem;
-          
 
-            
 
-            .heading{
+
+
+            .heading {
                 font-size: 2rem;
                 font-weight: 600;
                 color: #00c2ff;
 
                 @media (max-width:767px) {
                     font-size: 1.7rem;
-                    
+
                 }
             }
 
-            .desc-container{
+            .desc-container {
                 width: 100%;
                 height: auto;
                 display: flex;
                 flex-direction: column;
-                gap:1rem;
+                gap: 1rem;
                 flex-direction: column;
 
-                .desc{
+                .desc {
                     font-size: 1.1rem;
                 }
 

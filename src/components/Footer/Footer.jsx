@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Footer.scss";
 import { Skeleton } from "antd";
-import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
-import axios from "axios";
-import { API, baseURL } from "../../api/apirequest";
+import { Link, NavLink } from "react-router-dom";
+import { API } from "../../api/apirequest";
 
 const Footer = () => {
   const [international, setInternational] = useState([]);
@@ -25,7 +24,6 @@ const Footer = () => {
         "/api/all-destinations?&filters[type][$eq]=Domestic"
       ).then((res) => {
         let names = res.data?.data?.map((v) => {
-          // setDomestic(searches => Array.from(new Set([...searches, v?.attributes?.name])))
           setDomestic((searches) =>
             Array.from(
               new Set([...searches, v].map((v) => JSON.stringify(v)))
@@ -43,7 +41,6 @@ const Footer = () => {
               new Set([...searches, v].map((v) => JSON.stringify(v)))
             ).map((string) => JSON.parse(string))
           );
-          //setInternational(searches => Array.from(new Set([...searches, v?.attributes?.name])))
         });
       });
 
@@ -54,24 +51,16 @@ const Footer = () => {
               new Set([...searches, v].map((v) => JSON.stringify(v)))
             ).map((string) => JSON.parse(string))
           );
-          //setInternational(searches => Array.from(new Set([...searches, v?.attributes?.name])))
         });
       });
 
       const companyDetails = await API.get("/api/contact-details").then(
         (res) => {
           setDetails(res.data.data[0]);
-          // let names = res.data?.data?.map((v) => {
-          //   setDetails(searches =>
-          //     Array.from(new Set([...searches, v].map((v) => JSON.stringify(v))))
-          //       .map((string) => JSON.parse(string)))
-          //   //setInternational(searches => Array.from(new Set([...searches, v?.attributes?.name])))
-          // });
         }
       );
       setLoading(false);
     } catch (err) {
-      // console.log(err)
       setLoading(true);
     }
   };
@@ -260,21 +249,6 @@ const Footer = () => {
                 </div>
               </div>
               <div className="right">
-                {/* 
-                <form className="form">
-                  <div className="text">
-                    Get our free newsletter
-                  </div>
-                  <div className="input">
-
-                    <label htmlFor="inputtext">
-                      <input type="text" id='inputtext' placeholder='Enter your email address' />
-                    </label>
-                    <button role='button' type='button'>SUBSCRIBE</button>
-                  </div>
-
-                </form> */}
-
                 <div className="footer-links">
                   <div className="left-col">
                     <div className="column">
@@ -338,14 +312,10 @@ const Footer = () => {
                           {" "}
                           <Link to="/"> HOME</Link>
                         </li>
-                        {/* <li className="list-item"> <Link to='/group-tour' target='_blank'> GROUP TOURS</Link></li> */}
-                        {/* <li className="list-item"> <Link to='/flight'> FLIGHT</Link></li> */}
-
                         <li className="list-item">
                           {" "}
                           <Link to="/about-us"> About Us</Link>
                         </li>
-
                         <li className="list-item">
                           {" "}
                           <Link to="/contact-us"> CONTACT US</Link>
@@ -354,7 +324,6 @@ const Footer = () => {
                           {" "}
                           <Link to="/disclaimer"> DISCLAIMER</Link>
                         </li>
-
                         <li className="list-item">
                           {" "}
                           <Link to="/privacy-policy"> PRIVACY POLICY</Link>

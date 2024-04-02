@@ -1,38 +1,9 @@
-/* import React from 'react'
-import "./NotFound.css";
-const NotFound = () => {
-  return (
-    <section className="page_404">
-	<div className="container">
-		
-	
-		<div className="four_zero_four_bg">
-			
-		
-		
-		</div>
-		
-		<div className="contant_box_404">
-		<h3 className="h2">
-		Look like you're lost
-		</h3>
-		
-		<p>the page you are looking for not avaible!</p>
-		
-		<a href="" className="link_404">Go to Home</a>
-	</div>
-	
-	</div>
-</section>
-  )
-}
-
-export default NotFound */
 /*======================
     404 page
 =======================*/
 
-.page-container,.page-wrapper{
+.page-container,
+.page-wrapper {
     width: 100%;
     height: auto;
     display: flex;
@@ -42,7 +13,7 @@ export default NotFound */
     gap: 1rem;
 }
 
-.page-wrapper .links{
+.page-wrapper .links {
     background-color: #FFD93D;
     padding: 1rem;
     text-decoration: none;
@@ -52,32 +23,41 @@ export default NotFound */
     border-radius: 5px;
 }
 
-.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+.page_404 {
+    padding: 40px 0;
+    background: #fff;
+    font-family: 'Arvo', serif;
 }
 
-.page_404  img{ width:100%;}
+.page_404 img {
+    width: 100%;
+}
 
-.four_zero_four_bg{
- 
- background-image: url(https://cdn.dribbble.com/users/722246/screenshots/3066818/404-page.gif);
+.four_zero_four_bg {
+
+    background-image: url(https://cdn.dribbble.com/users/722246/screenshots/3066818/404-page.gif);
     height: 650px;
     background-position: center;
     background-repeat: no-repeat;
- }
- 
- 
- .four_zero_four_bg h1{
- font-size:80px;
- }
- 
-  .four_zero_four_bg h3{
-			 font-size:80px;
-			 }
-			 
-			 .link_404{			 
-	color: #fff!important;
+}
+
+
+.four_zero_four_bg h1 {
+    font-size: 80px;
+}
+
+.four_zero_four_bg h3 {
+    font-size: 80px;
+}
+
+.link_404 {
+    color: #fff !important;
     padding: 10px 20px;
     background: #39ac31;
     margin: 20px 0;
-    display: inline-block;}
-	.contant_box_404{ margin-top:-50px;}
+    display: inline-block;
+}
+
+.contant_box_404 {
+    margin-top: -50px;
+}

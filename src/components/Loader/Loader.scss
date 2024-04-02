@@ -4,56 +4,53 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
     background: #FFD93Dcc;
     flex-direction: column;
-    
 
-
-    img{
+    img {
         width: 50px;
         height: 50px;
     }
 
-
-
     .message {
         display: flex;
-
         align-items: center;
         color: #000;
-        
+
         .image {
             width: 100%;
             height: auto;
 
-            img{
+            img {
                 width: 50px;
                 height: 50px;
             }
         }
-        
+
         .title {
             font-size: 2rem;
         }
     }
-    .spinner-container{
-        font-size:1.5rem;
-        
-        
-    .spinner {
-        width: 64px;
-        height: 64px;
-        border: 8px solid;
-        border-color: #3d5af1 transparent #3d5af1 transparent;
-        border-radius: 50%;
-        animation: spin-anim 5s linear infinite;
+
+    .spinner-container {
+        font-size: 1.5rem;
+
+
+        .spinner {
+            width: 64px;
+            height: 64px;
+            border: 8px solid;
+            border-color: #3d5af1 transparent #3d5af1 transparent;
+            border-radius: 50%;
+            animation: spin-anim 5s linear infinite;
+        }
     }
-}
-.circular{
-    width: 30px !important;
-    height: 30px !important;   
-   } 
+
+    .circular {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
     @keyframes spin-anim {
         0% {
             transform: rotate(0deg);
@@ -64,54 +61,50 @@
         }
     }
 
-    @media (max-width:767px){
-        .circular{
-         width: 20px !important;
-         height: 20px !important;   
-        } 
+    @media (max-width:767px) {
+        .circular {
+            width: 20px !important;
+            height: 20px !important;
+        }
 
-    img{
-        width: 50px;
-        height: 50px;
-    }
+        img {
+            width: 50px;
+            height: 50px;
+        }
 
+        .message {
+            display: flex;
+            flex-direction: column;
+            align-items: center !important;
+            color: #000;
+            justify-content: center !important;
 
+            .image {
+                width: 100%;
+                height: auto;
 
-    .message {
-        display: flex;
-        flex-direction: column;
+                img {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
 
-        align-items: center !important;
-        color: #000;
-        justify-content: center !important;
-        
-        .image {
-            width: 100%;
-            height: auto;
-
-            img{
-                width: 50px;
-                height: 50px;
+            .title {
+                font-size: 1.5rem;
             }
         }
-        
-        .title {
-            font-size: 1.5rem;
-        }
-    }
-    .spinner-container{
-        font-size:1.2rem;
-       
-        
-    .spinner {
-        width: 34px !important;
-        height: 34px !important;
-        border: 8px solid;
-        border-color: #3d5af1 transparent #3d5af1 transparent;
-        border-radius: 50%;
-        animation: spin-anim 5s linear infinite;
-    }
-}
 
+        .spinner-container {
+            font-size: 1.2rem;
+
+            .spinner {
+                width: 34px !important;
+                height: 34px !important;
+                border: 8px solid;
+                border-color: #3d5af1 transparent #3d5af1 transparent;
+                border-radius: 50%;
+                animation: spin-anim 5s linear infinite;
+            }
+        }
     }
 }

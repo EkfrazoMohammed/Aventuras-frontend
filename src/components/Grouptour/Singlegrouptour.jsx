@@ -1,15 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
-import FlightIcon from "@mui/icons-material/Flight";
 import ConnectingAirportsIcon from "@mui/icons-material/ConnectingAirports";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import PhotoCameraBackIcon from "@mui/icons-material/PhotoCameraBack";
-import TerrainIcon from "@mui/icons-material/Terrain";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./singlegroup.scss";
 import { API, baseURL } from "../../api/apirequest";
 
@@ -19,7 +16,6 @@ import {
   Skeleton,
   Button,
   Modal,
-  message,
   Collapse,
   notification,
   Space,
@@ -30,12 +26,9 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 
 import ReactMarkdown from "react-markdown";
 import Login from "../Auth/Login";
-import { VariableSizeGrid } from "react-window";
-
 const { Panel } = Collapse;
 const close = () => {
   console.log(
@@ -62,7 +55,6 @@ const Singlegrouptour = () => {
   let { package_id } = useParams();
   const [value, setValue] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [mDates, setMDates] = useState([]);
   const [login, setLogin] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -173,14 +165,10 @@ const Singlegrouptour = () => {
       setLogin(true);
       const getDataLogin = async () => {
         try {
-          // let d = await API.get(`/api/all-packages?populate=*&filters[package_id][$eq]=${package_id}`)
-
           let d = await API.get(
             `/api/group-tours?populate=deep&filters[package_id][$eq]=${package_id}`
           );
-
           setValue(d.data.data[0]);
-
           const initialQuery = {
             package_id: `${d.data.data[0]?.attributes?.package_id}`,
             package_name: `${d.data.data[0]?.attributes?.name}`,
@@ -195,7 +183,6 @@ const Singlegrouptour = () => {
           setData(initialQuery);
           setLoading(false);
         } catch (err) {
-          // console.log(err)
           setLoading(true);
         }
       };
@@ -205,7 +192,6 @@ const Singlegrouptour = () => {
 
       const getData = async () => {
         try {
-          // let d = await API.get(`/api/all-packages?populate=*&filters[package_id][$eq]=${package_id}`)
           let d = await API.get(
             `/api/group-tours?populate=deep&filters[package_id][$eq]=${package_id}`
           );
@@ -232,7 +218,6 @@ const Singlegrouptour = () => {
       };
       getData();
     }
-    // Scroll to the top of the page when the component mounts or when package_id changes
     window.scrollTo(0, 0);
   }, []);
   const ReadMore = ({ children }) => {
@@ -262,14 +247,11 @@ const Singlegrouptour = () => {
       contact_number: "",
       email_id: "",
     };
-
-    // Validation for user_name
     if (!data.user_name.trim()) {
       formIsValid = false;
       newErrors.user_name = "User name is required";
     }
 
-    // Validation for contact number
     if (!data.contact_number.trim()) {
       formIsValid = false;
       newErrors.contact_number = "Contact number is required";
@@ -279,7 +261,6 @@ const Singlegrouptour = () => {
       newErrors.contact_number = "Please enter a 10-digit phone number";
     }
 
-    // Validation for email_id
     if (!data.email_id.trim()) {
       formIsValid = false;
       newErrors.email_id = "Email is required";
@@ -287,10 +268,7 @@ const Singlegrouptour = () => {
       formIsValid = false;
       newErrors.email_id = "Please enter a valid email address";
     }
-
-    // Set errors state based on validation
     setErrors(newErrors);
-
     if (formIsValid) {
       const config = {
         headers: {
@@ -345,22 +323,18 @@ const Singlegrouptour = () => {
         if (message) {
           notification.error({
             message: error.response.data.error.message,
-            // description: 'You have successfully logged in.',
-
-            duration: 2, // Duration in seconds (adjust as needed)
+            duration: 2,
           });
         } else {
           notification.error({
             message: "Enter details to send Enquiry!",
-            // description: 'You have successfully logged in.',
-
-            duration: 2, // Duration in seconds (adjust as needed)
+            duration: 2,
           });
         }
       }
     }
   };
-  const onChange = (key: string) => {
+  const onChange = (key) => {
     // console.log(key);
   };
 
@@ -370,7 +344,6 @@ const Singlegrouptour = () => {
       .then((response) => response.blob())
       .then((blob) => {
         const blobURL = window.URL.createObjectURL(new Blob([blob]));
-
         const fileName = fullUrl.split("/").pop();
         const aTag = document.createElement("a");
         aTag.href = blobURL;
@@ -384,7 +357,6 @@ const Singlegrouptour = () => {
   function groupDatesByMonth(dates) {
     const today = new Date();
     const futureDates = dates.filter((date) => new Date(date) >= today);
-
     if (futureDates.length > 0) {
       const months = {};
       futureDates.forEach((date) => {
@@ -631,39 +603,12 @@ const Singlegrouptour = () => {
   ];
 
   const [api, contextHolder] = notification.useNotification();
-  // const openNotification = () => {
-  //   const key = `open${Date.now()}`;
-  //   const btn = (
-  //     <Space>
-  //       <Button
-  //         onClick={() => api.destroy()}
-  //         style={{ backgroundColor: "red", color: "#fff" }}
-  //       >
-  //         Cancel
-  //       </Button>
-  //       <Button type="primary" onClick={() => navigate("/login")}>
-  //         Login
-  //       </Button>
-  //     </Space>
-  //   );
-  //   api.open({
-  //     message: "Login Required",
-  //     description: "You need to login to Book now",
-  //     btn,
-  //     key,
-  //     onClose: close,
-  //   });
-  // };
   const [loginModal, setLoginModal] = useState(false);
   const [toggle, setToggle] = useState(false);
-
   const openNotification = () => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
-        {/* <Button type="danger"  size="medium" onClick={() => {api.destroy(key);navigate('/login')}}  style={{ backgroundColor: '#fde000',color:'#000',fontWeight:'600' }}>
-          Click to Login
-        </Button> */}
         <Button
           onClick={() => api.destroy()}
           style={{ backgroundColor: "red", color: "#fff" }}
@@ -684,22 +629,12 @@ const Singlegrouptour = () => {
       onClose: close,
     });
   };
-  const handleLoginNotification = () => {
-    notification.info({
-      message: "Login Required",
-      description: "You need to login to Book now",
-      duration: 2,
-    });
-  };
   const [modal1Open, setModal1Open] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [modal3Open, setModal3Open] = useState(false);
 
   const [modal4Open, setModal4Open] = useState(false);
-  // Use useRef to create a reference that persists across re-renders
   const modalRef = useRef(modal2Open);
-
-  // Update modalRef when modal2Open changes
   modalRef.current = modal2Open;
   const MyModal = ({ package_data, user_data, batch_data }) => {
     const [errors2, setErrors2] = useState({
@@ -740,9 +675,9 @@ const Singlegrouptour = () => {
       email_id: user_data?.email_id,
       current_location: "",
       adults: count,
-      trip_start_date:storedBatchData.batch_starts,
+      trip_start_date: storedBatchData.batch_starts,
       total_price: totalPrice,
-      initial_package_amount:totalPrice,
+      initial_package_amount: totalPrice,
       partialPayment: 100,
       advance_amount: 0,
       remaining_balance: 0,
@@ -846,11 +781,7 @@ const Singlegrouptour = () => {
           total_price: Math.round(advanceValue),
           current_location: ""
         };
-
         setData(updatedData);
-
-        // Update localStorage with the copy of data immediately
-        console.log(cityName)
         localStorage.setItem("preview_booking", JSON.stringify(updatedData));
       }
     };
@@ -858,25 +789,13 @@ const Singlegrouptour = () => {
     const handleProceedBook = (param) => {
       navigate("/group-tour-pay-now");
     };
-
-
-    const [personCount, setPersonCount] = useState(0);
-
     const handleChange3 = (e) => {
       e.preventDefault();
       const { name, value } = e.target;
-
-      // if(name === "current_location"){
-      //   setCityName('');
-      //   setFetchCityName(false) 
-      // }
-
       setData((prevState) => ({
         ...prevState,
         [name]: value,
       }));
-
-      // Manually set package_name and package_id
       if (name === "package_id") {
         setData((prevState) => ({
           ...prevState,
@@ -897,7 +816,6 @@ const Singlegrouptour = () => {
 
     const handleSubmit3 = async (e) => {
       e.preventDefault();
-
       const config3 = {
         headers: {
           "Content-Type": "application/json",
@@ -943,7 +861,6 @@ const Singlegrouptour = () => {
           let ob3 = {
             data,
           };
-          // const res = await API.post("/api/customer-enquiries", ob3, config3);
           const res = await API.post("/api/group-tour-enquiries", ob3, config3);
           if (res.status === 200 || res.statusText === "OK") {
             notification.success({
@@ -1198,21 +1115,7 @@ const Singlegrouptour = () => {
                   onChange={handleChange3}
                   name="current_location"
                 />
-                {/* <label
-                              style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                width: "100%",
-                                gap: ".2rem",
-                              }}
-                            >
-                              <input
-                                type="checkbox"
-                                onChange={handleCheckboxChange}
-                                checked={fetchCityName}
-                              />{" "}
-                              Use current location
-                            </label> */}
+
                 <div className="mygtravellersmodal">
                   Number of travellers :
                   <div
@@ -1575,8 +1478,6 @@ const Singlegrouptour = () => {
                   <div>Selected Advance Payment:<span style={{ fontWeight: "600" }}>{data.partialPayment}% </span> </div>
                 )}
 
-
-
                 {storedPreviewData && storedPreviewData.total_price && (
                   <div>
                     Total Price (excluding PG charges):{" "}
@@ -1629,34 +1530,15 @@ const Singlegrouptour = () => {
   };
   const [checked, setChecked] = useState(false);
 
-  const handleCheckboxChangeModal = (event) => {
-    setChecked(event.target.checked);
-    if (event.target.checked) {
-      // Fetch city name when the checkbox is checked
-      fetchCityNameFunction(); // Call the function to fetch the city name
-    } else {
-      // Clear the city name when the checkbox is unchecked
-      setCityName("");
-    }
-  }
   const handleCheckboxChange = (event) => {
     setFetchCityName(event.target.checked);
 
     if (event.target.checked) {
-      // Fetch city name when the checkbox is checked
       fetchCityNameFunction(); // Call the function to fetch the city name
     } else {
-      // Clear the city name when the checkbox is unchecked
       setCityName("");
     }
-
   };
-  // useEffect(()=>{
-  //   if(modal2Open){
-  //     fetchCityNameFunction()
-  //   }
-  // },[modal2Open])
-
   const fetchCityNameFunction = () => {
 
     if ("geolocation" in navigator) {
@@ -1671,10 +1553,7 @@ const Singlegrouptour = () => {
           if (data && data.address && data.address.city) {
             const city = data.address.city;
             setCityName(city);
-            // Set the current_location in the data object to the fetched city
             setFetchCityName(true);
-
-
             setData((data) => {
               if (city) {
                 return {
@@ -1690,16 +1569,13 @@ const Singlegrouptour = () => {
             setCityName("City not found in reverse geocoding data.");
           }
         } catch (error) {
-          //   console.error('Error fetching location data:', error);
           setCityName("Error fetching location data");
         }
       });
     } else {
       setCityName("Geolocation not available.");
     }
-
   };
-
 
   return (
     <>
@@ -1737,14 +1613,6 @@ const Singlegrouptour = () => {
                     );
                   })}
                 </Carousel>
-                {/* <img
-                                            src={value?.attributes?.package_images?.data?.map((v) => {
-                                                return v.attributes?.url
-                                            })}
-                                            alt={value?.attributes?.package_images?.data?.map((v) => {
-                                                return v.attributes?.name
-                                            })}
-                                        /> */}
               </div>
             </div>
             <div className="text-container">
@@ -1771,15 +1639,10 @@ const Singlegrouptour = () => {
                           )}
                         </>
                       )}
-                      {/* {`${value?.attributes?.Package_days} Days / ${value?.attributes?.package_nights} Nights`} */}
-                      {/* {value?.attributes?.package_durations?.data[0]?.attributes?.duration} */}
                     </div>
 
                     <div className="single-line">
                       <div class="title">{value?.attributes?.name}</div>
-                      {/* <a href={`${value?.attributes?.itenary_pdf?.data?.attributes?.url}`} download={`${value?.attributes?.name} itenary`}>
-                                        <button className="form-button" >Download Itenary</button>
-                                    </a> */}
                       <button
                         className="form-button"
                         onClick={() =>
@@ -2101,7 +1964,7 @@ const Singlegrouptour = () => {
                               name="current_location"
                               value={data.current_location}
                             />
-                             <label
+                            <label
                               style={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -2115,7 +1978,7 @@ const Singlegrouptour = () => {
                                 checked={fetchCityName}
                               />{" "}
                               Use current location
-                            </label> 
+                            </label>
                           </div>
                           <div className="mygtravellersinput1">
                             <div className="mygtravellersinput2">
@@ -2245,7 +2108,7 @@ const Singlegrouptour = () => {
                               value={data.current_location}
                             />
 
-                             <label
+                            <label
                               style={{
                                 display: "flex",
                                 flexDirection: "row",

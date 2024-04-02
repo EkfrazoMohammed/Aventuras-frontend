@@ -1,23 +1,22 @@
-import React, { useState, useEffect, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import "./grouptour.scss";
 import "./Sample.scss";
-import {API,baseURL} from "../../api/apirequest"
+import { API, baseURL } from "../../api/apirequest"
 import { Skeleton } from 'antd'
 
 const MultiplegroupTour = () => {
-    useEffect(()=>{
-  
+    useEffect(() => {
+
         window.scrollTo(0, 0);
-      },[])
-  
-      const [currentPath,setCurrentPath]=useState();
-  
-      useEffect(()=>{
+    }, [])
+
+    const [currentPath, setCurrentPath] = useState();
+
+    useEffect(() => {
         setCurrentPath(window.location.pathname)
-      },[])
-      localStorage.setItem('pathName',currentPath)
+    }, [])
+    localStorage.setItem('pathName', currentPath)
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -27,34 +26,21 @@ const MultiplegroupTour = () => {
 
                 let d = await API.get('/api/group-tours?populate=deep')
                 setData(d.data.data)
-                // console.log(d.data.data)
                 setLoading(false)
-
             } catch (err) {
                 setLoading(true)
-                // console.log(err)
-
             }
         }
         getData();
-        
+
         window.scrollTo(0, 0);
     }, [])
-    // console.table(data)
-
 
     return (
-        // <div className="group-page-container">
-        //         <div className="pages">
-        // <h1 className="page-heading">Group tour page coming soon...</h1>
-
-
-        //     </div> 
-        //        </div>
         <div className="section">
             <div className="banner">
                 <div className="image">
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JvdXAlMjB0cmF2ZWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80" alt="banner" />
+                    <img src="https://admin.aventuras.co.in/uploads/multi_group_d73035ea26.jpeg" alt="banner" />
                 </div>
             </div>
             <div className="group-package-container">
@@ -65,104 +51,71 @@ const MultiplegroupTour = () => {
                         )
                         :
                         (<>
-
-
                             <div className="section-title">
                                 Group Tour Packages
                             </div>
-
                             <div className="card-container" style={{ flexWrap: 'wrap' }}>
                                 {
-                                    data
-                                        .sort((a, b) => a.id > b.id ? 1 : -1)
-                                        // .filter((item, index) => index < 8)
+                                    data.sort((a, b) => a.id > b.id ? 1 : -1).map((val) => {
+                                        return (
+                                            <Link to={`/single-group-tour/${val?.attributes?.package_id}`} >
+                                                <div className="card-content " key={val.id}
+                                                >
+                                                    <div className="card-image">
+                                                        {
+                                                            val?.attributes?.package_images?.data.length > 1
+                                                                ?
+                                                                (<div className="card-image">
+                                                                    <img className='img' loading="lazy"
+                                                                        src={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
+                                                                            return v.attributes?.url
+                                                                        })}`}
+                                                                        alt={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
+                                                                            return v.attributes?.name
+                                                                        })}`}
+                                                                    />
+                                                                </div>)
+                                                                :
+                                                                (<div className="card-image">
+                                                                    <img className='img' loading="lazy"
+                                                                        src={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
+                                                                            return v.attributes?.url
+                                                                        })}`}
+                                                                        alt={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
+                                                                            return v.attributes?.name
+                                                                        })}`}
+                                                                    />
+                                                                </div>)
 
-                                        .map((val) => {
-                                            return (
-
-                                                <Link to={`/single-group-tour/${val?.attributes?.package_id}`} >
-                                                    <div className="card-content " key={val.id}
-                                                    >
-                                                             <div className="card-image">
-                                                            {
-                                                                        val?.attributes?.package_images?.data.length > 1
-                                                                            ?
-                                                                            (<div className="card-image">
-                                                                                <img className='img' loading="lazy"
-                                                                                    src={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
-                                                                                        return v.attributes?.url
-                                                                                    })}`}
-                                                                                    // alt="2"
-                                                                                    alt={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
-                                                                                        return v.attributes?.name
-                                                                                    })}`}
-                                                                                />
-                                                                            </div>)
-                                                                            :
-                                                                            (<div className="card-image">
-                                                                                <img className='img' loading="lazy"
-                                                                                    src={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
-                                                                                        return v.attributes?.url
-                                                                                    })}`}
-                                                                                    alt={`${baseURL}${val?.attributes?.package_images?.data?.slice(0, 1)?.map((v) => {
-                                                                                        return v.attributes?.name
-                                                                                    })}`}
-                                                                                />
-                                                                            </div>)
-
-                                                                    }
-                                                        </div>
-                                                        <div className="card-overlay">
-                                                            <div className="upper">
-                                                                <div className="card-title">
-                                                                    {val?.attributes?.name}
-                                                                </div>
-                                                                <div className="card-package">
-  {val?.attributes?.package_nights === 0 ? (
-    // If package_nights is 0, display "1 Day"
-    <>1 Day</>
-  ) : (
-    // If package_nights is greater than 0, display "X Days / Y Nights"
-    <>
-    {`${(val?.attributes?.package_nights)+1} Days / ${val?.attributes?.package_nights} Nights`}</>
-  )}
-</div>
-
-                                                                {/* <div className="card-package">
-                                                                {(val?.attributes?.package_nights)===0?
-                                                                                <>
-                                                                             {`${(val?.attributes?.package_nights)+1} Day`}
-                                                                             </>:
-<>
-                                                                                 {(val?.attributes?.package_nights)===1?
-                                                                                <>
-                                                                                {`${(val?.attributes?.package_nights)+1} Days / ${val?.attributes?.package_nights} Night`} 
-                                                                                </>:                                                                           
-                                                                             <> 
-                                                                             {`${(val?.attributes?.package_nights)+1} Days / ${val?.attributes?.package_nights} Nights`}
-                                                                             </>
-                                                                            }
-                                                                            </>}
-                                                                            </div> */}
-                                                                {/* <div className="card-package">
-                                                                    {`${val?.attributes?.Package_days} Days / ${val?.attributes?.package_nights} Nights`}
-                                                                </div> */}
+                                                        }
+                                                    </div>
+                                                    <div className="card-overlay">
+                                                        <div className="upper">
+                                                            <div className="card-title">
+                                                                {val?.attributes?.name}
                                                             </div>
-                                                            <div className="card-package-id">
-                                                                Package ID: {val?.attributes?.package_id}
+                                                            <div className="card-package">
+                                                                {val?.attributes?.package_nights === 0 ? (
+                                                                    <>1 Day</>
+                                                                ) : (
+                                                                    <>
+                                                                        {`${(val?.attributes?.package_nights) + 1} Days / ${val?.attributes?.package_nights} Nights`}</>
+                                                                )}
                                                             </div>
                                                         </div>
-                                                        <div class="middle">
-                                                            <div className="text">
-                                                                <button className="form-button">click to enquiry</button>
-                                                            </div>
+                                                        <div className="card-package-id">
+                                                            Package ID: {val?.attributes?.package_id}
                                                         </div>
                                                     </div>
-                                                </Link>
-
-                                            )
-                                        })
-
+                                                    <div class="middle">
+                                                        <div className="text">
+                                                            <button className="form-button">click to enquiry</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        )
+                                    })
                                 }
                             </div>
                         </>
