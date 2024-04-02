@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./CancelationPolicy.scss";
-import { Link } from "react-router-dom";
 
 const CancelationPolicy = () => {
   useEffect(() => {

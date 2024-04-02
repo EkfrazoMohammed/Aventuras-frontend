@@ -1,31 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import {
-  Button,
-  message,
-  Steps,
-  theme,
-  Modal,
-  notification,
-  Space,
-} from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Steps, theme, Modal, notification } from "antd";
 import { Card, Col, Row, Select } from "antd";
 import Login from "../Auth/Login";
-import {
-  LoadingOutlined,
-  CheckCircleOutlined,
-  SolutionOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import axios from "axios";
 import "./PayNow.scss";
 import {
   useNavigate,
   useLocation,
-  useHistory,
-  Navigate,
-  Link,
 } from "react-router-dom";
-import { API, baseURL } from "../../api/apirequest";
+import { API } from "../../api/apirequest";
 
 const Step1Content = ({
   data,
@@ -38,10 +21,9 @@ const Step1Content = ({
   setmodalopen,
   modal2open,
 }) => {
-  const naviagate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scrolls to the top-left corner (0, 0) when the component mounts
+    window.scrollTo(0, 0);
   }, []);
 
   const handleChange = (e) => {
@@ -161,23 +143,6 @@ const Step1Content = ({
             )}
           </span>
         </div>
-
-        {/* <div className="inputField">
-          <label
-            htmlFor="customer_package_id"
-            style={{ fontWeight: "bold", color: "black" }}
-          >
-            Booking notes{" "}
-          </label>
-          <textarea
-            id="customer_remarks"
-            rows={2}
-            cols={35}
-            name="customer_remarks"
-            onChange={handleChange}
-            placeholder="Write a note..."
-          />
-        </div> */}
         <div className="inputField">
           <label
             htmlFor="amount"
@@ -458,12 +423,10 @@ const Step2Content = ({
   );
 };
 const Step3Content = ({ data, coupons, setData }) => {
-console.log(coupons)
+  console.log(coupons)
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  let arrayData = [data];
 
   const [initialAmount, setInitialAmount] = useState(data.total_amount);
   useEffect(() => {
@@ -471,11 +434,8 @@ console.log(coupons)
   }, []);
 
   const [showDiscount, setShowDiscount] = useState(false);
-  let selectedCoupon = null;
 
- 
   const handleCouponChange = (value) => {
-    console.log(value,"=<<<<<")
     if (value === "cancel") {
       setShowDiscount(false);
       setData((prevData) => ({
@@ -494,7 +454,7 @@ console.log(coupons)
     if (!selectedCoupon) {
       return;
     }
-   console.log(selectedCoupon)
+    console.log(selectedCoupon)
     const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
     const percentageDiscount = parseFloat(
       selectedCoupon.attributes.discount_percentage
@@ -554,48 +514,17 @@ console.log(coupons)
                 style={{ textAlign: "center", fontWeight: "bold" }}
               ></div>
 
-              <table
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  borderRadius: "20px",
-                }}
-              >
-                <tbody
-                  border="2"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "25px",
-                  }}
-                >
-                  <tr
-                    style={{
-                      borderBottom: "0.5px solid grey",
-                      display: "flex",
-                      gap: "25px",
-                    }}
-                  >
+              <table style={{ width: "100%", textAlign: "center", borderRadius: "20px", }}>
+                <tbody border="2" style={{ display: "flex", flexDirection: "column", gap: "25px" }}  >
+                  <tr style={{ borderBottom: "0.5px solid grey", display: "flex", gap: "25px", }}  >
                     <td className="mylasttd">Name :</td>
                     <td style={{ width: "100%" }}>{data.customer_name}</td>
                   </tr>
-                  <tr
-                    style={{
-                      borderBottom: "0.5px solid grey",
-                      display: "flex",
-                      gap: "25px",
-                    }}
-                  >
+                  <tr style={{ borderBottom: "0.5px solid grey", display: "flex", gap: "25px", }} >
                     <td className="mylasttd">Email :</td>
                     <td style={{ width: "100%" }}>{data.customer_email}</td>
                   </tr>
-                  <tr
-                    style={{
-                      borderBottom: "0.5px solid grey",
-                      display: "flex",
-                      gap: "25px",
-                    }}
-                  >
+                  <tr style={{ borderBottom: "0.5px solid grey", display: "flex", gap: "25px", }} >
                     <td className="mylasttd">Mobile Number :</td>
                     <td style={{ width: "100%" }}>
                       {data.customer_mobile_number}
@@ -728,25 +657,6 @@ console.log(coupons)
                       <td className="mylasttd"> GST on PG Charges (0%):</td>
                       <td style={{ width: "100%" }}>{data.convenienceGST}</td>
                     </tr>
-                    {/* {showDiscount ? (
-                      <>
-                        {coupons.length > 0 ? (
-                          <>
-                            <tr
-                              style={{
-                                borderBottom: "0.5px solid grey",
-                                display: "flex",
-                                gap: "25px",
-                                backgroundColor: "palegreen",
-                              }}
-                            >
-                              <td className="mylasttd">Coupon Discount :</td>
-                              <td>{data.discounted_amount}</td>
-                            </tr>
-                          </>
-                        ) : null}
-                      </>
-                    ) : null}  */}
                     {data.total_amount >= data.discounted_amount ? (
                       <>
                         {showDiscount ? (
@@ -840,31 +750,6 @@ console.log(coupons)
                       <td className="mylasttd">{data.convenienceGST}</td>
                     </tr>
 
-                    {/* {showDiscount ? (
-                      <>
-                        {data.total_amount >= data.discounted_amount ? (
-                          <>
-                            {coupons.length > 0 ? (
-                              <>
-                               <tr
-                                  style={{
-                                    borderBottom: "0.5px solid grey",
-                                    display: "flex",
-                                    gap: "25px",
-                                    backgroundColor: "palegreen",
-                                  }}
-                                >
-                                  <td className="mylasttd">Coupon Discount:</td>
-                                  <td style={{ width: "100%" }}>
-                                    {`- ${parseInt(data.discounted_amount)}`}
-                                  </td>
-                                </tr>
-                              </>
-                            ) : null}
-                          </>
-                        ) : null}
-                      </>
-                    ) : null} */}
                     {data.total_amount >= data.discounted_amount ? (
                       <>
                         {showDiscount ? (
@@ -893,13 +778,7 @@ console.log(coupons)
                         ) : null}
                       </>
                     ) : null}
-                    <tr
-                      style={{
-                        borderBottom: "0.5px solid grey",
-                        display: "flex",
-                        gap: "25px",
-                      }}
-                    >
+                    <tr style={{ borderBottom: "0.5px solid grey", display: "flex", gap: "25px", }} >
                       <td className="mylasttd">Total Amount :</td>
                       <td className="mylasttd">{data.total_amount}</td>
                     </tr>
@@ -912,30 +791,12 @@ console.log(coupons)
       </Row>
       <Row className="step3tableContainer">
         <Col span={12} className="step3tableColumn">
-          <div
-            className="mylastrow"
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "20px",
-            }}
-          >
+          <div className="mylastrow" style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "20px", }} >
             <div className="total_row">
-              <div
-                className=""
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  color: "rgb(0,194,255)",
-                }}
-              >
+              <div className="" style={{ width: "100%", textAlign: "center", color: "rgb(0,194,255)", }} >
                 Total Payable Amount{" "}
               </div>
-              <div
-                className=""
-                style={{ width: "100%", textAlign: "center", color: "#008000" }}
-              >
+              <div className="" style={{ width: "100%", textAlign: "center", color: "#008000" }}>
                 Rs. {data.total_amount}
               </div>
             </div>
@@ -946,20 +807,12 @@ console.log(coupons)
   );
 };
 const Style = {
-  StepWrapper: {
-    display: "flex",
-    justifyContent: "center",
-    width: "100%",
-  },
-  StepContainer: {
-    width: "100%",
-    // border:'2px solid black'
-  },
+  StepWrapper: { display: "flex", justifyContent: "center", width: "100%", },
+  StepContainer: { width: "100%" },
 };
 
 const Pay2 = () => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-
   const handleCheckboxChange = () => {
     setIsCheckboxChecked((prevCheckboxState) => !prevCheckboxState);
   };
@@ -997,74 +850,59 @@ const Pay2 = () => {
   const getCouponsForUser = async () => {
     try {
       if (userData && userData.isLoggedin === true) {
-        // Get today's date
-        // const currentDate = new Date().toISOString();
-
-        //         const coupons = await API.get("/api/coupon-codes?populate=*");
-        // Get today's date in the format "YYYY-MM-DD"
         const today = new Date().toISOString().split("T")[0];
-
-        // Fetch coupons based on validity
         const coupons = await API.get(
           `/api/coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`
         );
 
         if (coupons.data.data && coupons.data.data.length > 0) {
-      
-          let userCoupons= [];
-           userCoupons = coupons.data.data.filter( 
-              (coupon) =>
-                coupon?.attributes?.validity >= today &&
-                coupon?.attributes?.user?.data?.attributes?.username === userData?.username            
+          let userCoupons = [];
+          userCoupons = coupons.data.data.filter(
+            (coupon) =>
+              coupon?.attributes?.validity >= today &&
+              coupon?.attributes?.user?.data?.attributes?.username === userData?.username
           );
-      
-          
-          if (userData.info.user.coupon_amount && userData.info.user.coupon_name) { 
-              userCoupons.push({
-                  "id": 30,
-                  "attributes": {
-                      "code": userData.info.user.coupon_name,
-                      "flat_amount": userData.info.user.coupon_amount,
-                      "validity": "2024-02-10",
-                      "createdAt": "2024-01-04T05:42:19.459Z",
-                      "updatedAt": "2024-01-08T07:21:14.020Z",
-                      "publishedAt": "2024-01-04T05:42:20.480Z",
-                      "coupon_used": false,
-                      "coupon_type": "FLAT_DISCOUNT",
-                      "discount_percentage": "0"
-                  }
-              });
+          if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
+            userCoupons.push({
+              "id": 30,
+              "attributes": {
+                "code": userData.info.user.coupon_name,
+                "flat_amount": userData.info.user.coupon_amount,
+                "validity": "2024-02-10",
+                "createdAt": "2024-01-04T05:42:19.459Z",
+                "updatedAt": "2024-01-08T07:21:14.020Z",
+                "publishedAt": "2024-01-04T05:42:20.480Z",
+                "coupon_used": false,
+                "coupon_type": "FLAT_DISCOUNT",
+                "discount_percentage": "0"
+              }
+            });
           }
-      
+
           setMyCoupons(userCoupons);
-      
           setData((prevData) => ({
-              ...prevData,
-              coupons: userCoupons, // Set user-specific coupons in data state
+            ...prevData,
+            coupons: userCoupons, // Set user-specific coupons in data state
           }));
-      
+
           return userCoupons; // Return coupons specific to the user
+        } else {
+
+        }
+
       } else {
-       
-          // Code to handle the case where coupons are not available
-          // This could include setting some default value for userCoupons or handling other logic
-      }
-      
-      } else {
-        console.log("User not logged in.");
-        return []; // Return an empty array if the user is not logged in
+        return [];
       }
     } catch (error) {
       console.error("Error fetching coupons:", error);
-      return []; // Return an empty array if there's an error
+      return [];
     }
   };
   useEffect(() => {
     if (userData && userData.isLoggedin === true) {
       setLogin(true);
 
-      const userCoupons = getCouponsForUser(); // Assuming this fetches user-specific coupons
-console.log(userCoupons)
+      const userCoupons = getCouponsForUser();
       const getDataLogin = async () => {
         try {
           const initialQuery = {
@@ -1117,7 +955,6 @@ console.log(userCoupons)
     window.scrollTo(0, 0);
   }, []);
 
-  // FORM VALIDATION FOR USER DETAILS
 
   const [errors, setErrors] = useState({
     customer_name: "",
@@ -1130,7 +967,6 @@ console.log(userCoupons)
     const newErrors = {};
     let isValid = true;
 
-    // Validation rules for customer_name
     if (data.customer_name.trim() === "") {
       newErrors.customer_name = "Customer name is required.";
       isValid = false;
@@ -1138,7 +974,6 @@ console.log(userCoupons)
       newErrors.customer_name = "";
     }
 
-    // Validation rules for customer_email
     if (!/^\S+@\S+\.\S+$/.test(data.customer_email)) {
       newErrors.customer_email = "Enter a valid email address.";
       isValid = false;
@@ -1146,8 +981,6 @@ console.log(userCoupons)
       newErrors.customer_email = "";
     }
 
-    // Validation rules for customer_mobile_number
-    // Example: You can add rules to check for a valid phone number format
     if (!/^\d{10}$/.test(data.customer_mobile_number)) {
       newErrors.customer_mobile_number =
         "Enter a valid 10-digit mobile number.";
@@ -1156,8 +989,6 @@ console.log(userCoupons)
       newErrors.customer_mobile_number = "";
     }
 
-    // Validation rules for amount
-    // Example: You can add rules to check for a valid amount format
     if (!/^\d+(\.\d{2})?$/.test(data.amount)) {
       newErrors.amount = "Enter Amount atleast 1 INR.";
       isValid = false;
@@ -1245,15 +1076,13 @@ console.log(userCoupons)
       ),
     },
   ];
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
   const next = () => {
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
-    // console.log(userData)
     if (userData && userData.jwt) {
       if (validateInput()) {
         setCurrent(current + 1);
-        // console.log("from Next",data)
       }
     } else {
       localStorage.setItem("paynowData", JSON.stringify(data));
@@ -1262,18 +1091,15 @@ console.log(userCoupons)
         description: "Redirecting to Login Page",
         duration: 1,
       });
-     
-      setTimeout(()=>{
+
+      setTimeout(() => {
         settogglepaynow(false)
-      },1000)
-      // description: 'You have successfully logged in.',
+      }, 1000)
     }
   };
 
   const prev = () => {
-    // console.log(current)
     if (current === 1) {
-      // console.log('reloading on user content')
       window.location.reload();
     }
 
@@ -1285,23 +1111,12 @@ console.log(userCoupons)
     title: item.title,
     icon: item.icon,
   }));
-  const contentStyle: React.CSSProperties = {
+  const contentStyle = {
     backgroundColor: "#ffff",
     borderRadius: token.borderRadiusLG,
     marginTop: 26,
   };
 
-  const location = useLocation();
-
-  useEffect(() => {
-    // Get the previous route path from local storage
-    const prevRoutePath = localStorage.getItem("prevRoutePath");
-
-    // Log the previous route path
-    console.log("Previous route path:", prevRoutePath);
-
-    // Update local storage with the current route path
-  }, []);
 
   const [currentPath, setCurrentPath] = useState();
   useEffect(() => {
@@ -1309,30 +1124,14 @@ console.log(userCoupons)
   });
 
   localStorage.setItem("pathName", currentPath);
-  const pathStorage = () => {
-    naviagate("/login");
-  };
-
-  const handleCancel = () => {
-    setmodalopen(false);
-    // naviagate("/login");
-  };
 
   // payment without coupons
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
-
-    // console.log("final=>",data)
-
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
-    // console.log(userData)
     if (userData && userData.jwt) {
-      const authToken = userData.jwt;
-
       try {
-     
-
         const payload = {
           customer_name: userData.info.user.username,
           customer_email: userData.info.user.email,
@@ -1343,18 +1142,14 @@ console.log(userCoupons)
           discounted_amount: parseFloat(data.discounted_amount),
           coupon_selected: data.coupon_selected,
         };
-        // console.log(payload)
         let ob = payload;
-    
         const res = await axios.post(
           "https://aventuras.co.in/api/v1/payment/initiate_payment",
           ob
         );
-        
+
         if (res.data.data.success === true) {
           const url = res.data.data.data.instrumentResponse.redirectInfo.url;
-          console.log("portal url=> ",url)
-
           const userConfirmed = window.confirm(
             "Are you sure you want to proceed with the payment?"
           );
@@ -1365,11 +1160,9 @@ console.log(userCoupons)
             window.location.reload();
             notification.error({
               message: "Payment Cancelled!",
-              duration: 2, // Duration in seconds (adjust as needed)
+              duration: 2,
             });
           }
-
-          // console.log(res.data)
           setData(null);
         }
       } catch (err) {
@@ -1378,23 +1171,16 @@ console.log(userCoupons)
     } else {
       notification.info({
         message: "Login to Pay Now!",
-        duration: 2, // Duration in seconds (adjust as needed)
+        duration: 2,
       });
     }
   };
 
-  // payment without coupons
   const handlePaymentSubmitWithCoupons = async (e) => {
     e.preventDefault();
-
-    // console.log("final=>",data)
-
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
-    // console.log(userData)
     if (userData && userData.jwt) {
-      const authToken = userData.jwt;
-
       try {
         const payload = {
           customer_name: userData.info.user.username,
@@ -1407,9 +1193,6 @@ console.log(userCoupons)
           coupon_selected: data.coupon_selected,
         };
         let ob = payload;
-
-        console.log(ob);
-
         const res = await axios.post(
           "https://aventuras.co.in/api/v1/payment/initiate_payment_with_coupon",
           ob
@@ -1417,7 +1200,6 @@ console.log(userCoupons)
 
         if (res.data.data.success === true) {
           const url = res.data.data.data.instrumentResponse.redirectInfo.url;
-          // console.log("portal url=> ",url)
 
           const userConfirmed = window.confirm(
             "Are you sure you want to proceed with the payment?"
@@ -1430,11 +1212,9 @@ console.log(userCoupons)
             window.location.reload();
             notification.error({
               message: "Payment Cancelled!",
-              duration: 2, // Duration in seconds (adjust as needed)
+              duration: 2,
             });
           }
-
-          // console.log(res.data)
           setData(null);
         }
       } catch (err) {
@@ -1443,70 +1223,30 @@ console.log(userCoupons)
     } else {
       notification.info({
         message: "Login to Pay Now!",
-        duration: 2, // Duration in seconds (adjust as needed)
+        duration: 2,
       });
     }
   };
-  const[toggle,setToggle]=useState(true)
+  const [toggle, setToggle] = useState(true)
 
   return (
     <>
-   
+
       {!togglepaynow ? (
         <Modal
-        style={{textAlign:'center'}}
-       
-        className="modalLogin"
-            title={
-null            }
-            centered
-            open={!togglepaynow}
+          style={{ textAlign: 'center' }}
+          className="modalLogin"
+          title={null}
+          centered
+          open={!togglepaynow}
           footer={false}
-          onCancel={()=>{
-         naviagate('/')
+          onCancel={() => {
+            navigate('/')
           }}
-          >
-            <Login toggle={toggle}  setToggle={setToggle} settoggleRegister={settoggleRegister} toggleRegister={toggleRegister} />
-  
-          </Modal>
-        // <Modal
-        //   className="mypaynowmodal"
-        //   centered
-        //   open={!togglepaynow}
-        //   onCancel={handleCancel}
-        //   onOk={handleCancel}
-        //   title={"Login Required"}
-        //   style={{
-        //     textAlign: "center",
-        //     minHeight: "100px !important",
-        //     height: "100px !important",
-        //     maxHeight: "200px !important",
-        //   }}
-        //   footer={null}
-        // >
-        //   <div
-        //     style={{
-        //       display: "flex",
-        //       justifyContent: "center",
-        //       alignItems: "center",
-        //       flexDirection: "column",
-        //       gap: "1rem",
-        //       padding: "1rem",
-        //     }}
-        //   >
-        //     <div className="" style={{ color: "red" }}>
-        //       *You need to Log in to proceed with the payment!.
-        //     </div>
-        //     <Button
-        //       className="loginButton"
-        //       style={{ padding: "1rem 5rem" }}
-        //       onClick={() => pathStorage()}
-        //     >
-        //       {" "}
-        //       Click to Login
-        //     </Button>
-        //   </div>
-        // </Modal>
+        >
+          <Login toggle={toggle} setToggle={setToggle} settoggleRegister={settoggleRegister} toggleRegister={toggleRegister} />
+
+        </Modal>
       ) : (
         ""
       )}
@@ -1556,15 +1296,6 @@ null            }
                 Next
               </Button>
             )}
-            {/* {current === steps.length - 1 && (
-              <Button
-                className="mypayButton"
-                style={{ backgroundColor: "#008000 !important" }}
-                onClick={handlePaymentSubmit}
-              >
-                Pay
-              </Button>
-            )} */}
 
             {current === steps.length - 1 && (
               <>
@@ -1603,7 +1334,6 @@ null            }
         </div>
       </div>
 
-      {/* modal display */}
       <div>
         <Modal
           style={{ textAlign: "center" }}
@@ -1628,7 +1358,7 @@ null            }
                   gap: "0px",
                   fontWeight: "bold",
                   fontSize: "13px",
-                  margin:'1rem'
+                  margin: '1rem'
                 }}
               >
                 <div> No Payment Gateway Charges Applicable</div>
@@ -1662,29 +1392,18 @@ null            }
                     proceeds to pay through credit card on payment gateway,
                     payment gateway charges as applicable will be deducted from
                     the paid amount and the rest amount will be considered as
-                    final booking amount
+                    final booking amount
                   </div>
                   <div>
                     To make payments through credit card go back and use credit
-                    card payment option
+                    card payment option
                   </div>
                 </div>
               </div>
             </>
           ) : (
             <>
-              <div
-                className=""
-                style={{
-                  textAlign: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0px",
-                  marginBottom: "20px",
-                  fontWeight: "bold",
-                  margin:'1rem'
-                }}
-              >
+              <div className="" style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: "0px", marginBottom: "20px", fontWeight: "bold", margin: '1rem' }}>
                 <table border="1">
                   <thead></thead>
                   <tbody className="mytbody">
@@ -1732,7 +1451,7 @@ null            }
               color: "black",
               padding: "5px",
               cursor: "pointer",
-              marginBottom:'1rem'
+              marginBottom: '1rem'
             }}
             onClick={() => {
               return setOpen(false), next();

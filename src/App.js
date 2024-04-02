@@ -1,55 +1,32 @@
-import React, { useState, lazy, Suspense } from "react";
-import {
-  createBrowserRouter,
-  BrowserRouter,
-  RouterProvider,
-  Routes,
-  Route,
-  Outlet,
-  useNavigate,
-} from "react-router-dom";
+import React, { useState,} from "react";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import logo from "./logo.svg";
 import "./App.css";
-// import {BrowserRouter,Routes,Route,Link} from 'react-router-dom';
-import { API, baseURL } from "./api/apirequest";
-
-// common components
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home/Home";
-
 import Footer from "./components/Footer/Footer";
 import BottomMenu from "./components/Footer/BottomMenu";
 import Scrolltop from "./components/Footer/Scrolltop";
-
 import AllPackages from "./components/Home/Packages/AllPackages";
 import SinglePackages from "./components/Home/Packages/SinglePackages";
-
 import AllDestinations from "./components/Home/Destinations/AllDestinations";
 import SingleDestination from "./components/Home/Destinations/SingleDesination";
-
 import AllThemes from "./components/Home/Theme/AllThemes";
 import SingleTheme from "./components/Home/Theme/SingleTheme";
-
 import Multiplegrouptour from "./components/Grouptour/MultiplegroupTour";
 import Singlegrouptour from "./components/Grouptour/Singlegrouptour";
-
 import PayNow from "./components/PayNow/PayNow";
 import Flight from "./components/Flight/Flight";
 import Contact from "./components/ContactUs/Contact";
-
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
-
 import WhatsAppWidget from "react-whatsapp-chat-widget";
 import "react-whatsapp-chat-widget/index.css";
-
 import NotFound from "./components/Home/NotFound";
 import Protected from "./components/Auth/Protected";
 import Disclaimer from "./components/Policies/Disclaimer";
@@ -59,16 +36,9 @@ import TermsAndCondition from "./components/Policies/TermsAndCondition";
 import AboutUs from "./components/AboutUs/AboutUs";
 import ProfileDashboard from "./components/Auth/Profile/ProfileDashboard";
 import PayWithBookNow from "./components/PayNow/PayWithBookNow";
-import PayBook from "./components/PayNow/PayBook";
 import PayWithGrouptour from "./components/PayNow/PayWithGrouptour";
 import SearchDestination from "./components/Home/Destinations/SearchDestination";
-import { Hamburger } from "./components/navbar/Navbar";
-import {
-  CloseOutlined,
-  MenuOutlined,
-
-} from "@ant-design/icons"
-import { MenuBookOutlined } from "@mui/icons-material";
+import {MenuOutlined,} from "@ant-design/icons";
 function App() {
   // console.clear();
 
@@ -93,13 +63,11 @@ function App() {
   // console.log("This will not appear in the console");
   const [clicked, setClicked] = useState(false);
 
-  const Hamburger = ()=>{
-    
+  const Hamburger = ()=>{ 
     return(
       clicked ? null   : <div className="hamburger_container" onClick={()=>setClicked(!clicked)}  >
       <MenuOutlined/>
-         </div> 
-    
+         </div>   
     )
   }
   return (
@@ -152,8 +120,6 @@ function App() {
           <Route path="/flight" element={<Flight />} />
           {/*standard pay page  */}
           <Route path="/pay-now" element={<PayNow />} />
-          {/* book now with packages pay page */}
-          {/* <Route path="/pay-now-with-package" element={<PayBook />} /> */}
           <Route path="/pay-now-with-package" element={<PayWithBookNow />} />
 
           <Route path="/about-us" element={<AboutUs />} />
