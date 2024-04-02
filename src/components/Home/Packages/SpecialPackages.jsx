@@ -10,12 +10,7 @@ import { baseURL } from "../../../api/apirequest";
 
 const SpecialPackages = ({ data, loading }) => {
   console.log(data.data);
-
-  //change image index for banner
-  const [bgImage, setBgImage] = useState([]);
-
   useEffect(() => {
-    // image data
     let filterImage = data.data.map((item) => {
       return item?.attributes?.package_images?.data?.map((i, index) => {
         return i;
@@ -24,13 +19,10 @@ const SpecialPackages = ({ data, loading }) => {
   }, []);
 
   const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
-    // <span {...props}><img src={`https://admin.aventuras.co.in/uploads/arrow_right_b4d68d463d.png?updated_at=2023-03-24T12:13:32.807Z`}/></span>
-    // <img src={KeyboardArrowUpIcon} alt="nextArrow" {...props} />
     <span {...props}>&larr;</span>
   );
 
   const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
-    // <img src='{BsChevronRight }' alt="nextArrow" {...props} />
     <div {...props}>&rarr;</div>
   );
   const settings = {
@@ -69,99 +61,91 @@ const SpecialPackages = ({ data, loading }) => {
         ) : (
           <>
             <div className="section-title">Special Packages</div>
-          
             <div>
-               <Slider {...settings} className="card-container">
-                {data.data
-                  .sort((a, b) => (a.attributes.priority > b.attributes.priority ? 1 : -1))
-                  // .filter((item, index) => index < 8)
-
-                  .map((val) => {
-                    return (
-                      <Link
-                        to={`/single-package/${val.attributes.all_package?.data?.attributes?.package_id}`}
-                      >
-                        <>
-                          {val.attributes.all_package? (
-                            <>
-                              <div className="card-content " key={val.id}>
-                                {val?.attributes?.all_packages?.data?.attributes?.package_images?.data.length >
+              <Slider {...settings} className="card-container">
+                {data.data.sort((a, b) => (a.attributes.priority > b.attributes.priority ? 1 : -1)).map((val) => {
+                  return (
+                    <Link
+                      to={`/single-package/${val.attributes.all_package?.data?.attributes?.package_id}`}
+                    >
+                      <>
+                        {val.attributes.all_package ? (
+                          <>
+                            <div className="card-content " key={val.id}>
+                              {val?.attributes?.all_packages?.data?.attributes?.package_images?.data.length >
                                 1 ? (
-                                  <div className="card-image">
-                                    <img
-                                      className="img"
-                                      loading="lazy"
-                                      src={`${baseURL}${val.attributes.all_package?.data?.attributes.package_images.data[0]?.attributes?.url}`}
-                                       
-                                      alt=""
-                                    />
-                                  </div>
-                                ) : (
-                                  <div className="card-image">
-                                    <img
-                                      className="img"
-                                      loading="lazy"
-                                      src={`${baseURL}${val.attributes.all_package?.data?.attributes.package_images.data[0]?.attributes?.url}`}
-                                      alt=""
-                                    />
-                                  </div>
-                                )}
+                                <div className="card-image">
+                                  <img
+                                    className="img"
+                                    loading="lazy"
+                                    src={`${baseURL}${val.attributes.all_package?.data?.attributes.package_images.data[0]?.attributes?.url}`}
 
-                                <div className="card-overlay">
-                                  <div className="upper">
-                                    <div className="card-title">
-                                      {val.attributes.all_package?.data?.attributes.name}
-                                    </div>
-                                    
-                                    <div className="card-package">
-                                      {val.attributes.all_package?.data?.attributes?.package_nights === 0 ? (
-                                        <>
-                                          {`${
-                                            val.attributes.all_package?.data?.attributes?.package_nights + 1
-                                          } Day`}
-                                        </>
-                                      ) : (
-                                        <>
-                                          {val.attributes.all_package?.data?.attributes?.package_nights ===
-                                          1 ? (
-                                            <>
-                                              {`${val.attributes.all_package?.data?.attributes?.package_nights + 1
-                                              } Days / ${
-                                                val.attributes.all_package?.data?.attributes?.package_nights
-                                              } Night`}
-                                            </>
-                                          ) : (
-                                            <>
-                                              {`${val.attributes.all_package?.data?.attributes?.package_nights + 1
-                                              } Days / ${
-                                                val.attributes.all_package?.data?.attributes?.package_nights
-                                              } Nights`}
-                                            </>
-                                          )}
-                                        </>
-                                      )}
-                                    </div>
+                                    alt=""
+                                  />
+                                </div>
+                              ) : (
+                                <div className="card-image">
+                                  <img
+                                    className="img"
+                                    loading="lazy"
+                                    src={`${baseURL}${val.attributes.all_package?.data?.attributes.package_images.data[0]?.attributes?.url}`}
+                                    alt=""
+                                  />
+                                </div>
+                              )}
+
+                              <div className="card-overlay">
+                                <div className="upper">
+                                  <div className="card-title">
+                                    {val.attributes.all_package?.data?.attributes.name}
                                   </div>
-                                  <div className="card-package-id">
-                                    Package ID: {val.attributes.all_package?.data?.attributes?.package_id}
+
+                                  <div className="card-package">
+                                    {val.attributes.all_package?.data?.attributes?.package_nights === 0 ? (
+                                      <>
+                                        {`${val.attributes.all_package?.data?.attributes?.package_nights + 1
+                                          } Day`}
+                                      </>
+                                    ) : (
+                                      <>
+                                        {val.attributes.all_package?.data?.attributes?.package_nights ===
+                                          1 ? (
+                                          <>
+                                            {`${val.attributes.all_package?.data?.attributes?.package_nights + 1
+                                              } Days / ${val.attributes.all_package?.data?.attributes?.package_nights
+                                              } Night`}
+                                          </>
+                                        ) : (
+                                          <>
+                                            {`${val.attributes.all_package?.data?.attributes?.package_nights + 1
+                                              } Days / ${val.attributes.all_package?.data?.attributes?.package_nights
+                                              } Nights`}
+                                          </>
+                                        )}
+                                      </>
+                                    )}
                                   </div>
                                 </div>
-
-                                <div class="middle">
-                                  <div className="text">
-                                    <button className="form-button">
-                                      click to enquiry
-                                    </button>
-                                  </div>
+                                <div className="card-package-id">
+                                  Package ID: {val.attributes.all_package?.data?.attributes?.package_id}
                                 </div>
                               </div>
-                            </>
-                          ) : null}
-                        </>
-                      </Link>
-                    );
-                  })}
-              </Slider> 
+
+                              <div class="middle">
+                                <div className="text">
+                                  <button className="form-button">
+                                    click to enquiry
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        ) : null}
+                      </>
+                    </Link>
+                  );
+                })}
+              </Slider>
             </div>
 
             <div className="additional">
@@ -169,7 +153,6 @@ const SpecialPackages = ({ data, loading }) => {
                 <div className="line">
                   <div className="text">Explore More Packages</div>
                   <div className="image">
-                    {/* <img className='img' loading="lazy" src={`https://admin.aventuras.co.in/uploads/arrow_right_b4d68d463d.png?updated_at=2023-03-24T12:13:32.807Z`} alt="arrow" width="20" height="20" /> */}
                     <img
                       className="img"
                       loading="lazy"

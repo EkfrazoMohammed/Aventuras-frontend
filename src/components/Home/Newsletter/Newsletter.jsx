@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Newsletter.scss";
-import { Skeleton } from "antd";
-import axios from "axios";
-import { API, baseURL } from "../../../api/apirequest";
+import { API } from "../../../api/apirequest";
 
 const Newsletter = () => {
   const [details, setDetails] = useState([]);
-  const [loading, setLoading] = useState(true);
   const getData = async () => {
     try {
       const companyDetails = await API.get("/api/contact-details").then(
         (res) => {
           setDetails(res.data.data[0]);
-          //   console.log(res.data.data[0])
-          // let names = res.data?.data?.map((v) => {
-          //   setDetails(searches =>
-          //     Array.from(new Set([...searches, v].map((v) => JSON.stringify(v))))
-          //       .map((string) => JSON.parse(string)))
-          //   //setInternational(searches => Array.from(new Set([...searches, v?.attributes?.name])))
-          // });
         }
       );
-      setLoading(false);
     } catch (err) {
-      // console.log(err)
-      setLoading(true);
+      console.log(err)
     }
   };
   useEffect(() => {
@@ -35,9 +23,6 @@ const Newsletter = () => {
     <div className="section">
       <div className="newsletter-container">
         <div className="outer">
-          {/* <img className='img' loading="lazy" 
-                    src={`https://admin.aventuras.co.in/uploads/newsletterbg_3dbc46d6b5_513bed98e7.png`} alt="newsletterbg" />
-                 */}
           <img
             className="img"
             loading="lazy"

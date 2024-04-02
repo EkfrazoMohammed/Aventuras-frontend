@@ -3,19 +3,14 @@ import { API, baseURL } from "../../../api/apirequest";
 import type { TabsProps } from "antd";
 import { useState, useEffect } from "react";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
-import FlightIcon from "@mui/icons-material/Flight";
 import ConnectingAirportsIcon from "@mui/icons-material/ConnectingAirports";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
+import { useNavigate, useParams } from "react-router-dom";
 import PhotoCameraBackIcon from "@mui/icons-material/PhotoCameraBack";
-import TerrainIcon from "@mui/icons-material/Terrain";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import "./SinglePackages.scss";
 import { Carousel, Skeleton, Space } from "antd";
-
-import { message } from "antd";
 import { notification } from "antd";
 import { Tabs } from "antd";
 import { styled } from "@mui/material/styles";
@@ -23,7 +18,6 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import { Button, Modal } from "antd";
 import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
@@ -44,11 +38,6 @@ const SinglePackages = () => {
   localStorage.setItem("pathName", currentPath);
   localStorage.removeItem("booking");
   const today = new Date().toISOString().split("T")[0];
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-
-  const [error, setError] = useState(null);
-
   const [fetchCityName, setFetchCityName] = useState(false);
   const [cityName, setCityName] = useState("");
 
@@ -56,10 +45,8 @@ const SinglePackages = () => {
     setFetchCityName(event.target.checked);
 
     if (event.target.checked) {
-      // Fetch city name when the checkbox is checked
       fetchCityNameFunction(); // Call the function to fetch the city name
     } else {
-      // Clear the city name when the checkbox is unchecked
       setCityName("");
     }
   };
@@ -69,8 +56,6 @@ const SinglePackages = () => {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         const nominatimURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-        // const nominatimURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${16.81900}&lon=${75.75837}`;
-
         try {
           const response = await fetch(nominatimURL);
           const data = await response.json();
@@ -129,10 +114,8 @@ const SinglePackages = () => {
     setFetchCityName2(event.target.checked);
 
     if (event.target.checked) {
-      // Fetch city name when the checkbox is checked
-      fetchCityNameFunction2(); // Call the function to fetch the city name
+      fetchCityNameFunction2();
     } else {
-      // Clear the city name when the checkbox is unchecked
       setCityName2("");
     }
   };
@@ -144,28 +127,8 @@ const SinglePackages = () => {
         const nominatimURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
 
         try {
-          // const response = await fetch(nominatimURL);
-          // const data = await response.json();
-          // console.log("fetchCityNameFunction2=>",data)
-          // if (data && data.address && data.address.state && data.address.city) {
-          //   if (data.address.city) {
-          //     setCityName2(data.address.city);
-          //   } else {
-          //     setCityName2(data.address.state); // Set city to state if city is not available
-          //   }
-
-          //   // Set the current_location in the data object to the fetched city
-          //   setData2((prevData) => ({
-          //     ...prevData,
-          //     current_location: data.address.state || data.address.city,
-          //   }));
-          // } else {
-          //   setCityName2('City not found in reverse geocoding data.');
-          // }
-
           const response = await fetch(nominatimURL);
           const data = await response.json();
-
           let city = "";
           let county = "";
           let neighbourhood = "";
@@ -204,7 +167,6 @@ const SinglePackages = () => {
             setCityName("City not found in reverse geocoding data.");
           }
         } catch (error) {
-          // console.error('Error fetching location data:', error);
           setCityName2("Error fetching location data");
         }
       });
@@ -267,9 +229,7 @@ const SinglePackages = () => {
           let d = await API.get(
             `/api/all-packages?populate=*&filters[package_id][$eq]=${package_id}`
           );
-
           setValue(d.data.data[0]);
-
           const initialQuery = {
             package_id: `${d.data.data[0]?.attributes?.package_id}`,
             package_name: `${d.data.data[0]?.attributes?.name}`,
@@ -285,7 +245,6 @@ const SinglePackages = () => {
           setData2(initialQuery);
           setLoading(false);
         } catch (err) {
-          // console.log(err)
           setLoading(true);
         }
       };
@@ -314,7 +273,6 @@ const SinglePackages = () => {
           setData2(initialQuery);
           setLoading(false);
         } catch (err) {
-          // console.log(err)
           setLoading(true);
         }
       };
@@ -322,7 +280,6 @@ const SinglePackages = () => {
     }
     window.scrollTo(0, 0);
   }, []);
-  // console.log("data2==>",data2)
   const ReadMore = ({ children }) => {
     const text = children;
     const [isReadMore, setIsReadMore] = useState(true);
@@ -344,7 +301,6 @@ const SinglePackages = () => {
       e.target.name === "contact_number"
         ? parseInt(e.target.value, 10)
         : e.target.value;
-    // Dynamically update the error message for the mobile number
     if (e.target.name === "contact_number") {
       if (e.target.value.length > 9) {
         setErrors((prevErrors) => ({
@@ -372,13 +328,11 @@ const SinglePackages = () => {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (emailPattern.test(e.target.value)) {
-        // If email matches pattern, clear the error
         setErrors((prevErrors) => ({
           ...prevErrors,
           email_id: "",
         }));
       } else {
-        // If email doesn't match pattern, show error
         setErrors((prevErrors) => ({
           ...prevErrors,
           email_id: "Please enter a valid email address",
@@ -393,7 +347,6 @@ const SinglePackages = () => {
       e.target.name === "contact_number"
         ? parseInt(e.target.value, 10)
         : e.target.value;
-    // Dynamically update the error message for the mobile number
     if (e.target.name === "contact_number") {
       if (e.target.value.length > 9) {
         setErrors2((prevErrors) => ({
@@ -412,7 +365,6 @@ const SinglePackages = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Reset previous errors
     setErrors({
       user_name: "",
       contact_number: "",
@@ -421,7 +373,6 @@ const SinglePackages = () => {
 
     let hasError = false;
 
-    // Validate required fields
     if (!data.user_name) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -429,20 +380,12 @@ const SinglePackages = () => {
       }));
       hasError = true;
     } else {
-      // Remove the error message when the mobile number is valid
       setErrors((prevErrors) => ({
         ...prevErrors,
         user_name: "",
       }));
     }
 
-    //   if (!data.contact_number) {
-    //     setErrors((prevErrors) => ({
-    //       ...prevErrors,
-    //       contact_number: 'Please enter your mobile number',
-    //     }));
-    //     hasError = true;
-    //   }
     if (!data.contact_number) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -470,7 +413,6 @@ const SinglePackages = () => {
       }));
       hasError = true;
     } else {
-      // Remove the error message when the mobile number is valid
       setErrors((prevErrors) => ({
         ...prevErrors,
         contact_number: "",
@@ -481,17 +423,12 @@ const SinglePackages = () => {
       return;
     }
     if (!validateEmail(data.email_id)) {
-      // notification.error({
-      //   message: 'Invalid Email Address',
-      //   duration: 2,
-      // });
       setErrors((prevErrors) => ({
         ...prevErrors,
         email_id: "Please enter valid address",
       }));
       return;
     } else {
-      // Remove the error message when the mobile number is valid
       setErrors((prevErrors) => ({
         ...prevErrors,
         email_id: "",
@@ -500,7 +437,6 @@ const SinglePackages = () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        // Add any other headers that are required for your API
       },
     };
 
@@ -509,7 +445,6 @@ const SinglePackages = () => {
         data,
       };
       const res = await API.post("/api/customer-enquiries", ob, config);
-
       if (res.status === 200 || res.statusText === "OK") {
         notification.success({
           message: "Enquiry Sent!",
@@ -528,7 +463,6 @@ const SinglePackages = () => {
              and contact_number ${data.contact_number}
              with number of travellers ${data.adults} on date: ${data.trip_start_date} 
              `,
-
           current_location: `${data.current_location}`,
           contact_number: `${data.contact_number}`,
           package_name: `${data.package_name}`,
@@ -549,21 +483,9 @@ const SinglePackages = () => {
         // console.log(res)
       }
 
-      // Display a success message
-      // alert('Enquiry Sent!');
     } catch (error) {
-      // console.log(error);
-      //   notification.error({
-      //     message: 'Enquiry not sent!',
-      //     description: 'error occurred',
-      //     duration: 1, // Duration in seconds (adjust as needed)
-      //   });
-      //   setTimeout(()=>{
-      //     window.location.reload()
-      //   },2000)
+      console.log(error);
     }
-
-    // console.log(data);
   };
 
   const handleLoginSubmit = async (e) => {
@@ -572,7 +494,6 @@ const SinglePackages = () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        // Add any other headers that are required for your API
       },
     };
 
@@ -585,8 +506,7 @@ const SinglePackages = () => {
         notification.success({
           message: "Enquiry Sent!",
           description: "We will get in touch through provided email",
-
-          duration: 1, // Duration in seconds (adjust as needed)
+          duration: 1,
         });
 
         let mailData = {
@@ -613,7 +533,7 @@ const SinglePackages = () => {
           mailData
         );
       } else {
-        // console.log(res)
+        console.log(res)
       }
     } catch (error) {
       console.log(error);
@@ -626,43 +546,33 @@ const SinglePackages = () => {
       ) {
         notification.error({
           message: "User Profile Not Found",
-          // description: 'You have successfully logged in.',
-
-          duration: 2, // Duration in seconds (adjust as needed)
+          duration: 2,
         });
       } else if (message) {
         notification.error({
           message: error.response.data.error.message,
-          // description: 'You have successfully logged in.',
-
-          duration: 2, // Duration in seconds (adjust as needed)
+          duration: 2,
         });
       } else {
         console.log(error);
 
         notification.error({
           message: "Enter details to send Enquiry!",
-          // description: 'You have successfully logged in.',
-
-          duration: 2, // Duration in seconds (adjust as needed)
+          duration: 2,
         });
       }
     }
-    // console.log(data);
   };
-  const onChange = (key: string) => {
+  const onChange = (key) => {
     // console.log(key);
   };
 
   const validateEmail = (email) => {
-    // Simple email format validation using regular expression
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   };
   const downloadFileAtUrl = (url) => {
-    // console.log(url)
     const fullUrl = baseURL + url;
-    // console.log(fullUrl)
     fetch(fullUrl)
       .then((response) => response.blob())
       .then((blob) => {
@@ -742,7 +652,6 @@ const SinglePackages = () => {
                 </span>
               </>
             ) : null}
-            {/* {value?.attributes?.description} */}
           </div>
         </div>
       </>
@@ -752,7 +661,6 @@ const SinglePackages = () => {
   const Itinerary = () => {
     return (
       <>
-        {/* <div className="heading">Itinerary</div> */}
         <div className="single-line">
           <div className="heading">{value?.attributes?.name}</div>
         </div>
@@ -778,8 +686,6 @@ const SinglePackages = () => {
   const Info = () => {
     return (
       <>
-        {/* <div className="heading">Other Info</div> */}
-
         <div className="desc">
           <ul className="list">
             <ReactMarkdown>{value?.attributes?.inclusions}</ReactMarkdown>
@@ -793,57 +699,54 @@ const SinglePackages = () => {
         </div>
         {
           value?.attributes?.things_to_note ?
-          <div className="desc">
-          <ul className="list">
-            <ReactMarkdown>{value?.attributes?.things_to_note}</ReactMarkdown>
-          </ul>
-        </div>
-          : null
+            <div className="desc">
+              <ul className="list">
+                <ReactMarkdown>{value?.attributes?.things_to_note}</ReactMarkdown>
+              </ul>
+            </div>
+            : null
         }
-     
-     {
+
+        {
           value?.attributes?.cancellation_policy ?
-          <div className="desc">
-          <ul className="list">
-            <ReactMarkdown>{value?.attributes?.cancellation_policy}</ReactMarkdown>
-          </ul>
-        </div>
-          : null
+            <div className="desc">
+              <ul className="list">
+                <ReactMarkdown>{value?.attributes?.cancellation_policy}</ReactMarkdown>
+              </ul>
+            </div>
+            : null
         }
 
 
-{
+        {
           value?.attributes?.travel_tips ?
-          <div className="desc">
-          <ul className="list">
-            <ReactMarkdown>{value?.attributes?.travel_tips}</ReactMarkdown>
-          </ul>
-        </div>
-          : null
+            <div className="desc">
+              <ul className="list">
+                <ReactMarkdown>{value?.attributes?.travel_tips}</ReactMarkdown>
+              </ul>
+            </div>
+            : null
         }
 
         {
           value?.attributes?.special_info ?
-          <div className="desc">
-          <ul className="list">
-            <ReactMarkdown>{value?.attributes?.special_info}</ReactMarkdown>
-          </ul>
-        </div>
-          : null
+            <div className="desc">
+              <ul className="list">
+                <ReactMarkdown>{value?.attributes?.special_info}</ReactMarkdown>
+              </ul>
+            </div>
+            : null
         }
 
-{
+        {
           value?.attributes?.terms_and_condition ?
-          <div className="desc">
-          <ul className="list">
-            <ReactMarkdown>{value?.attributes?.terms_and_condition}</ReactMarkdown>
-          </ul>
-        </div>
-          : null
+            <div className="desc">
+              <ul className="list">
+                <ReactMarkdown>{value?.attributes?.terms_and_condition}</ReactMarkdown>
+              </ul>
+            </div>
+            : null
         }
-    
-   
- 
       </>
     );
   };
@@ -948,24 +851,20 @@ const SinglePackages = () => {
     );
   };
 
-  const [mydate, setMyDate] = useState(null);
   const close = () => {
     console.log(
       "Notification was closed. Either the close button was clicked or duration time elapsed."
     );
   };
   const [api, contextHolder] = notification.useNotification();
-  const [loginModal,setLoginModal] =useState(false);
-const [toggle,setToggle] =useState(false);
-const [ toggleRegister,settoggleRegister] =useState(false);
+  const [loginModal, setLoginModal] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [toggleRegister, settoggleRegister] = useState(false);
 
   const openNotification = () => {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
-        {/* <Button type="danger"  size="medium" onClick={() => {api.destroy(key);navigate('/login')}}  style={{ backgroundColor: '#fde000',color:'#000',fontWeight:'600' }}>
-                Click to Login
-              </Button> */}
         <Button
           onClick={() => api.destroy()}
           style={{ backgroundColor: "red", color: "#fff" }}
@@ -976,11 +875,10 @@ const [ toggleRegister,settoggleRegister] =useState(false);
           type="primary"
           onClick={() => {
             api.destroy(key);
-            // navigate("/login");
             setLoginModal(true);
             setToggle(true)
             settoggleRegister(false)
-            
+
           }}
           style={{
             backgroundColor: "#fde000",
@@ -1020,7 +918,6 @@ const [ toggleRegister,settoggleRegister] =useState(false);
 
       let hasError2 = false;
 
-      // Validate required fields
       if (!data2.user_name) {
         setErrors2((prevErrors) => ({
           ...prevErrors,
@@ -1029,13 +926,6 @@ const [ toggleRegister,settoggleRegister] =useState(false);
         hasError2 = true;
       }
 
-      //   if (!data.contact_number) {
-      //     setErrors((prevErrors) => ({
-      //       ...prevErrors,
-      //       contact_number: 'Please enter your mobile number',
-      //     }));
-      //     hasError = true;
-      //   }
       if (!data2.contact_number) {
         setErrors2((prevErrors) => ({
           ...prevErrors,
@@ -1063,7 +953,6 @@ const [ toggleRegister,settoggleRegister] =useState(false);
         }));
         hasError2 = true;
       } else {
-        // Remove the error message when the mobile number is valid
         setErrors2((prevErrors) => ({
           ...prevErrors,
           contact_number: "",
@@ -1082,9 +971,6 @@ const [ toggleRegister,settoggleRegister] =useState(false);
       }
 
       const yourObject = data2;
-      // const yourDataString = encodeURIComponent(JSON.stringify(yourObject));
-      // navigate(`/pay-now-with-package?yourData=${yourDataString}`);
-
       const yourDataString = localStorage.setItem(
         "booking",
         JSON.stringify(yourObject)
@@ -1092,24 +978,20 @@ const [ toggleRegister,settoggleRegister] =useState(false);
       navigate(`/pay-now-with-package`);
     } else {
       openNotification();
-      // notification.info({
-      //       message: 'Login First to Book Packages!',
-      //       duration: 2,
-      //     });
     }
   };
 
   return (
     <>
-          <Modal
-      open={loginModal}
-      className="modal_login_main"
-      centered
-      onCancel={()=>setLoginModal(false)}
-      footer={null}
+      <Modal
+        open={loginModal}
+        className="modal_login_main"
+        centered
+        onCancel={() => setLoginModal(false)}
+        footer={null}
       >
 
-<Login toggle={toggle}  setToggle={setToggle} settoggleRegister={settoggleRegister} toggleRegister={toggleRegister} />
+        <Login toggle={toggle} setToggle={setToggle} settoggleRegister={settoggleRegister} toggleRegister={toggleRegister} />
 
       </Modal>
       <div className="pages-container" key={value.id}>
@@ -1146,22 +1028,12 @@ const [ toggleRegister,settoggleRegister] =useState(false);
                     );
                   })}
                 </Carousel>
-                {/* <img
-                                            src={value?.attributes?.package_images?.data?.map((v) => {
-                                                return v.attributes?.url
-                                            })}
-                                            alt={value?.attributes?.package_images?.data?.map((v) => {
-                                                return v.attributes?.name
-                                            })}
-                                        /> */}
               </div>
             </div>
             <div className="text-container">
               <div className="text-wrapper">
                 <div className="left-content">
                   <div className="top">
-                    {/* <div className="package">{value?.attributes?.package_durations?.data[0]?.attributes?.duration}</div> */}
-                    {/* <div className="package">{(value?.attributes?.package_nights)+1} days/ {value?.attributes?.package_nights} nights</div> */}
                     <div className="package">
                       {value?.attributes?.package_nights === 0 ? (
                         <>{`${value?.attributes?.package_nights + 1} Day`}</>
@@ -1169,19 +1041,15 @@ const [ toggleRegister,settoggleRegister] =useState(false);
                         <>
                           {value?.attributes?.package_nights === 1 ? (
                             <>
-                              {`${
-                                value?.attributes?.package_nights + 1
-                              } Days / ${
-                                value?.attributes?.package_nights
-                              } Night`}
+                              {`${value?.attributes?.package_nights + 1
+                                } Days / ${value?.attributes?.package_nights
+                                } Night`}
                             </>
                           ) : (
                             <>
-                              {`${
-                                value?.attributes?.package_nights + 1
-                              } Days / ${
-                                value?.attributes?.package_nights
-                              } Nights`}
+                              {`${value?.attributes?.package_nights + 1
+                                } Days / ${value?.attributes?.package_nights
+                                } Nights`}
                             </>
                           )}
                         </>
@@ -1190,10 +1058,6 @@ const [ toggleRegister,settoggleRegister] =useState(false);
 
                     <div className="single-line">
                       <div class="title">{value?.attributes?.name}</div>
-                      {/* <a href={`${value?.attributes?.itenary_pdf?.data?.attributes?.url}`} download={`${value?.attributes?.name} itenary`}>
-                                        <button className="form-button" >Download Itenary</button>
-                                    </a> */}
-                      {/* <button className="form-button" onClick={() => downloadFileAtUrl(value?.attributes?.itenary_pdf?.data?.attributes?.url)} >download itenary</button> */}
                       <button
                         className="form-button"
                         onClick={() =>
@@ -1393,8 +1257,6 @@ const [ toggleRegister,settoggleRegister] =useState(false);
                       {value?.attributes?.package_id}
                     </div>
                     <div class="title">{value?.attributes?.name}</div>
-                    {/* <div className="package">{value?.attributes?.package_durations?.data[0]?.attributes?.duration}</div> */}
-
                     <div className="package">
                       {value?.attributes?.package_nights === 0 ? (
                         <>{`${value?.attributes?.package_nights + 1} Day`}</>
@@ -1402,19 +1264,15 @@ const [ toggleRegister,settoggleRegister] =useState(false);
                         <>
                           {value?.attributes?.package_nights === 1 ? (
                             <>
-                              {`${
-                                value?.attributes?.package_nights + 1
-                              } Days / ${
-                                value?.attributes?.package_nights
-                              } Night`}
+                              {`${value?.attributes?.package_nights + 1
+                                } Days / ${value?.attributes?.package_nights
+                                } Night`}
                             </>
                           ) : (
                             <>
-                              {`${
-                                value?.attributes?.package_nights + 1
-                              } Days / ${
-                                value?.attributes?.package_nights
-                              } Nights`}
+                              {`${value?.attributes?.package_nights + 1
+                                } Days / ${value?.attributes?.package_nights
+                                } Nights`}
                             </>
                           )}
                         </>

@@ -1,9 +1,7 @@
-// https://admin.aventuras.co.in/uploads/quoteicon_90f33e35d5_0ae2b3d91b.png
 .testimonial-section {
     width: 100%;
     height: auto;
     background-color: #00C2FFC2 !important;
-
 
     .testimonial-container {
         width: 1180px;
@@ -15,7 +13,6 @@
         flex-direction: column;
         gap: 1rem;
 
-
         .upper {
             width: 100%;
             height: auto;
@@ -26,10 +23,8 @@
 
             .section-title {
                 color: #000;
-
                 font-weight: 500;
                 font-size: 2.5rem;
-
                 display: flex;
             }
 
@@ -42,8 +37,6 @@
                 align-items: center;
                 gap: 5px;
 
-
-
                 .image {
                     display: flex;
                     justify-content: center;
@@ -55,37 +48,36 @@
                 }
             }
         }
-        .middle{
+
+        .middle {
             width: 100%;
             height: auto;
-            .review-link{
-                color:#000 !important;
+
+            .review-link {
+                color: #000 !important;
                 width: 100%;
                 height: auto;
-                .text{
+
+                .text {
                     font-size: 1.3rem;
                     font-weight: 500;
-
-                    
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
                 }
             }
         }
+
         .bottom {
             width: 100%;
             height: auto;
             margin: 0 auto;
 
             .testimonial-content {
-
-
                 .testimonial-content-wrapper {
                     background-color: #fff;
                     width: 100%;
                     height: auto;
-
                     border-radius: 0;
                     margin: 0 auto;
                     padding: 1rem;
@@ -94,11 +86,7 @@
                     align-items: center;
                     gap: 20px;
 
-
-
                     .image-content {
-
-
                         .img {
                             width: 230px;
                             height: 230px;
@@ -113,17 +101,13 @@
                         margin: 1rem;
                         line-height: 30px;
                         font-size: 1.3rem;
-
                         position: relative;
                         display: flex;
                         flex-direction: column;
-
                         gap: 2rem;
 
                         .quotes {
                             padding: 0 2rem;
-
-
 
                             &:before {
 
@@ -148,26 +132,15 @@
                             justify-content: flex-end;
                             align-items: center;
                             font-size: 1.5rem;
-
                         }
                     }
-
                 }
             }
-
         }
-
-}
-
-    // tablet design
+    }
 
     @media (max-width:1024px) {
-
-
-
-
         .testimonial-container {
-
             width: 768px;
             height: auto;
             margin: 0 auto;
@@ -178,46 +151,34 @@
             gap: 2rem;
 
             .upper {
-
                 .section-title {
                     font-size: 2.2rem;
                 }
 
                 .additional {
                     width: 30%;
-
                 }
             }
 
             .bottom {
-
                 .testimonial-content {
                     width: 100%;
                     margin: 0 auto;
 
                     .testimonial-content-wrapper {
-
                         padding: 1rem;
-
                         gap: 20px;
 
-
-
                         .image-content {
-
-
-
                             .img {
                                 width: 170px;
                                 height: 170px;
                                 border-radius: 60px;
                                 object-fit: cover;
-
                             }
                         }
 
                         .text-content {
-
                             font-size: 1.5rem;
                             gap: 1rem;
 
@@ -236,11 +197,8 @@
                                     content: url("https://admin.aventuras.co.in/uploads/quoteicon_90f33e35d5_3474151632.png");
                                     position: absolute;
                                     bottom: 45px;
-
                                     transform: rotate(180deg);
                                 }
-
-
                             }
 
                             .author {
@@ -248,30 +206,17 @@
                                 justify-content: flex-end;
                                 align-items: center;
                                 font-size: 1.8rem;
-
                             }
                         }
-
                     }
                 }
 
             }
-
-
-
-
         }
-
     }
 
-
-
-    // mobile design
     @media (max-width:767px) {
-
-
         .testimonial-container {
-            // width: 370px;
             width: 100%;
             max-width: 370px;
             min-width: 300px;
@@ -304,8 +249,6 @@
                     align-items: center;
                     gap: 5px;
 
-
-
                     .image {
                         display: flex;
                         justify-content: center;
@@ -318,18 +261,18 @@
                 }
             }
 
-            .middle{
+            .middle {
                 width: 100%;
                 height: auto;
-                .review-link{
-                    color:#000 !important;
+
+                .review-link {
+                    color: #000 !important;
                     width: 100%;
                     height: auto;
-                    .text{
+
+                    .text {
                         font-size: 1rem;
                         font-weight: 500;
-    
-                        
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
@@ -347,15 +290,12 @@
                 align-items: center;
 
                 .testimonial-content {
-
                     .testimonial-content-wrapper {
                         flex-direction: column;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         gap: .6rem !important;
-
-
 
                         .image-content {
                             display: flex;
@@ -367,7 +307,6 @@
                                 width: 135px;
                                 height: 135px;
                                 border-radius: 50px;
-
                             }
                         }
 
@@ -385,10 +324,7 @@
                             .quotes {
                                 padding: 0 2rem;
 
-
-
                                 &:before {
-
                                     content: url("https://admin.aventuras.co.in/uploads/quoteicon_90f33e35d5_3474151632.png");
                                     position: absolute;
                                     top: -14px;
@@ -399,10 +335,8 @@
                                     content: url("https://admin.aventuras.co.in/uploads/quoteicon_90f33e35d5_3474151632.png");
                                     position: absolute;
                                     bottom: 45px;
-
                                     transform: rotate(180deg);
                                 }
-
                             }
 
                             .author {
@@ -410,20 +344,11 @@
                                 justify-content: flex-end;
                                 align-items: center;
                                 font-size: 1rem;
-
                             }
                         }
-
                     }
                 }
-
             }
-
-
-
-
         }
-
     }
-
 }
