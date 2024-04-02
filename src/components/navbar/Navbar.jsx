@@ -127,7 +127,6 @@ const Drop = ({ setClicked, clicked }) => {
 
   return (
     <>
-      =
       <div className="navBar">
         {loading ? (
           <Skeleton.Button active buttonShape block />

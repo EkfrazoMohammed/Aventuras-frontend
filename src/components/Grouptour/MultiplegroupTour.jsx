@@ -40,7 +40,7 @@ const MultiplegroupTour = () => {
         <div className="section">
             <div className="banner">
                 <div className="image">
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JvdXAlMjB0cmF2ZWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80" alt="banner" />
+                    <img src="https://admin.aventuras.co.in/uploads/multi_group_d73035ea26.jpeg" alt="banner" />
                 </div>
             </div>
             <div className="group-package-container">
