@@ -1,5 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from "react";
-import Footer from "../Footer/Footer";
+import React, { useEffect, lazy } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 const Banner = lazy(() => import("./Banner/Banner"));
@@ -23,35 +22,13 @@ const Wrapper = ({ data, loading }) => {
         brandinfos={data.brandinfos}
         loading={loading}
       />
-      {/* <div data-aos="fade-right"
-       data-aos-duration="1000"> */}
       <SpecialPackages data={data.special_packages} loading={loading} />
-      {/* </div> */}
-      {/* <div data-aos="fade-left"
-       data-aos-duration="1000"> */}
       <TopDestinations data={data.destinations} loading={loading} />
-
-      {/*</div> <div data-aos="fade-right"
-       data-aos-duration="1000"> */}
       <Holidays data={data.group_tours} loading={loading} />
-
-      {/* </div> */}
-      {/* <div data-aos="fade-left"
-       data-aos-duration="2000"> */}
       <Theme data={data.theme} loading={loading} />
-      {/* </div>
-      <div data-aos="fade-right"
-       data-aos-duration="2000"> */}
-      <Testimonial
-        data={data.testimonial}
-        contactData={data.contact_details}
-        loading={loading}
+      <Testimonial data={data.testimonial} contactData={data.contact_details} loading={loading}
       />
-
       <Newsletter />
-      {/* </div> */}
-
-      {/* <Footer destinations={data.destinations} themes={data.theme} loading={loading}/> */}
     </>
   );
 };
