@@ -487,8 +487,8 @@ const Step2Content = ({
               <img
                 width="40"
                 height="40"
-                src="https://img.icons8.com/ios-filled/50/bhim-upi.png"
-                alt="bhim-upi"
+                src="https://admin.aventuras.co.in/uploads/bhim_2871091c08.png"
+                alt="bhim"
               />
               <div className="text_value">UPI</div>
             </div>
@@ -538,8 +538,8 @@ const Step2Content = ({
               <img
                 width="40"
                 height="40"
-                src="https://img.icons8.com/ios-filled/50/credit-card-front.png"
-                alt="credit-card-front"
+                src="https://admin.aventuras.co.in/uploads/cred_card_bf94e09425.png"
+                alt="credit-card"
               />
 
               <div className="text_value">Card</div>
@@ -1121,8 +1121,8 @@ const PayWithGrouptour = ({ location }) => {
         <img
           width="40"
           height="40"
-          src="https://img.icons8.com/external-anggara-flat-anggara-putra/32/external-user-contact-us-anggara-flat-anggara-putra.png"
-          alt="external-user-contact-us-anggara-flat-anggara-putra"
+          src="https://admin.aventuras.co.in/uploads/user1_4adce49057.png"
+          alt="user"
         />
       ),
     },
@@ -1145,8 +1145,8 @@ const PayWithGrouptour = ({ location }) => {
         <img
           width="40"
           height="40"
-          src="https://img.icons8.com/external-flat-gradient-andi-nur-abdillah/64/external-credit-e-commerce-flat-gradient-flat-gradient-andi-nur-abdillah.png"
-          alt="external-credit-e-commerce-flat-gradient-flat-gradient-andi-nur-abdillah"
+          src="https://admin.aventuras.co.in/uploads/payment_method_cc2c6d92da.png"
+          alt="cards"
         />
       ),
     },
@@ -1157,8 +1157,8 @@ const PayWithGrouptour = ({ location }) => {
         <img
           width="40"
           height="40"
-          src="https://img.icons8.com/cute-clipart/64/000000/approval.png"
-          alt="approval"
+          src="https://admin.aventuras.co.in/uploads/approval_b7a9261d90.png"
+          alt="done"
         />
       ),
     },
