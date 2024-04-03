@@ -22,6 +22,7 @@ import { Button, Modal } from "antd";
 import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
 import Login from '../../Auth/Login'
+import SEO from "../../SEO/SEO";
 const { Panel } = Collapse;
 
 
@@ -983,6 +984,11 @@ const SinglePackages = () => {
 
   return (
     <>
+  <SEO
+title='Learning React Helmet!'
+description='Beginner friendly page for learning React Helmet.'
+name='Company name.'
+type='article' />
       <Modal
         open={loginModal}
         className="modal_login_main"
