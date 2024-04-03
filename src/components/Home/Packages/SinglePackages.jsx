@@ -22,12 +22,15 @@ import { Button, Modal } from "antd";
 import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
 import Login from '../../Auth/Login'
-import SEOMeta from "../../SEO/SEOMeta";
-// import SEO from "../../SEO/SEO";
+import { Helmet } from 'react-helmet';
+import { useLocation } from "react-router-dom";
+
 const { Panel } = Collapse;
 
 
 const SinglePackages = () => {
+  const location = useLocation()
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -985,18 +988,21 @@ const SinglePackages = () => {
 
   return (
     <>
-    <SEOMeta 
-    title='Learning React Helmet!'
-    description='Beginner friendly page for learning React Helmet.'
-    name='Company name.'
-    type='article'
-    image={'https://admin.aventuras.co.in//uploads/pexels_rajesh_s_balouria_15017640_aff289fac0.jpg'} 
-    />
-  {/* <SEO
-title='Learning React Helmet!'
-description='Beginner friendly page for learning React Helmet.'
-name='Company name.'
-type='article' /> */}
+          <Helmet>
+        <title>Welcome to Aventuras</title>
+        <meta name="description" content="Description of your website" />
+        {/* Open Graph meta tags for WhatsApp and Instagram */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Your Website Title" />
+        <meta property="og:description" content="Description of your website" />
+        <meta property="og:image" content="https://admin.aventuras.co.in//uploads/pexels_rajesh_s_balouria_15017640_aff289fac0.jpg" />
+        <meta property="og:url" content={`https://www.aventuras.co.in/${location.pathname}`} />
+        {/* Twitter meta tags for Instagram */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Your Website Title" />
+        <meta name="twitter:description" content="Description of your website" />
+        <meta name="twitter:image" content="URL of the image you want to display" />
+      </Helmet>
       <Modal
         open={loginModal}
         className="modal_login_main"
