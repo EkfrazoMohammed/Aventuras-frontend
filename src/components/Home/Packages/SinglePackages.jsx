@@ -986,8 +986,8 @@ const SinglePackages = () => {
 
   return (
     <>
-        <Helmet>
-      <title>Welcome to Aventuras</title>
+        <Helmet defer={false}>
+      <title>Hey user</title>
       <meta name="description" content="Description of your website" />
       {/* Open Graph meta tags for WhatsApp and Instagram */}
       <meta property="og:type" content="website" />
