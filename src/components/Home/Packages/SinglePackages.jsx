@@ -22,6 +22,7 @@ import { Button, Modal } from "antd";
 import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
 import Login from '../../Auth/Login'
+import { Helmet } from 'react-helmet';
 const { Panel } = Collapse;
 
 
@@ -983,6 +984,21 @@ const SinglePackages = () => {
 
   return (
     <>
+          <Helmet>
+        <title>Welcome to Aventuras</title>
+        <meta name="description" content="Description of your website" />
+        {/* Open Graph meta tags for WhatsApp and Instagram */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Your Website Title" />
+        <meta property="og:description" content="Description of your website" />
+        <meta property="og:image" content="https://admin.aventuras.co.in//uploads/pexels_rajesh_s_balouria_15017640_aff289fac0.jpg" />
+        <meta property="og:url" content="URL of your website" />
+        {/* Twitter meta tags for Instagram */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Your Website Title" />
+        <meta name="twitter:description" content="Description of your website" />
+        <meta name="twitter:image" content="URL of the image you want to display" />
+      </Helmet>
       <Modal
         open={loginModal}
         className="modal_login_main"
