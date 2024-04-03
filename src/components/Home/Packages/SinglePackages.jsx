@@ -22,6 +22,8 @@ import { Button, Modal } from "antd";
 import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
 import Login from '../../Auth/Login'
+import SEOMeta from "../../SEO/SEOMeta";
+// import SEO from "../../SEO/SEO";
 const { Panel } = Collapse;
 
 
@@ -983,6 +985,18 @@ const SinglePackages = () => {
 
   return (
     <>
+    <SEOMeta 
+    title='Learning React Helmet!'
+    description='Beginner friendly page for learning React Helmet.'
+    name='Company name.'
+    type='article'
+    image={'https://admin.aventuras.co.in//uploads/pexels_rajesh_s_balouria_15017640_aff289fac0.jpg'} 
+    />
+  {/* <SEO
+title='Learning React Helmet!'
+description='Beginner friendly page for learning React Helmet.'
+name='Company name.'
+type='article' /> */}
       <Modal
         open={loginModal}
         className="modal_login_main"
