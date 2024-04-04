@@ -45,6 +45,7 @@ const Home = (props) => {
             }
         }
         getData();
+        console.log('Welcome to aventuras')
         window.scrollTo(0, 0);
     }, [])
 
