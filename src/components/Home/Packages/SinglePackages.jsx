@@ -634,6 +634,7 @@ const SinglePackages = () => {
 
   const Overview = () => {
     const [isReadMore, setIsReadMore] = useState(true);
+    // const [isReadMore, setIsReadMore] = useState(true);
     const toggleReadMore = () => {
       setIsReadMore(!isReadMore);
     };
