@@ -22,6 +22,7 @@ import { Button, Modal } from "antd";
 import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
 import Login from '../../Auth/Login'
+
 import {Helmet} from 'react-helmet'
 import { useLocation } from "react-router-dom";
 const { Panel } = Collapse;
@@ -989,6 +990,7 @@ const SinglePackages = () => {
     <>
         <Helmet defer={false}>
       <title>Hey user</title>
+
       <meta name="description" content="Description of your website" />
       {/* Open Graph meta tags for WhatsApp and Instagram */}
       <meta property="og:type" content="website" />
@@ -1002,6 +1004,7 @@ const SinglePackages = () => {
       <meta name="twitter:description" content="Description of your website" />
       <meta name="twitter:image" content="URL of the image you want to display" />
     </Helmet>
+
       <Modal
         open={loginModal}
         className="modal_login_main"
