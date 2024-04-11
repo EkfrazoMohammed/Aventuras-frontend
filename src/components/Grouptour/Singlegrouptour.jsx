@@ -9,7 +9,6 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./singlegroup.scss";
 import { API, baseURL } from "../../api/apirequest";
-import { Helmet } from "react-helmet";
 
 import {
   Tabs,
@@ -1580,13 +1579,8 @@ const Singlegrouptour = () => {
 
   return (
     <>
-<Helmet>
-        <meta property="og:title" content="Your Open Graph Title" />
-        <meta property="og:description" content="Your Open Graph Description" />
-        <meta property="og:image" content="https://admin.aventuras.co.in/uploads/multi_group_d73035ea26.jpeg" />
-        <meta property="og:url" content="https://www.aventuras.co.in/group-tour" />
-      </Helmet>
-      
+
+
       <div className="group-pages-container" key={value.id}>
         {loading ? (
           <>
