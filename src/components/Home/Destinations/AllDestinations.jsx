@@ -7,6 +7,7 @@ import {API,baseURL} from '../../../api/apirequest';
 const AllDestinations = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    // Fetch data from api
     useEffect(() => {
         const getData = async () => {
             try {
