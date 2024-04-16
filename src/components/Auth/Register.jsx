@@ -9,20 +9,17 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-
 import { message } from "antd";
 import { notification, Modal } from "antd";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { storeUser } from "./helper";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -30,7 +27,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { API } from "../../api/apirequest";
-
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import FilledInput from "@mui/material/FilledInput";
@@ -42,12 +38,10 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormLabel from "@mui/material/FormLabel";
-
 import { MuiOtpInput } from "mui-one-time-password-input";
 function Copyright(props) {
   return (
@@ -62,12 +56,7 @@ function Copyright(props) {
   );
 }
 const theme = createTheme();
-
-
-
-
 function Register({LoginEmail}) {
-
 useEffect(()=>{
   if(LoginEmail)
   setUser((prev)=>({
@@ -80,12 +69,9 @@ useEffect(()=>{
   
   const navigate = useNavigate();
   const [a, setA] = useState(false);
-
   const [b, setB] = useState(true);
-
   const [c, setC] = useState(false);
   const [m, setM] = useState(false);
-
   const initialUser = {
     email: "",
     password: "",
@@ -94,7 +80,6 @@ useEffect(()=>{
     otp: "",
   };
   const [user, setUser] = useState(initialUser);
-
   const [errors, setErrors] = useState({
     email: "",
     mobile_number: "",
@@ -102,26 +87,19 @@ useEffect(()=>{
   });
   // show input signup
   const [showOTPDialog, setShowOTPDialog] = useState(false);
-
   //  for google signup
   const [showMobileNumberDialog, setShowMobileNumberDialog] = useState(false);
   const [showMobileNumberDialog2, setShowMobileNumberDialog2] = useState(false);
-
   const [generatedOTP, setGeneratedOTP] = useState("");
-
   const generateOTP = () => {
     const min = 100000; // Minimum 6-digit OTP
     const max = 999999; // Maximum 6-digit OTP
     const generated = Math.floor(Math.random() * (max - min + 1)) + min;
     return generated.toString();
   };
-
   const [submitted, setSubmitted] = useState(false);
-
   const [showPassword, setShowPassword] = React.useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -131,11 +109,9 @@ useEffect(()=>{
     // // console.log(err);
     console.log("Login with Google failed");
   };
-
   const handleLogout = () => {
     googleLogout();
   };
-
   const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
@@ -146,7 +122,6 @@ useEffect(()=>{
   });
   const handleUserChange = (e) => {
     const { name, value } = e.target;
-
     // Validate email
     if (name === "email") {
       if (value.length === 0) {
@@ -163,7 +138,6 @@ useEffect(()=>{
           ...prevErrors,
           email: "Invalid email address",
         }));
-
         setValiDate((prevValidate) => ({
           ...prevValidate,
           isEmailValid: false,
@@ -181,7 +155,6 @@ useEffect(()=>{
         // }
       }
     }
-
     // Validate mobile number
     if (name === "mobile_number") {
       if (value.length === 0) {
@@ -218,12 +191,10 @@ useEffect(()=>{
     // Later in your code where you need to determine C value
     const isEmailValid = errors.email === "";
     const isMobileValid = errors.mobile_number === "";
-
     // setC(isEmailValid && isMobileValid);
     // Update the data state
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
-
   useEffect(() => {
     if (validate.isEmailValid && validate.isMobileValid) {
       setC(false);
@@ -231,12 +202,9 @@ useEffect(()=>{
       setC(true);
     }
   }, [handleUserChange]);
-
   const handleGoogleLoginSuccess = async (response) => {
     const userObject = jwt_decode(response.credential);
-
     console.log(userObject);
-
     if (userObject !== null) {
       try {
         const data543 = await axios.get(
@@ -244,7 +212,6 @@ useEffect(()=>{
         );
         console.log(data543)
         const myusers = data543.data.map((user) => user.email);
-
         if (myusers.includes(userObject.email)) {
           if (userObject.email) {
             const filteredData = oldusersemail.filter((item) => {
@@ -284,15 +251,12 @@ useEffect(()=>{
               }, 1000);
             }
           }
-
      
-
         }
          else {
           const randomTwoDigitNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 2-digit number
           let genearatedUsername =
             userObject.name.replace(/\s/g, "") + randomTwoDigitNumber;
-
           let payloadob = {
             email: userObject.email,
             username: genearatedUsername,
@@ -306,7 +270,6 @@ useEffect(()=>{
           } catch (err) {
             console.log(err);
             let errorMessage = err.response.data.error.message;
-
             if (errorMessage === "Email or Username are already taken") {
               notification.error({
                 message: "Email is already taken",
@@ -335,9 +298,12 @@ useEffect(()=>{
     }
   };
 
+
+
+
+
   const verifyUserGoogleSMSOTP = async (e) => {
     e.preventDefault();
-
     // Check if the entered OTP is not equal to the generated OTP
     if (user.otp !== generatedOTP) {
       // alert("Invalid OTP");
@@ -350,7 +316,6 @@ useEffect(()=>{
         const randomTwoDigitNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 2-digit number
         let genearatedNewUsername =
           user.username.replace(/\s/g, "") + randomTwoDigitNumber;
-
         let payloadob = {
           email: user.email,
           password: user.password,
@@ -362,7 +327,6 @@ useEffect(()=>{
           "https://admin.aventuras.co.in/api/auth/local/register",
           payloadob
         );
-
         console.log(payloadob);
         console.log(user);
         console.log(res);
@@ -393,6 +357,7 @@ useEffect(()=>{
         // Call the function to retrieve coupons
         // getCoupons();
 
+
         setShowMobileNumberDialog(false);
 
         if (res.status === 200) {
@@ -400,24 +365,18 @@ useEffect(()=>{
             const updateUserInCoupon = async (couponId, userData) => {
               try {
                 const couponUrl = `https://admin.aventuras.co.in/api/general-coupon-codes/${couponId}`;
-
                 console.log(couponUrl);
-
                 const couponResponse = await axios.get(
                   `${couponUrl}?populate=*`
                 );
-
                 const couponData = couponResponse.data;
                 console.log(couponData);
-
                 if (!couponData || !couponData.attributes) {
                   console.error("Coupon not found or has an invalid structure");
                 }
-
                 // Retrieve existing users from coupon data
                 const existingUsers = couponData.attributes.users.data || [];
                 console.log(existingUsers);
-
                 // Add the user data to the existing users array
                 existingUsers.push({
                   id: userData.id,
@@ -434,20 +393,15 @@ useEffect(()=>{
                     secretkey: userData.secretkey,
                   },
                 });
-
                 console.log("before", couponData.attributes.users.data);
-
                 // Update the coupon data with the new users array
                 couponData.attributes.users.data = existingUsers;
-
                 console.log("after", couponData.attributes.users.data);
-
                 // Perform a PUT or PATCH request to update the coupon data
                 const updatedCouponResponse = await axios.post(
                   couponUrl,
                   couponData
                 );
-
                 console.log(
                   "Coupon updated with user data:",
                   updatedCouponResponse
@@ -456,9 +410,7 @@ useEffect(()=>{
                 console.error("Error updating coupon with user data:", error);
               }
             };
-
             // Usage example:
-
             // const userData = {
             //   id: 223,
             //   username: "ashik6962@gmail.com",
@@ -472,24 +424,19 @@ useEffect(()=>{
             //   active: null,
             //   secretkey: "ashik6962@gmail.com",
             // };
-
             // // Specify the coupon ID to update and the user data
             // updateUserInCoupon(1, userData); // Replace 1 with the actual coupon ID
-
             if (user.email) {
               let payloadOb = {
                 identifier: user.email,
                 password: user.password,
               };
-
               const { data } = await axios.post(
                 "https://admin.aventuras.co.in/api/auth/local/",
                 payloadOb
               );
-
               if (data.jwt) {
                 storeUser(data);
-
                 if (path) {
                   navigate(path);
                 } else {
@@ -513,7 +460,6 @@ useEffect(()=>{
                   "https://aventuras.co.in/api/v1/users/sendCredentialsMail",
                   mailData
                 );
-
                 console.log(sendingMail);
                 setTimeout(() => {
                   window.location.reload();
@@ -527,7 +473,6 @@ useEffect(()=>{
       } catch (err) {
         console.log(err);
         let errorMessage = err.response.data.error.message;
-
         if (errorMessage === "Email or Username are already taken") {
           notification.error({
             message: "Email is already taken",
@@ -554,10 +499,74 @@ useEffect(()=>{
       }
     }
   };
+  const [regsiterCoupon ,setregsiterCoupon] =useState();
+
+  const getCoupons = async () => {
+
+    try {
+      const today = new Date().toISOString().split("T")[0];
+
+      const couponsResponse = await axios.get(
+        "https://admin.aventuras.co.in/api/general-coupon-codes?populate=*"
+      );
+
+      // Assuming the coupons are available in couponsResponse.data.data
+      const coupons = couponsResponse.data.data.filter((c)=> c?.attributes?.max_user > 0 && c?.attributes?.validity >= today);
+    console.log(coupons)
+      return coupons
+      // Now you can work with the coupons data
+      // return console.log("Available coupons:", coupons);
+
+      // Example: Extracting coupon IDs
+      // const couponIds = coupons.map((coupon) => coupon.id);
+      // console.log("Coupon IDs:", couponIds);
+
+      // Perform any further actions needed with the coupons
+      // ...
+    } catch (error) {
+      console.error("Error fetching coupons:", error);
+    }
+  };
+
+  useEffect(()=>{
+    getCoupons().then((res)=>{
+
+        setregsiterCoupon(res)        
+    }
+  )
+    .catch((err)=>console.log(err))
+  },[])
+
+  const update =  () => { 
+    if(regsiterCoupon.length === 0 ){
+     return 
+    }
+    else {
+      let userValue = Number(regsiterCoupon?.map((val)=>val?.attributes.max_user)) - 1
+      let userid = Number(regsiterCoupon?.map((val)=>val?.id))
+      let payload = {
+        "data":{
+          "max_user": userValue 
+        }
+
+      };
+   axios.put(`https://admin.aventuras.co.in/api/general-coupon-codes/${userid}`,payload)
+   .then((res)=>{
+    console.log("Coupon Added")
+    })
+   .catch((err)=>{
+    console.log(err)
+    });
+    }
+
+
+
+
+  }
+
 
   const verifyUserOTP = async (e) => {
     e.preventDefault();
-
     // Check if the entered OTP is not equal to the generated OTP
     if (user.otp !== generatedOTP) {
       // alert("Invalid OTP");
@@ -567,18 +576,22 @@ useEffect(()=>{
       });
     } else {
       try {
+
+
+
+
         let payloadob = {
           email: user.email,
           password: user.password,
           secretkey: user.password,
           username: user.username,
           mobile_number: user.mobile_number,
+          general_coupon_code:regsiterCoupon
         };
         const res = await axios.post(
           "https://admin.aventuras.co.in/api/auth/local/register",
           payloadob
         );
-
         setShowMobileNumberDialog(false);
         if (res.status === 200) {
       
@@ -588,7 +601,6 @@ useEffect(()=>{
                 identifier: user.email,
                 password: user.password,
               };
-
               const { data } = await axios.post(
                 "https://admin.aventuras.co.in/api/auth/local/",
                 payloadOb
@@ -611,6 +623,8 @@ useEffect(()=>{
                   placement: "top",
                 });
 
+               update()
+
                 if (path) {
                   navigate(path);
                   // alert("navigated")
@@ -618,10 +632,8 @@ useEffect(()=>{
                 else {
                   }
  setTimeout(()=>{
-
    window.location.reload()
  },1000)
-
                 let mailData = {
                   name: user.email,
                   email: user.email,
@@ -634,7 +646,6 @@ useEffect(()=>{
                   "https://aventuras.co.in/api/v1/users/sendCredentialsMail",
                   mailData
                 );
-
                 // console.log(sendingMail);
                 setTimeout(() => {
                   window.location.reload();
@@ -648,7 +659,6 @@ useEffect(()=>{
       } catch (err) {
         console.log(err);
         let errorMessage = err.response.data.error.message;
-
         if (errorMessage === "Email or Username are already taken") {
           notification.error({
             message: "Email is already taken",
@@ -675,7 +685,6 @@ useEffect(()=>{
       }
     }
   };
-
   const [otp, setotp] = useState();
   const handleUserChanged = (event) => {
     setotp(event);
@@ -684,7 +693,6 @@ useEffect(()=>{
       otp: event,
     }));
   };
-
   // const handleA = (event) => {
   //   setA(false);
   //   if (event.target.value === "email") {
@@ -693,7 +701,6 @@ useEffect(()=>{
   //     // setM(false);
   //     // You can perform any other actions you need when 'Email' is selected
   //   }
-
   //   if (event.target.value === "mobile") {
   //     // alert(event.target.value+'option selected');
   //     // setM(true);
@@ -701,7 +708,6 @@ useEffect(()=>{
   //   }
   //   // Add other conditions or actions based on selected value if needed
   // };
-
   const [oldusersemail, setOldusersemail] = useState([]);
   const [oldusersmobile, setOldusersmobile] = useState([]);
   const [userData,setuserData] =useState([])
@@ -711,7 +717,6 @@ useEffect(()=>{
       const AllEmaildata = await axios.get(
         "https://admin.aventuras.co.in/api/users?fields=email"
       );
-
       const AllMobiledata = await axios.get(
         "https://admin.aventuras.co.in/api/users?fields=mobile_number"
       );
@@ -720,7 +725,6 @@ useEffect(()=>{
       );
       setuserData(Alldata);
       const myusersemail123 = AllEmaildata.data.map((user) => user.email);
-
       const myusersmobile123 = AllMobiledata.data.map(
         (user) => user.mobile_number
       );
@@ -729,12 +733,10 @@ useEffect(()=>{
     };
     fetchUsers();
   }, []);
-
   const signUpWithEmail = async () => {
     try {
       if (!user.email) {
         // Check if the field being changed is the email field
-
         setErrors((prevErrors) => ({
           ...prevErrors,
           email: "Email is required.",
@@ -753,7 +755,6 @@ useEffect(()=>{
           mobile_number: "Invalid Mobile Number.",
         }));
       }
-
       if (oldusersemail.includes(user.email)) {
         notification.error({
           message: "Email already exist",
@@ -771,7 +772,6 @@ useEffect(()=>{
           setA(true);
           const randomTwoDigitNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 2-digit number
           let genearatedUsername = user.email + randomTwoDigitNumber; // Concatenate it with the email
-
           // let payloadob = {
           //   email: user.email,
           //   username: genearatedUsername,
@@ -783,7 +783,6 @@ useEffect(()=>{
             password: genearatedUsername,
           };
           setUser(payloadob);
-
           setShowOTPDialog(true);
           let newOtp = generateOTP();
           setGeneratedOTP(newOtp);
@@ -795,7 +794,6 @@ useEffect(()=>{
             mode: "SIGNUP",
             otp: `${newOtp}`,
           };
-
           let sendingMail = await axios.post(
             "https://aventuras.co.in/api/v1/users/sendOTPMail",
             mailData
@@ -806,17 +804,14 @@ useEffect(()=>{
       if (error.response && error.response.data && error.response.data.error) {
         const errorMessage = error.response.data.error.message;
         const validationErrors = error.response.data.error.details.errors;
-
         // Handle case where email or username is already taken
         if (errorMessage === "Email or Username are already taken") {
           handleRegistrationError("Email or Username are already taken");
           return;
         }
-
         // Handle other validation errors
         const newErrors = constructNewErrors(validationErrors);
         setErrors(newErrors);
-
         // Handle specific error conditions
         const usernameError = validationErrors.find(
           (errorItem) => errorItem.path[0] === "username"
@@ -824,7 +819,6 @@ useEffect(()=>{
         const passwordError = validationErrors.find(
           (errorItem) => errorItem.path[0] === "password"
         );
-
         if (
           usernameError &&
           usernameError.message.includes("at least 3 characters")
@@ -832,7 +826,6 @@ useEffect(()=>{
           // Handle username too short error
           handleUsernameTooShortError(usernameError.message);
         }
-
         if (
           passwordError &&
           passwordError.message.includes("at least 6 characters")
@@ -840,21 +833,17 @@ useEffect(()=>{
           // Handle password too short error
           handlePasswordTooShortError(passwordError.message);
         }
-
         handleRegistrationError(errorMessage);
       }
     }
-
     // Function to handle username too short error
     function handleUsernameTooShortError(errorMessage) {
       // Update your state or perform other actions to handle this error
     }
-
     // Function to handle password too short error
     function handlePasswordTooShortError(errorMessage) {
       // Update your state or perform other actions to handle this error
     }
-
     // Function to display error notification
     function handleRegistrationError(errorMessage) {
       notification.error({
@@ -864,33 +853,26 @@ useEffect(()=>{
         placement: "top",
       });
     }
-
     // Function to construct error object for input fields
     function constructNewErrors(validationErrors) {
       const newErrors = {};
-
       validationErrors.forEach((errorItem) => {
         const field = errorItem.path[0];
         newErrors[field] = errorItem.message;
       });
-
       return newErrors;
     }
   };
-
   const [myOTP, setMyOTP] = useState("");
-
   const signUpWithSMS = async () => {
     try {
       if (!user.email) {
         // Check if the field being changed is the email field
-
         setErrors((prevErrors) => ({
           ...prevErrors,
           email: "Email is required.",
         }));
       }
-
       if (!user.mobile_number) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -898,7 +880,6 @@ useEffect(()=>{
         }));
         return null;
       }
-
       const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
       // Check if the email field is not in the correct format
       if (user.email && !emailPattern.test(user.email)) {
@@ -912,7 +893,6 @@ useEffect(()=>{
           email: "Invalid email address.",
         }));
       }
-
       if (oldusersemail.includes(user.email)) {
         notification.error({
           message: "Email already exist",
@@ -930,10 +910,8 @@ useEffect(()=>{
           setA(true);
           setC(false);
           setM(false);
-
           const randomTwoDigitNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 2-digit number
           let genearatedUsername = user.email + randomTwoDigitNumber; // Concatenate it with the email
-
           let payloadob = {
             email: user.email,
             username: genearatedUsername,
@@ -941,7 +919,6 @@ useEffect(()=>{
             mobile_number: user.mobile_number,
           };
           setUser(payloadob);
-
           setShowOTPDialog(true);
           let newOtp = generateOTP();
           setGeneratedOTP(newOtp);
@@ -950,7 +927,6 @@ useEffect(()=>{
             otp: newOtp,
             numbers: user.mobile_number,
           };
-
           let sendingSMS = await axios.post(
             "https://aventuras.co.in/api/v1/users/sendSMSOTP",
             SMSPayload
@@ -961,17 +937,14 @@ useEffect(()=>{
       if (error.response && error.response.data && error.response.data.error) {
         const errorMessage = error.response.data.error.message;
         const validationErrors = error.response.data.error.details.errors;
-
         // Handle case where email or username is already taken
         if (errorMessage === "Email or Username are already taken") {
           handleRegistrationError("Email or Username are already taken");
           return;
         }
-
         // Handle other validation errors
         const newErrors = constructNewErrors(validationErrors);
         setErrors(newErrors);
-
         // Handle specific error conditions
         const usernameError = validationErrors.find(
           (errorItem) => errorItem.path[0] === "username"
@@ -979,7 +952,6 @@ useEffect(()=>{
         const passwordError = validationErrors.find(
           (errorItem) => errorItem.path[0] === "password"
         );
-
         if (
           usernameError &&
           usernameError.message.includes("at least 3 characters")
@@ -987,7 +959,6 @@ useEffect(()=>{
           // Handle username too short error
           handleUsernameTooShortError(usernameError.message);
         }
-
         if (
           passwordError &&
           passwordError.message.includes("at least 6 characters")
@@ -995,21 +966,17 @@ useEffect(()=>{
           // Handle password too short error
           handlePasswordTooShortError(passwordError.message);
         }
-
         handleRegistrationError(errorMessage);
       }
     }
-
     // Function to handle username too short error
     function handleUsernameTooShortError(errorMessage) {
       // Update your state or perform other actions to handle this error
     }
-
     // Function to handle password too short error
     function handlePasswordTooShortError(errorMessage) {
       // Update your state or perform other actions to handle this error
     }
-
     // Function to display error notification
     function handleRegistrationError(errorMessage) {
       notification.error({
@@ -1019,27 +986,20 @@ useEffect(()=>{
         placement: "top",
       });
     }
-
     // Function to construct error object for input fields
     function constructNewErrors(validationErrors) {
       const newErrors = {};
-
       validationErrors.forEach((errorItem) => {
         const field = errorItem.path[0];
         newErrors[field] = errorItem.message;
       });
-
       return newErrors;
     }
   };
-
   const toggleFunction = () => {
     setC(true);
-    alert("alerted");
   };
-
   return (
-
      <Grid
       container
       sx={{
@@ -1055,7 +1015,6 @@ useEffect(()=>{
       className="myloginbox"
     >
       <CssBaseline />
-
       {/* <Grid
         item
         xs={false}
@@ -1065,14 +1024,12 @@ useEffect(()=>{
           backgroundImage:
             "url(https://img.freepik.com/premium-photo/hot-air-balloons-up-blue-sky-style-romantic-atmosphere-matte-photo-colorful-moebius_334364-5646.jpg)",
           backgroundRepeat: "no-repeat",
-
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
         classname="myregister_image"
         style={{ minHeight: "630px", height: "100%", maxWidth: "50%" }}
       /> */}
-
       {/* <Grid
         item
         xs={12}
@@ -1099,7 +1056,6 @@ useEffect(()=>{
           </Typography> */}
           <Box sx={{ mt: 1 }}>
             {/* <div style={{display:"flex",justifyContent:"center",alignItems:"center",margin:"1rem",flexDirection:"column"}}> */}
-
             {/* <div
               style={{
                 display: "flex",
@@ -1131,7 +1087,6 @@ useEffect(()=>{
                   helperText={errors.mobile_number}
                   autoComplete="off"
                 />
-
                 {!a ? (
                   <Button
                     className="button_register"
@@ -1141,6 +1096,7 @@ useEffect(()=>{
                     sx={{ mt: 1, mb: 2 }}
                     onClick={(e) => {
                       signUpWithSMS();
+
                     }}
                     // disabled={loading}
                   >
@@ -1202,7 +1158,6 @@ useEffect(()=>{
                     helperText={errors.email}
                     autoComplete="off"
                   />
-
                   <TextField
                     autoComplete="off"
                     type="number"
@@ -1217,7 +1172,6 @@ useEffect(()=>{
                     helperText={errors.mobile_number}
                     autoComplete="off"
                   />
-
                   {!a ? (
                     <Button
                       className="button_register"
@@ -1233,7 +1187,6 @@ useEffect(()=>{
                       Send SMS Otp
                     </Button>
                   ) : null}
-
                   {a ? (
                     <>
                       <div className="otp-container">
@@ -1263,14 +1216,12 @@ useEffect(()=>{
                 </div>
               </>
             )}
-
             <Grid container>
               <Grid
                 item
                 style={{
                   display: "flex",
                   alignItems: "center",
-
                   justifyContent: "center",
                   flexDirection: "column",
                   gap: "10px",
@@ -1292,10 +1243,6 @@ useEffect(()=>{
         </Box>
       {/* </Grid> */}
     </Grid>
-
-
-
   );
 }
-
 export default Register;

@@ -9,7 +9,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import { API } from "../../api/apirequest";
-
 const Step1Content = ({
   data,
   setData,
@@ -21,32 +20,26 @@ const Step1Content = ({
   setmodalopen,
   modal2open,
 }) => {
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     let updatedValue = value;
     if (name === "amount") {
       updatedValue = parseInt(value);
     }
-
     setData((prevData) => {
       const updatedData = {
         ...prevData,
         [name]: updatedValue,
         total_amount: name === "amount" ? updatedValue : prevData.total_amount,
       };
-
       return updatedData;
     });
   };
-
   useEffect(() => {
     const userDataStrings = localStorage.getItem("user");
-
     const userDatas = JSON.parse(userDataStrings);
     if (userDatas && userDatas.jwt) {
       settogglepaynow(true);
@@ -54,7 +47,6 @@ const Step1Content = ({
     }
   }, []);
   console.log(data)
-
   return (
     <>
       {!togglepaynow ? <div className="">Login Required</div> : null}
@@ -93,7 +85,6 @@ const Step1Content = ({
           >
             User Email{" "}
           </label>
-
           <span
             style={{ display: "flex", flexDirection: "column", gap: "5px" }}
           >
@@ -114,7 +105,6 @@ const Step1Content = ({
             )}
           </span>
         </div>
-
         <div className="inputField">
           <label
             htmlFor="customer_mobile_number"
@@ -122,7 +112,6 @@ const Step1Content = ({
           >
             Mobile Number
           </label>
-
           <span
             style={{ display: "flex", flexDirection: "column", gap: "5px" }}
           >
@@ -190,27 +179,22 @@ const Step2Content = ({
   }, []);
   const [isUPIChecked, setUPIIsChecked] = useState(false);
   const [isCARDChecked, setCARDIsChecked] = useState(false);
-
   // Store the original amount from the data object
   const originalAmount = parseInt(data.amount);
   const netAmountUPI = parseInt(data.amount);
-
   // Store convenience fees and net amount for UPI and CARD
   const [convenienceFeesUPI] = useState(0); // Assuming convenience fees are 0 for UPI
   const [convenienceGSTFeesUPI] = useState(convenienceFeesUPI * (18 / 100));
-
   const [convenienceFeesCARD] = useState((originalAmount * 2) / 100);
   const [convenienceGSTFeesCARD] = useState(convenienceFeesCARD * (18 / 100));
   const [netAmountCARD] = useState(
     originalAmount + convenienceFeesCARD + convenienceGSTFeesCARD
   );
-
   const handleRadioChange = (selectedMethod) => {
     if (selectedMethod === "CREDIT CARD" && method !== "CREDIT CARD") {
       setMethod("CREDIT CARD");
       setUPIIsChecked(false);
       setCARDIsChecked(true);
-
       setData((prevData) => ({
         ...prevData,
         PaymentMode: "CREDIT CARD",
@@ -223,7 +207,6 @@ const Step2Content = ({
       setMethod("UPI");
       setUPIIsChecked(true);
       setCARDIsChecked(false);
-
       setData((prevData) => ({
         ...prevData,
         PaymentMode: "UPI",
@@ -234,7 +217,6 @@ const Step2Content = ({
       }));
     }
   };
-
   return (
     <div>
       <div
@@ -280,7 +262,6 @@ const Step2Content = ({
               />
               <div className="text_value">UPI</div>
             </div>
-
             <div
               style={{
                 height: "50%",
@@ -329,10 +310,8 @@ const Step2Content = ({
                 src="https://admin.aventuras.co.in/uploads/cred_card_bf94e09425.png"
                 alt="credit-card"
               />
-
               <div className="text_value">Card</div>
             </div>
-
             <div
               style={{
                 height: "50%",
@@ -357,7 +336,6 @@ const Step2Content = ({
             <div className="myredcolor">
               Proceed with payment by clicking checkbox below.
             </div>
-
             <div
               className=""
               style={{
@@ -379,7 +357,6 @@ const Step2Content = ({
                 checked={isCheckboxChecked}
                 onChange={handleCheckboxChange}
               />
-
               <span style={{ fontWeight: "600" }}>
                 Accept Terms and Condition
               </span>
@@ -411,7 +388,6 @@ const Step2Content = ({
                 checked={isCheckboxChecked}
                 onChange={handleCheckboxChange}
               />
-
               <span style={{ fontWeight: "600" }}>
                 Accept Terms and Condition
               </span>
@@ -427,14 +403,11 @@ const Step3Content = ({ data, coupons, setData }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   const [initialAmount, setInitialAmount] = useState(data.total_amount);
   useEffect(() => {
     setInitialAmount(data.total_amount);
   }, []);
-
   const [showDiscount, setShowDiscount] = useState(false);
-
   const handleCouponChange = (value) => {
     if (value === "cancel") {
       setShowDiscount(false);
@@ -446,11 +419,9 @@ const Step3Content = ({ data, coupons, setData }) => {
       }));
       return;
     }
-
     const selectedCoupon = coupons.find(
       (coupon) => coupon.attributes.code === value
     );
-
     if (!selectedCoupon) {
       return;
     }
@@ -459,20 +430,16 @@ const Step3Content = ({ data, coupons, setData }) => {
     const percentageDiscount = parseFloat(
       selectedCoupon.attributes.discount_percentage
     );
-
     let discountedAmount = null;
-
     if (flatDiscount > 0) {
       discountedAmount = flatDiscount.toFixed(2);
     } else if (percentageDiscount > 0) {
       const percentageAmount = (percentageDiscount / 100) * initialAmount;
       discountedAmount = percentageAmount.toFixed(2);
     }
-
     if (discountedAmount !== null) {
       const newAmount = initialAmount - parseFloat(discountedAmount);
       const roundedAmount = Math.max(newAmount, 0).toFixed(2);
-
       setData((prevData) => ({
         ...prevData,
         discounted_amount: parseFloat(discountedAmount).toFixed(2),
@@ -490,7 +457,6 @@ const Step3Content = ({ data, coupons, setData }) => {
       }));
     }
   };
-
   return (
     <div>
       <Row
@@ -513,7 +479,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                 className=""
                 style={{ textAlign: "center", fontWeight: "bold" }}
               ></div>
-
               <table style={{ width: "100%", textAlign: "center", borderRadius: "20px", }}>
                 <tbody border="2" style={{ display: "flex", flexDirection: "column", gap: "25px" }}  >
                   <tr style={{ borderBottom: "0.5px solid grey", display: "flex", gap: "25px", }}  >
@@ -534,7 +499,6 @@ const Step3Content = ({ data, coupons, setData }) => {
               </table>
             </div>
           </Card>
-
           {coupons.length > 0 ? (
             <>
               <div className="coupons-text">Apply Coupons :</div>
@@ -635,7 +599,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                       <td className="mylasttd">Booking Amount :</td>
                       <td style={{ width: "100%" }}>{data.amount}</td>
                     </tr>
-
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -646,7 +609,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                       <td className="mylasttd">PG Charges on UPI (0%):</td>
                       <td style={{ width: "100%" }}>{data.convenience}</td>
                     </tr>
-
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -682,7 +644,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                         ) : null}
                       </>
                     ) : null}
-
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -725,7 +686,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                       <td className="mylasttd">Booking Amount :</td>
                       <td className="mylasttd">{data.amount}</td>
                     </tr>
-
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -738,7 +698,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                       </td>
                       <td className="mylasttd">{data.convenience}</td>
                     </tr>
-
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -749,7 +708,6 @@ const Step3Content = ({ data, coupons, setData }) => {
                       <td className="mylasttd"> GST on PG Charges (18%):</td>
                       <td className="mylasttd">{data.convenienceGST}</td>
                     </tr>
-
                     {data.total_amount >= data.discounted_amount ? (
                       <>
                         {showDiscount ? (
@@ -810,17 +768,14 @@ const Style = {
   StepWrapper: { display: "flex", justifyContent: "center", width: "100%", },
   StepContainer: { width: "100%" },
 };
-
 const Pay2 = () => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const handleCheckboxChange = () => {
     setIsCheckboxChecked((prevCheckboxState) => !prevCheckboxState);
   };
-
   const [open, setOpen] = useState(false);
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
-
   const [data, setData] = useState({
     customer_name: "",
     customer_email: "",
@@ -835,22 +790,38 @@ const Pay2 = () => {
     coupon_selected: null,
     total_amount: null,
   });
-
   const [allData, setallData] = useState();
   const [method, setMethod] = useState("UPI");
-
   const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(false);
-
   const userDataString = localStorage.getItem("user");
   const userData = JSON.parse(userDataString);
-
   const [mycoupons, setMyCoupons] = useState([]);
 
   const getCouponsForUser = async () => {
+
     try {
       if (userData && userData.isLoggedin === true) {
         const today = new Date().toISOString().split("T")[0];
+        const general_coupons  = await API.get
+        (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
+        let general_coupons_code = []
+        if(general_coupons.data.data && general_coupons.data.data.length > 0){
+          console.log(general_coupons.data.data)
+          general_coupons_code =  general_coupons.data.data.filter(
+            (coupon) => {
+console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length)
+
+ if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
+             return true
+           }
+           else {
+            return false
+           }
+            }
+          )
+        }
+
         const coupons = await API.get(
           `/api/coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`
         );
@@ -858,9 +829,12 @@ const Pay2 = () => {
         if (coupons.data.data && coupons.data.data.length > 0) {
           let userCoupons = [];
           userCoupons = coupons.data.data.filter(
-            (coupon) =>
-              coupon?.attributes?.validity >= today &&
-              coupon?.attributes?.user?.data?.attributes?.username === userData?.username
+            (coupon) => {
+              return (
+                coupon?.attributes?.validity >= today &&
+                coupon?.attributes?.user?.data?.attributes?.username === userData?.username
+              )
+            }
           );
           if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
             userCoupons.push({
@@ -880,16 +854,36 @@ const Pay2 = () => {
           }
 
           setMyCoupons(userCoupons);
+
+
+
+          // if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
+          //   userCoupons.push({
+          //     "id": 30,
+          //     "attributes": {
+          //       "code": userData.info.user.coupon_name,
+          //       "flat_amount": userData.info.user.coupon_amount,
+          //       "validity": "2024-02-10",
+          //       "createdAt": "2024-01-04T05:42:19.459Z",
+          //       "updatedAt": "2024-01-08T07:21:14.020Z",
+          //       "publishedAt": "2024-01-04T05:42:20.480Z",
+          //       "coupon_used": false,
+          //       "coupon_type": "FLAT_DISCOUNT",
+          //       "discount_percentage": "0"
+          //     }
+          //   });
+          // }
+
+       let allCoupon = [...general_coupons_code , ...userCoupons];
+       console.log(allCoupon)
+       setMyCoupons(allCoupon)
           setData((prevData) => ({
             ...prevData,
             coupons: userCoupons, // Set user-specific coupons in data state
           }));
-
           return userCoupons; // Return coupons specific to the user
         } else {
-
         }
-
       } else {
         return [];
       }
@@ -901,7 +895,6 @@ const Pay2 = () => {
   useEffect(() => {
     if (userData && userData.isLoggedin === true) {
       setLogin(true);
-
       const userCoupons = getCouponsForUser();
       const getDataLogin = async () => {
         try {
@@ -954,33 +947,27 @@ const Pay2 = () => {
     }
     window.scrollTo(0, 0);
   }, []);
-
-
   const [errors, setErrors] = useState({
     customer_name: "",
     customer_email: "",
     customer_mobile_number: "",
     amount: "",
   });
-
   const validateInput = () => {
     const newErrors = {};
     let isValid = true;
-
     if (data.customer_name.trim() === "") {
       newErrors.customer_name = "Customer name is required.";
       isValid = false;
     } else {
       newErrors.customer_name = "";
     }
-
     if (!/^\S+@\S+\.\S+$/.test(data.customer_email)) {
       newErrors.customer_email = "Enter a valid email address.";
       isValid = false;
     } else {
       newErrors.customer_email = "";
     }
-
     if (!/^\d{10}$/.test(data.customer_mobile_number)) {
       newErrors.customer_mobile_number =
         "Enter a valid 10-digit mobile number.";
@@ -988,7 +975,6 @@ const Pay2 = () => {
     } else {
       newErrors.customer_mobile_number = "";
     }
-
     if (!/^\d+(\.\d{2})?$/.test(data.amount)) {
       newErrors.amount = "Enter Amount atleast 1 INR.";
       isValid = false;
@@ -998,7 +984,6 @@ const Pay2 = () => {
     } else {
       newErrors.amount = "";
     }
-
     setErrors(newErrors);
     return isValid;
   };
@@ -1090,21 +1075,17 @@ const Pay2 = () => {
         description: "Redirecting to Login Page",
         duration: 1,
       });
-
       setTimeout(() => {
         settogglepaynow(false)
       }, 1000)
     }
   };
-
   const prev = () => {
     if (current === 1) {
       window.location.reload();
     }
-
     setCurrent(current - 1);
   };
-
   const items = steps.map((item) => ({
     key: item.title,
     title: item.title,
@@ -1115,15 +1096,11 @@ const Pay2 = () => {
     borderRadius: token.borderRadiusLG,
     marginTop: 26,
   };
-
-
   const [currentPath, setCurrentPath] = useState();
   useEffect(() => {
     setCurrentPath(window.location.pathname);
   });
-
   localStorage.setItem("pathName", currentPath);
-
   // payment without coupons
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
@@ -1146,13 +1123,11 @@ const Pay2 = () => {
           "https://aventuras.co.in/api/v1/payment/initiate_payment",
           ob
         );
-
         if (res.data.data.success === true) {
           const url = res.data.data.data.instrumentResponse.redirectInfo.url;
           const userConfirmed = window.confirm(
             "Are you sure you want to proceed with the payment?"
           );
-
           if (userConfirmed) {
             window.open(url, "_blank");
           } else {
@@ -1174,7 +1149,6 @@ const Pay2 = () => {
       });
     }
   };
-
   const handlePaymentSubmitWithCoupons = async (e) => {
     e.preventDefault();
     const userDataString = localStorage.getItem("user");
@@ -1196,17 +1170,13 @@ const Pay2 = () => {
           "https://aventuras.co.in/api/v1/payment/initiate_payment_with_coupon",
           ob
         );
-
         if (res.data.data.success === true) {
           const url = res.data.data.data.instrumentResponse.redirectInfo.url;
-
           const userConfirmed = window.confirm(
             "Are you sure you want to proceed with the payment?"
           );
-
           if (userConfirmed) {
             window.open(url, "_blank");
-
           } else {
             window.location.reload();
             notification.error({
@@ -1227,10 +1197,8 @@ const Pay2 = () => {
     }
   };
   const [toggle, setToggle] = useState(true)
-
   return (
     <>
-
       {!togglepaynow ? (
         <Modal
           style={{ textAlign: 'center' }}
@@ -1244,7 +1212,6 @@ const Pay2 = () => {
           }}
         >
           <Login toggle={toggle} setToggle={setToggle} settoggleRegister={settoggleRegister} toggleRegister={toggleRegister} />
-
         </Modal>
       ) : (
         ""
@@ -1295,7 +1262,6 @@ const Pay2 = () => {
                 Next
               </Button>
             )}
-
             {current === steps.length - 1 && (
               <>
                 {data.coupon_selected ? (
@@ -1332,7 +1298,6 @@ const Pay2 = () => {
           </div>
         </div>
       </div>
-
       <div>
         <Modal
           style={{ textAlign: "center" }}
@@ -1426,7 +1391,6 @@ const Pay2 = () => {
                     </tr>
                   </tbody>
                 </table>
-
                 <div className="" style={{ margin: "20px 0px" }}>
                   <div style={{ color: "red", fontWeight: "550" }}>
                     Payment gateway charges are non-refundable under any
@@ -1437,7 +1401,6 @@ const Pay2 = () => {
               </div>
             </>
           )}
-
           <button
             type="primary"
             style={{
@@ -1463,5 +1426,4 @@ const Pay2 = () => {
     </>
   );
 };
-
 export default Pay2;
