@@ -606,16 +606,7 @@ useEffect(()=>{
                 payloadOb
               );
               if (data.jwt) {
-                console.log(data)
-                storeUser({
-                  ...data,
-                  user: {
-                    ...data.user,
-                      coupon_name: "NEW AVENTURAS",
-                      coupon_amount: 100
-                  },
-               
-                });
+                storeUser(data);
                 notification.success({
                   message: "User Registered Successful",
                   description: "You have successfully Registered.",

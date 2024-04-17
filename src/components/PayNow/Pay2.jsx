@@ -398,16 +398,19 @@ const Step2Content = ({
     </div>
   );
 };
-const Step3Content = ({ data, coupons, setData }) => {
+const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCouponUsed }) => {
   console.log(coupons)
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const [initialAmount, setInitialAmount] = useState(data.total_amount);
   useEffect(() => {
     setInitialAmount(data.total_amount);
   }, []);
   const [showDiscount, setShowDiscount] = useState(false);
+
   const handleCouponChange = (value) => {
     if (value === "cancel") {
       setShowDiscount(false);
@@ -426,6 +429,8 @@ const Step3Content = ({ data, coupons, setData }) => {
       return;
     }
     console.log(selectedCoupon)
+    setSelectedcouponId(selectedCoupon.id)
+    settypeCouponUsed (selectedCoupon.attributes.coupon_category)
     const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
     const percentageDiscount = parseFloat(
       selectedCoupon.attributes.discount_percentage
@@ -457,6 +462,9 @@ const Step3Content = ({ data, coupons, setData }) => {
       }));
     }
   };
+
+ 
+
   return (
     <div>
       <Row
@@ -797,6 +805,8 @@ const Pay2 = () => {
   const userDataString = localStorage.getItem("user");
   const userData = JSON.parse(userDataString);
   const [mycoupons, setMyCoupons] = useState([]);
+  const [SelectedcouponId, setSelectedcouponId] = useState();
+  const [typeCouponUsed, settypeCouponUsed] = useState();
 
   const getCouponsForUser = async () => {
 
@@ -892,6 +902,56 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
       return [];
     }
   };
+
+  const CouponPut = ()=>{
+
+  const userID = localStorage.getItem('user_id')
+
+
+
+    const url = `https://admin.aventuras.co.in/api/users/${userID}?populate=*`
+
+
+     let couponStatus 
+
+const couponApi = (Param)=>{
+  const value = {
+    [Param] :couponStatus.map((item)=>({id:item.id}))
+   }
+
+  axios.put(url,value)
+  .then((res)=>{
+    console.log(res)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+}
+
+
+  console.log(SelectedcouponId);
+  console.log(typeCouponUsed)
+  console.log(mycoupons)
+      if(typeCouponUsed === 'coupon_individual'){
+     couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_individual')
+     couponApi('coupon_codes');
+      }
+     else if(typeCouponUsed === 'coupon_general'){
+        couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_general')
+        couponApi('general_coupon_code');
+      }
+      else {
+        couponStatus = []
+      }
+  
+console.log(couponStatus)    
+console.log(  couponStatus.map((item)=>({id:item.id})))  
+
+    
+
+  
+    }
+
   useEffect(() => {
     if (userData && userData.isLoggedin === true) {
       setLogin(true);
@@ -1048,6 +1108,8 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
           isCheckboxChecked={isCheckboxChecked}
           onCheckboxChange={handleCheckboxChange}
           coupons={mycoupons}
+          settypeCouponUsed={settypeCouponUsed}
+          setSelectedcouponId={setSelectedcouponId}
         />
       ),
       icon: (
@@ -1264,7 +1326,7 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
             )}
             {current === steps.length - 1 && (
               <>
-                {data.coupon_selected ? (
+                {!data.coupon_selected ? (
                   <>
                     <Button
                       className="mypayButton"
@@ -1290,6 +1352,17 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
                       onClick={handlePaymentSubmit}
                     >
                       Pay
+                    </Button>
+                    <Button
+                      className="mypayButton"
+                      style={{
+                        backgroundColor: data.coupon_selected
+                          ? "green"
+                          : "#008000",
+                      }}
+                      onClick={CouponPut}
+                    >
+                      API Trigger
                     </Button>
                   </>
                 )}

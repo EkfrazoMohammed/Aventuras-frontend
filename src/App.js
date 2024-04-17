@@ -38,7 +38,6 @@ import PayWithBookNow from "./components/PayNow/PayWithBookNow";
 import PayWithGrouptour from "./components/PayNow/PayWithGrouptour";
 import SearchDestination from "./components/Home/Destinations/SearchDestination";
 import {MenuOutlined,} from "@ant-design/icons";
-import {HelmetProvider} from "react-helmet-async";
 function App() {
   // console.clear();
 
@@ -73,7 +72,6 @@ function App() {
 
   return (
     <>
-    <HelmetProvider>
     <BrowserRouter>
         <Navbar clicked={clicked} setClicked={setClicked}  />
 
@@ -175,7 +173,6 @@ function App() {
           btnTxtColor="white"
         />
       </BrowserRouter>
-    </HelmetProvider>
  
     </>
   );

@@ -25,7 +25,6 @@ import Login from '../../Auth/Login'
 import { useLocation } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
-import MetaLinks from '../../../components/Meta/MetaLinks'
 const { Panel } = Collapse; 
 
 
@@ -989,13 +988,7 @@ const SinglePackages = () => {
 
   return (
     <>
-      <MetaLinks
-        Title={"Single Packagesss"}
-        imageURL={
-          "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-        }
-        description={"Single Packages lorem ipsum"}
-      />
+
 
       <Modal
         open={loginModal}
