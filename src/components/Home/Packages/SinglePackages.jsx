@@ -24,6 +24,7 @@ import { Collapse } from "antd";
 import Login from '../../Auth/Login'
 import { useLocation } from "react-router-dom";
 
+
 const { Panel } = Collapse; 
 
 
@@ -987,6 +988,7 @@ const SinglePackages = () => {
 
   return (
     <>
+
 
       <Modal
         open={loginModal}
