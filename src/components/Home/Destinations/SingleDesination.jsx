@@ -6,6 +6,7 @@ import "./SingleDestination.scss";
 import {API,baseURL} from '../../../api/apirequest';
 
 import { Carousel, Skeleton } from 'antd'
+import SeoMeta from '../../SeoMeta/SeoMeta';
 const SingleDestination = () => {
     let { dname } = useParams();
 
@@ -58,6 +59,13 @@ const SingleDestination = () => {
 
     return (
         <>
+                  <SeoMeta 
+    Title={value[0]?.attributes?.name}
+    imageURL={
+      `${baseURL}${bgimage[0]?.attributes?.url}`
+    }
+    description={value?.attributes?.description}
+    />
             <div className="single-destination-section">
  <div className="banner">
                 <div className="image">
