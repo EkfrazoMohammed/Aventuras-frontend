@@ -463,7 +463,7 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
     }
   };
 
- 
+
 
   return (
     <div>
@@ -813,9 +813,12 @@ const Pay2 = () => {
     try {
       if (userData && userData.isLoggedin === true) {
         const today = new Date().toISOString().split("T")[0];
+
         const general_coupons  = await API.get
         (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
+
         let general_coupons_code = []
+
         if(general_coupons.data.data && general_coupons.data.data.length > 0){
           console.log(general_coupons.data.data)
           general_coupons_code =  general_coupons.data.data.filter(
@@ -846,22 +849,22 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
               )
             }
           );
-          if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
-            userCoupons.push({
-              "id": 30,
-              "attributes": {
-                "code": userData.info.user.coupon_name,
-                "flat_amount": userData.info.user.coupon_amount,
-                "validity": "2024-02-10",
-                "createdAt": "2024-01-04T05:42:19.459Z",
-                "updatedAt": "2024-01-08T07:21:14.020Z",
-                "publishedAt": "2024-01-04T05:42:20.480Z",
-                "coupon_used": false,
-                "coupon_type": "FLAT_DISCOUNT",
-                "discount_percentage": "0"
-              }
-            });
-          }
+          // if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
+          //   userCoupons.push({
+          //     "id": 30,
+          //     "attributes": {
+          //       "code": userData.info.user.coupon_name,
+          //       "flat_amount": userData.info.user.coupon_amount,
+          //       "validity": "2024-02-10",
+          //       "createdAt": "2024-01-04T05:42:19.459Z",
+          //       "updatedAt": "2024-01-08T07:21:14.020Z",
+          //       "publishedAt": "2024-01-04T05:42:20.480Z",
+          //       "coupon_used": false,
+          //       "coupon_type": "FLAT_DISCOUNT",
+          //       "discount_percentage": "0"
+          //     }
+          //   });
+          // }
 
           setMyCoupons(userCoupons);
 
@@ -928,10 +931,6 @@ const couponApi = (Param)=>{
   })
 }
 
-
-  console.log(SelectedcouponId);
-  console.log(typeCouponUsed)
-  console.log(mycoupons)
       if(typeCouponUsed === 'coupon_individual'){
      couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_individual')
      couponApi('coupon_codes');
@@ -956,6 +955,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
     if (userData && userData.isLoggedin === true) {
       setLogin(true);
       const userCoupons = getCouponsForUser();
+
       const getDataLogin = async () => {
         try {
           const initialQuery = {
@@ -973,7 +973,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
             total_amount: null,
           };
           setData(initialQuery);
-        } catch (err) {
+        } catch (err) { 
           // console.log(err)
         }
       };
@@ -1212,6 +1212,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
     }
   };
   const handlePaymentSubmitWithCoupons = async (e) => {
+    
     e.preventDefault();
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
@@ -1326,7 +1327,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
             )}
             {current === steps.length - 1 && (
               <>
-                {!data.coupon_selected ? (
+                {data.coupon_selected ? (
                   <>
                     <Button
                       className="mypayButton"
@@ -1353,17 +1354,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
                     >
                       Pay
                     </Button>
-                    <Button
-                      className="mypayButton"
-                      style={{
-                        backgroundColor: data.coupon_selected
-                          ? "green"
-                          : "#008000",
-                      }}
-                      onClick={CouponPut}
-                    >
-                      API Trigger
-                    </Button>
+  
                   </>
                 )}
               </>

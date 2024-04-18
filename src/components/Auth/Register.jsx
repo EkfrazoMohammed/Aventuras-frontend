@@ -299,7 +299,66 @@ useEffect(()=>{
   };
 
 
+  const [regsiterCoupon ,setregsiterCoupon] =useState();
 
+  const getCoupons = async () => {
+
+    try {
+      const today = new Date().toISOString().split("T")[0];
+
+      const couponsResponse = await axios.get(
+        "https://admin.aventuras.co.in/api/general-coupon-codes?populate=*"
+      );
+
+      // Assuming the coupons are available in couponsResponse.data.data
+      const coupons = couponsResponse.data.data.filter((c)=> c?.attributes?.max_user > 0 && c?.attributes?.validity >= today);
+    console.log(coupons)
+      return coupons
+      // Now you can work with the coupons data
+      // return console.log("Available coupons:", coupons);
+
+      // Example: Extracting coupon IDs
+      // const couponIds = coupons.map((coupon) => coupon.id);
+      // console.log("Coupon IDs:", couponIds);
+
+      // Perform any further actions needed with the coupons
+      // ...
+    } catch (error) {
+      console.error("Error fetching coupons:", error);
+    }
+  };
+
+  useEffect(()=>{
+    getCoupons().then((res)=>{
+
+        setregsiterCoupon(res)        
+    }
+  )
+    .catch((err)=>console.log(err))
+  },[])
+
+  const update =  () => { 
+    if(regsiterCoupon.length === 0 ){
+     return 
+    }
+    else {
+      let userValue = Number(regsiterCoupon?.map((val)=>val?.attributes.max_user)) - 1
+      let userid = Number(regsiterCoupon?.map((val)=>val?.id))
+      let payload = {
+        "data":{
+          "max_user": userValue 
+        }
+
+      };
+   axios.put(`https://admin.aventuras.co.in/api/general-coupon-codes/${userid}`,payload)
+   .then((res)=>{
+    console.log("Coupon Added")
+    })
+   .catch((err)=>{
+    console.log(err)
+    });
+    }
+  }
 
 
   const verifyUserGoogleSMSOTP = async (e) => {
@@ -322,7 +381,10 @@ useEffect(()=>{
           secretkey: user.password,
           username: genearatedNewUsername,
           mobile_number: user.mobile_number,
+          general_coupon_code:regsiterCoupon
         };
+        console.log(payloadob);
+
         const res = await axios.post(
           "https://admin.aventuras.co.in/api/auth/local/register",
           payloadob
@@ -410,22 +472,7 @@ useEffect(()=>{
                 console.error("Error updating coupon with user data:", error);
               }
             };
-            // Usage example:
-            // const userData = {
-            //   id: 223,
-            //   username: "ashik6962@gmail.com",
-            //   email: "ashik6962@gmail.com",
-            //   provider: "local",
-            //   confirmed: true,
-            //   blocked: false,
-            //   createdAt: "2023-12-15T02:41:04.390Z",
-            //   updatedAt: "2024-01-03T04:08:53.884Z",
-            //   mobile_number: "8550895489",
-            //   active: null,
-            //   secretkey: "ashik6962@gmail.com",
-            // };
-            // // Specify the coupon ID to update and the user data
-            // updateUserInCoupon(1, userData); // Replace 1 with the actual coupon ID
+     
             if (user.email) {
               let payloadOb = {
                 identifier: user.email,
@@ -438,10 +485,12 @@ useEffect(()=>{
               if (data.jwt) {
                 storeUser(data);
                 if (path) {
-                  navigate(path);
+                  // navigate(path);
                 } else {
-                  navigate("/");
+                  // navigate("/");
                 }
+                update()
+
                 notification.success({
                   message: "User Registered Successful",
                   description: "You have successfully Registered.",
@@ -499,70 +548,7 @@ useEffect(()=>{
       }
     }
   };
-  const [regsiterCoupon ,setregsiterCoupon] =useState();
 
-  const getCoupons = async () => {
-
-    try {
-      const today = new Date().toISOString().split("T")[0];
-
-      const couponsResponse = await axios.get(
-        "https://admin.aventuras.co.in/api/general-coupon-codes?populate=*"
-      );
-
-      // Assuming the coupons are available in couponsResponse.data.data
-      const coupons = couponsResponse.data.data.filter((c)=> c?.attributes?.max_user > 0 && c?.attributes?.validity >= today);
-    console.log(coupons)
-      return coupons
-      // Now you can work with the coupons data
-      // return console.log("Available coupons:", coupons);
-
-      // Example: Extracting coupon IDs
-      // const couponIds = coupons.map((coupon) => coupon.id);
-      // console.log("Coupon IDs:", couponIds);
-
-      // Perform any further actions needed with the coupons
-      // ...
-    } catch (error) {
-      console.error("Error fetching coupons:", error);
-    }
-  };
-
-  useEffect(()=>{
-    getCoupons().then((res)=>{
-
-        setregsiterCoupon(res)        
-    }
-  )
-    .catch((err)=>console.log(err))
-  },[])
-
-  const update =  () => { 
-    if(regsiterCoupon.length === 0 ){
-     return 
-    }
-    else {
-      let userValue = Number(regsiterCoupon?.map((val)=>val?.attributes.max_user)) - 1
-      let userid = Number(regsiterCoupon?.map((val)=>val?.id))
-      let payload = {
-        "data":{
-          "max_user": userValue 
-        }
-
-      };
-   axios.put(`https://admin.aventuras.co.in/api/general-coupon-codes/${userid}`,payload)
-   .then((res)=>{
-    console.log("Coupon Added")
-    })
-   .catch((err)=>{
-    console.log(err)
-    });
-    }
-
-
-
-
-  }
 
 
   const verifyUserOTP = async (e) => {
@@ -576,10 +562,6 @@ useEffect(()=>{
       });
     } else {
       try {
-
-
-
-
         let payloadob = {
           email: user.email,
           password: user.password,

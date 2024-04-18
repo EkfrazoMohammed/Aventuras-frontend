@@ -8,7 +8,7 @@ import {
   notification,
   Space,
 } from "antd";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row ,Select} from "antd";
 
 import {
   LoadingOutlined,
@@ -635,7 +635,7 @@ const Step2Content = ({
   );
 };
 
-const Step3Content = ({ data }) => {
+const Step3Content = ({ data,coupons,setSelectedcouponId,settypeCouponUsed ,setData}) => {
   let arrayData = [data];
   console.log(arrayData);
   useEffect(() => {
@@ -648,6 +648,67 @@ const Step3Content = ({ data }) => {
     setCurrentPath(window.location.pathname);
   }, []);
   localStorage.setItem("pathName", currentPath);
+  
+  const [initialAmount, setInitialAmount] = useState(data.total_amount);
+  useEffect(() => {
+    setInitialAmount(data.total_amount);
+  }, []);
+  const [showDiscount, setShowDiscount] = useState(false);
+
+  const handleCouponChange = (value) => {
+    if (value === "cancel") {
+      setShowDiscount(false);
+      setData((prevData) => ({
+        ...prevData,
+        discounted_amount: null,
+        total_amount: parseFloat(initialAmount).toFixed(2),
+        coupon_selected: null,
+      }));
+      return;
+    }
+    const selectedCoupon = coupons.find(
+      (coupon) => coupon.attributes.code === value
+    );
+    if (!selectedCoupon) {
+      return;
+    }
+    console.log(selectedCoupon)
+    setSelectedcouponId(selectedCoupon.id)
+
+    settypeCouponUsed (selectedCoupon.attributes.coupon_category)
+    const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
+    
+    const percentageDiscount = parseFloat(
+      selectedCoupon.attributes.discount_percentage
+    );
+    let discountedAmount = null;
+    if (flatDiscount > 0) {
+      discountedAmount = flatDiscount.toFixed(2);
+    } else if (percentageDiscount > 0) {
+      const percentageAmount = (percentageDiscount / 100) * initialAmount;
+      discountedAmount = percentageAmount.toFixed(2);
+    }
+    if (discountedAmount !== null) {
+      const newAmount = initialAmount - parseFloat(discountedAmount);
+      const roundedAmount = Math.max(newAmount, 0).toFixed(2);
+      setData((prevData) => ({
+        ...prevData,
+        discounted_amount: parseFloat(discountedAmount).toFixed(2),
+        total_amount: roundedAmount,
+        coupon_selected: selectedCoupon.attributes.code,
+      }));
+      setShowDiscount(true);
+    } else {
+      setShowDiscount(false);
+      setData((prevData) => ({
+        ...prevData,
+        discounted_amount: null,
+        total_amount: parseFloat(initialAmount).toFixed(2),
+        coupon_selected: null,
+      }));
+    }
+  };
+console.log(coupons,'<<<<<')
   return (
     <div>
       <Row
@@ -722,6 +783,57 @@ const Step3Content = ({ data }) => {
               </table>
             </div>
           </Card>
+          {coupons.length > 0 ? (
+            <>
+              <div className="coupons-text">Apply Coupons :</div>
+              <Select
+                defaultValue="cancel"
+                size="large"
+                className="myselectcoupons"
+                placeholder="Apply Coupons"
+                optionFilterProp="children"
+                filterOption={(input, option) =>
+                  (option?.label ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                filterSort={(optionA, optionB) =>
+                  (optionA?.label ?? "")
+                    .toLowerCase()
+                    .localeCompare((optionB?.label ?? "").toLowerCase())
+                }
+                options={[
+                  ...coupons.map((coupon) => ({
+                    value: `${coupon.attributes.code}`,
+                    label: `${coupon.attributes.code} | Discount for above ${coupon.attributes.flat_amount} INR`,
+                  })),
+                  { value: "cancel", label: "Apply Coupons" },
+                ]}
+                onChange={(value) => {
+                  if (value === "cancel") {
+                    setData((prevData) => ({
+                      ...prevData,
+                      discounted_amount: null,
+                      total_amount: initialAmount,
+                    }));
+                  }
+                  handleCouponChange(value);
+                }}
+              />
+              {showDiscount ? (
+                <>
+                  <div>
+                    <br />{" "}
+                    <span
+                      style={{ padding: ".2rem", backgroundColor: "palegreen" }}
+                    >
+                      {"\u2705"} Coupon Code Applied !
+                    </span>
+                  </div>
+                </>
+              ) : null}
+            </>
+          ) : null}
         </Col>
         <Col span={12} className="step3tableColumn">
           <Card
@@ -975,15 +1087,13 @@ const PayWithGrouptour = ({ location }) => {
     PaymentMode: "UPI",
     convenience: 0,
     convenienceGST: 0,
-
     booking_amount: null,
-
     initial_package_amount: null,
-
     partialPayment: null,
     advance_amount: null,
     remaining_amount: null,
     total_amount: null,
+    coupons:null
   });
 
   const [yourData, setYourData] = useState({});
@@ -1005,7 +1115,6 @@ const PayWithGrouptour = ({ location }) => {
         customer_name: parsedData ? parsedData.user_name : "",
         customer_email: parsedData ? parsedData.email_id : "",
         customer_mobile_number: parsedData ? parsedData.contact_number : "",
-
         customer_package_id: parsedData ? parsedData.package_id : "",
         package_name: parsedData ? parsedData.package_name : "",
         customer_location: parsedData ? parsedData.current_location : "",
@@ -1029,6 +1138,7 @@ const PayWithGrouptour = ({ location }) => {
 
         amount: parsedData ? parsedData.total_price : 0,
         total_amount: parsedData ? parsedData.total_price : 0,
+
       };
 
       setData(initialQuery);
@@ -1049,6 +1159,9 @@ const PayWithGrouptour = ({ location }) => {
 
   const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(false);
+  const [mycoupons, setMyCoupons] = useState([]);
+  const [SelectedcouponId, setSelectedcouponId] = useState();
+  const [typeCouponUsed, settypeCouponUsed] = useState();
 
   // FORM VALIDATION FOR USER DETAILS
 
@@ -1102,6 +1215,150 @@ const PayWithGrouptour = ({ location }) => {
     return isValid;
   };
 
+
+  useEffect(()=>{
+    getCouponsForUser()
+  })
+  const CouponPut = ()=>{
+
+    const userID = localStorage.getItem('user_id')
+  
+  
+  
+      const url = `https://admin.aventuras.co.in/api/users/${userID}?populate=*`
+  
+  
+       let couponStatus 
+  
+  const couponApi = (Param)=>{
+    const value = {
+      [Param] :couponStatus.map((item)=>({id:item.id}))
+     }
+  
+    axios.put(url,value)
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+  
+        if(typeCouponUsed === 'coupon_individual'){
+       couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_individual')
+       couponApi('coupon_codes');
+        }
+       else if(typeCouponUsed === 'coupon_general'){
+          couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_general')
+          couponApi('general_coupon_code');
+        }
+        else {
+          couponStatus = []
+        }
+    
+  console.log(couponStatus)    
+  console.log(  couponStatus.map((item)=>({id:item.id})))  
+  
+      
+  
+    
+      }
+  const getCouponsForUser = async () => {
+
+    try {
+      if (userData && userData.isLoggedin === true) {
+        const today = new Date().toISOString().split("T")[0];
+
+        const general_coupons  = await API.get
+        (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
+
+        let general_coupons_code = []
+
+        if(general_coupons.data.data && general_coupons.data.data.length > 0){
+          console.log(general_coupons.data.data)
+          general_coupons_code =  general_coupons.data.data.filter(
+            (coupon) => {
+          console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length)
+
+          if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
+              return true
+           }
+           else {
+            return false
+           }
+            }
+          )
+        }
+
+        const coupons = await API.get(
+          `/api/coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`
+        );
+
+        if (coupons.data.data && coupons.data.data.length > 0) {
+          let userCoupons = [];
+          userCoupons = coupons.data.data.filter(
+            (coupon) => {
+              return (
+                coupon?.attributes?.validity >= today &&
+                coupon?.attributes?.user?.data?.attributes?.username === userData?.username
+              )
+            }
+          );
+          // if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
+          //   userCoupons.push({
+          //     "id": 30,
+          //     "attributes": {
+          //       "code": userData.info.user.coupon_name,
+          //       "flat_amount": userData.info.user.coupon_amount,
+          //       "validity": "2024-02-10",
+          //       "createdAt": "2024-01-04T05:42:19.459Z",
+          //       "updatedAt": "2024-01-08T07:21:14.020Z",
+          //       "publishedAt": "2024-01-04T05:42:20.480Z",
+          //       "coupon_used": false,
+          //       "coupon_type": "FLAT_DISCOUNT",
+          //       "discount_percentage": "0"
+          //     }
+          //   });
+          // }
+
+
+
+
+          // if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
+          //   userCoupons.push({
+          //     "id": 30,
+          //     "attributes": {
+          //       "code": userData.info.user.coupon_name,
+          //       "flat_amount": userData.info.user.coupon_amount,
+          //       "validity": "2024-02-10",
+          //       "createdAt": "2024-01-04T05:42:19.459Z",
+          //       "updatedAt": "2024-01-08T07:21:14.020Z",
+          //       "publishedAt": "2024-01-04T05:42:20.480Z",
+          //       "coupon_used": false,
+          //       "coupon_type": "FLAT_DISCOUNT",
+          //       "discount_percentage": "0"
+          //     }
+          //   });
+          // }
+
+       let allCoupon = [...general_coupons_code , ...userCoupons];
+       console.log(allCoupon)
+       setMyCoupons(allCoupon)
+          setData((prevData) => ({
+            ...prevData,
+            coupons: userCoupons, // Set user-specific coupons in data state
+          }));
+          return userCoupons; // Return coupons specific to the user
+        } else {
+        }
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error("Error fetching coupons:", error);
+      return [];
+    }
+  };
   const steps = [
     {
       title: "User Information",
@@ -1152,7 +1409,13 @@ const PayWithGrouptour = ({ location }) => {
     },
     {
       title: "Pay",
-      content: <Step3Content data={data} />,
+      content: <Step3Content 
+      data={data}
+      setData={setData}
+      coupons={mycoupons}
+      settypeCouponUsed={settypeCouponUsed}
+      setSelectedcouponId={setSelectedcouponId}
+       />,
       icon: (
         <img
           width="40"
@@ -1325,6 +1588,7 @@ const PayWithGrouptour = ({ location }) => {
                       className="mypayButton"
                       style={{ backgroundColor: "green !important" }}
                       onClick={handlePaymentSubmit}
+                      // onClick={CouponPut}
                     >
                       Pay
                     </Button>

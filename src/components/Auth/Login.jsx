@@ -801,6 +801,7 @@ const signUpWithSMS = async () => {
         setUser(payloadob);
 
         let newOtp = generateOTP();
+        console.log(newOtp)
         setGeneratedOTP(newOtp);
 console.log(newOtp)
         const SMSPayload = {
@@ -889,6 +890,69 @@ console.log(newOtp)
     return newErrors;
   }
 };
+
+const [regsiterCoupon ,setregsiterCoupon] =useState();
+
+const getCoupons = async () => {
+
+  try {
+    const today = new Date().toISOString().split("T")[0];
+
+    const couponsResponse = await axios.get(
+      "https://admin.aventuras.co.in/api/general-coupon-codes?populate=*"
+    );
+
+    // Assuming the coupons are available in couponsResponse.data.data
+    const coupons = couponsResponse.data.data.filter((c)=> c?.attributes?.max_user > 0 && c?.attributes?.validity >= today);
+  console.log(coupons)
+    return coupons
+    // Now you can work with the coupons data
+    // return console.log("Available coupons:", coupons);
+
+    // Example: Extracting coupon IDs
+    // const couponIds = coupons.map((coupon) => coupon.id);
+    // console.log("Coupon IDs:", couponIds);
+
+    // Perform any further actions needed with the coupons
+    // ...
+  } catch (error) {
+    console.error("Error fetching coupons:", error);
+  }
+};
+
+useEffect(()=>{
+  getCoupons().then((res)=>{
+
+      setregsiterCoupon(res)        
+  }
+)
+  .catch((err)=>console.log(err))
+},[])
+
+const update =  () => { 
+  if(regsiterCoupon.length === 0 ){
+   return 
+  }
+  else {
+    let userValue = Number(regsiterCoupon?.map((val)=>val?.attributes.max_user)) - 1
+    let userid = Number(regsiterCoupon?.map((val)=>val?.id))
+    let payload = {
+      "data":{
+        "max_user": userValue 
+      }
+
+    };
+ axios.put(`https://admin.aventuras.co.in/api/general-coupon-codes/${userid}`,payload)
+ .then((res)=>{
+  console.log("Coupon Added")
+  })
+ .catch((err)=>{
+  console.log(err)
+  });
+  }
+}
+
+
 const verifyUserGoogleSMSOTP = async (e) => {
   e.preventDefault();
 
@@ -911,6 +975,8 @@ const verifyUserGoogleSMSOTP = async (e) => {
         secretkey: user.password,
         username: genearatedNewUsername,
         mobile_number: gUser.mobileGuser,
+        general_coupon_code:regsiterCoupon
+
       };
       const res = await axios.post(
         "https://admin.aventuras.co.in/api/auth/local/register",
@@ -1042,10 +1108,11 @@ const verifyUserGoogleSMSOTP = async (e) => {
             if (data.jwt) {
               storeUser(data);
               if (path) {
-                navigate(path);
+                // navigate(path);
               } else {
-                navigate("/");
+                // navigate("/");
               }
+              update();
               notification.success({
                 message: "User Registered Successful",
                 description: "You have successfully Registered.",

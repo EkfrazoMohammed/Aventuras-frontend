@@ -88,7 +88,7 @@ const Drop = ({ setClicked, clicked }) => {
       placement: "top",
       duration: 2
     });
-
+    location.reload();
   }
 
   const handleDestinationChange = (param) => {
