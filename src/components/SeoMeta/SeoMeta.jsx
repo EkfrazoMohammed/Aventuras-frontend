@@ -8,10 +8,11 @@ const url = 'https://aventuras-frontend.vercel.app'
     <>
     <Helmet>
     <title>{Title}</title>
-    <meta property="og:title" content={Title}/>
-    <meta property="og:image" content={imageURL}/>
+    <meta property="og:title" name="title" content={Title}/>
+    <meta property="og:image" name='image' content={imageURL}/>
     <meta property="og:url" content={url + window.location.pathname + window.location.search}/>
-    <meta property="og:description" content={description}/>
+    <meta property="og:description" name='description' content={description}/>
+
     <meta property="description" content={descriptionContent}/>
     <meta name="twitter:image:alt" content="Alt text for image"/>
     </Helmet>
