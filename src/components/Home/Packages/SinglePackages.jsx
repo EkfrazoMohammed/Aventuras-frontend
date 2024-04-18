@@ -23,8 +23,7 @@ import ReactMarkdown from "react-markdown";
 import { Collapse } from "antd";
 import Login from '../../Auth/Login'
 import { useLocation } from "react-router-dom";
-
-
+import SeoMeta from "../../SeoMeta/SeoMeta";
 const { Panel } = Collapse; 
 
 
@@ -641,6 +640,13 @@ const SinglePackages = () => {
     };
     return (
       <>
+    <SeoMeta 
+    Title={value?.attributes?.name}
+    imageURL={
+      `${baseURL}${value?.attributes?.package_images?.data[0]?.attributes?.url}`
+    }
+    description={value?.attributes?.description}
+    />
         <div className="description">
           <div className="desc">
             {value?.attributes?.description.length > 0 ? (

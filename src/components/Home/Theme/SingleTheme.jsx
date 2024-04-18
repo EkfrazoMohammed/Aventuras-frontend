@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Carousel, Skeleton } from 'antd'
 import "./SingleTheme.scss";
 import { API, baseURL } from '../../../api/apirequest';
+import SeoMeta from "../../SeoMeta/SeoMeta";
 
 const SingleTheme = () => {
     useEffect(() => {
@@ -44,6 +45,13 @@ const SingleTheme = () => {
 
     return (
         <>
+            <SeoMeta 
+    Title={value?.attributes?.title}
+    imageURL={
+      `${baseURL}${bgimage[0]?.attributes?.url}`
+    }
+    description={value?.attributes?.description}
+    />
             <div className="single-theme-section">
                 <div className="banner">
                     <div className="image">
