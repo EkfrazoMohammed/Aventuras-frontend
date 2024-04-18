@@ -546,7 +546,7 @@ const Step2Content = ({
     </div>
   );
 };
-const Step3Content = ({ data, coupons, setData }) => {
+const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCouponUsed}) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -558,12 +558,14 @@ const Step3Content = ({ data, coupons, setData }) => {
   const [showDiscount, setShowDiscount] = useState(false);
   let selectedCoupon = null;
   const handleCouponChange = (value) => {
+
     if (value === "cancel") {
       setShowDiscount(false);
     }
 
     selectedCoupon = coupons.find((coupon) => coupon.attributes.code === value);
-   
+    setSelectedcouponId(selectedCoupon.id)
+    settypeCouponUsed (selectedCoupon.attributes.coupon_category)
 
     let discountedAmount = null;
     // Assuming you have the coupon_code_flat_amount stored in a variable
@@ -629,7 +631,7 @@ const Step3Content = ({ data, coupons, setData }) => {
     //   }));
     // }
   };
-
+console.log(coupons)
   return (
     <div>
       <Row
@@ -1348,6 +1350,8 @@ const PayWithBookNow = ({ location }) => {
 
   const yourDataString = localStorage.getItem("booking");
   const [mycoupons, setMyCoupons] = useState([]);
+
+
   const getCouponsForUser = async () => {
     try {
       if (userData && userData.isLoggedin === true) {
@@ -1358,21 +1362,45 @@ const PayWithBookNow = ({ location }) => {
         // Get today's date in the format "YYYY-MM-DD"
         const today = new Date().toISOString().split("T")[0];
 
+
+        const general_coupons  = await API.get
+        (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
+
+        let general_coupons_code = []
+        
+        if(general_coupons.data.data && general_coupons.data.data.length > 0){
+          console.log(general_coupons.data.data)
+          general_coupons_code =  general_coupons.data.data.filter(
+            (coupon) => {
+console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length)
+
+ if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
+             return true
+           }
+           else {
+            return false
+           }
+            }
+          )
+        }
+
         // Fetch coupons based on validity
         const coupons = await API.get(
           `/api/coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`
         );
-
-   
+     
         if (coupons.data && coupons.data.data.length > 0) {
           const userCoupons = coupons.data.data.filter(
             (coupon) =>
-              coupon.attributes.validity >= today &&
-              coupon.attributes.user.data.attributes.username ===
-                userData.username
+              coupon?.attributes?.validity >= today 
+              &&
+              coupon?.attributes?.user?.data?.attributes?.username ===
+                userData?.username
           );
+          let allCoupon = [...general_coupons_code , ...userCoupons];
 
-          setMyCoupons(userCoupons);
+          setMyCoupons(allCoupon);
+
           setData((prevData) => ({
             ...prevData,
             coupons: userCoupons, // Set user-specific coupons in data state
@@ -1391,6 +1419,51 @@ const PayWithBookNow = ({ location }) => {
       return []; // Return an empty array if there's an error
     }
   };
+  const CouponPut = ()=>{
+
+    const userID = localStorage.getItem('user_id')
+  
+  
+  
+      const url = `https://admin.aventuras.co.in/api/users/${userID}?populate=*`
+  
+  
+       let couponStatus 
+  
+  const couponApi = (Param)=>{
+    const value = {
+      [Param] :couponStatus.map((item)=>({id:item.id}))
+     }
+  
+    axios.put(url,value)
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+  
+        if(typeCouponUsed === 'coupon_individual'){
+       couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_individual')
+       couponApi('coupon_codes');
+        }
+       else if(typeCouponUsed === 'coupon_general'){
+          couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_general')
+          couponApi('general_coupon_code');
+        }
+        else {
+          couponStatus = []
+        }
+    
+  console.log(couponStatus)    
+  console.log(  couponStatus.map((item)=>({id:item.id})))  
+  
+      
+  
+    
+      }
+
   useEffect(() => {
     try {
       const parsedData = yourDataString ? JSON.parse(yourDataString) : null;
@@ -1398,8 +1471,7 @@ const PayWithBookNow = ({ location }) => {
 
       // Update state after parsing is successful
       setYourData(parsedData);
-      const userCoupons = getCouponsForUser(); // Assuming this fetches user-specific coupons
-
+      const userCoupons = getCouponsForUser().then((res)=>{console.log(res)}).catch((err)=> {console.log(err)})
       const initialQuery = {
         customer_name: parsedData ? parsedData.user_name : "",
         customer_email: parsedData ? parsedData.email_id : "",
@@ -1435,6 +1507,8 @@ const PayWithBookNow = ({ location }) => {
   const [method, setMethod] = useState("UPI");
   const userDataString = localStorage.getItem("user");
   const userData = JSON.parse(userDataString);
+  const [SelectedcouponId, setSelectedcouponId] = useState();
+  const [typeCouponUsed, settypeCouponUsed] = useState();
 
   const [loading, setLoading] = useState(true);
   const [login, setLogin] = useState(false);
@@ -1495,6 +1569,7 @@ const PayWithBookNow = ({ location }) => {
     return isValid;
   };
 
+
   const steps = [
     {
       title: "User Information",
@@ -1550,6 +1625,8 @@ const PayWithBookNow = ({ location }) => {
           isCheckboxChecked={isCheckboxChecked}
           onCheckboxChange={handleCheckboxChange}
           coupons={mycoupons}
+          settypeCouponUsed={settypeCouponUsed}
+          setSelectedcouponId={setSelectedcouponId}
         />
       ),
       icon: (
@@ -1728,6 +1805,7 @@ const PayWithBookNow = ({ location }) => {
                       style={{ backgroundColor: "green !important" }}
                       
                       onClick={handlePaymentSubmit}
+                      // onClick={CouponPut}
                     >
                       Pay
                     </Button>
