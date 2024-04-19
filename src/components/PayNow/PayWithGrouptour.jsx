@@ -803,11 +803,17 @@ console.log(coupons,'<<<<<')
                     .localeCompare((optionB?.label ?? "").toLowerCase())
                 }
                 options={[
+                  { value: "cancel", label: "Apply Coupons" },
                   ...coupons.map((coupon) => ({
                     value: `${coupon.attributes.code}`,
-                    label: `${coupon.attributes.code} | Discount for above ${coupon.attributes.flat_amount} INR`,
-                  })),
-                  { value: "cancel", label: "Apply Coupons" },
+                    label: `${coupon.attributes.code} | Discount of ${
+                      Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
+                        ? `${coupon.attributes.flat_amount} INR`
+                        : ''
+                    } ${
+                   Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
+                    }`
+                  }))
                 ]}
                 onChange={(value) => {
                   if (value === "cancel") {
@@ -909,7 +915,31 @@ console.log(coupons,'<<<<<')
                       <td className="mylasttd"> GST on PG Charges (0%):</td>
                       <td style={{ width: "100%" }}>{data.convenienceGST}</td>
                     </tr>
-
+                    {data.total_amount >= data.discounted_amount ? (
+                      <>
+                        {showDiscount ? (
+                          <>
+                            {coupons.length > 0 ? (
+                              <>
+                                <tr
+                                  style={{
+                                    borderBottom: "0.5px solid grey",
+                                    display: "flex",
+                                    gap: "25px",
+                                    backgroundColor: "palegreen",
+                                  }}
+                                >
+                                  <td className="mylasttd">Coupon Discount:</td>
+                                  <td style={{ width: "100%" }}>
+                                    {`- ${parseInt(data.discounted_amount)}`}
+                                  </td>
+                                </tr>
+                              </>
+                            ) : null}
+                          </>
+                        ) : null}
+                      </>
+                    ) : null}
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -1218,7 +1248,7 @@ const PayWithGrouptour = ({ location }) => {
 
   useEffect(()=>{
     getCouponsForUser()
-  })
+  },[])
   const CouponPut = ()=>{
 
     const userID = localStorage.getItem('user_id')
@@ -1514,7 +1544,8 @@ const PayWithGrouptour = ({ location }) => {
 
           if (userConfirmed) {
             // Open the URL in a new tab
-            window.open(url, "_blank");
+            window.open(url);
+            CouponPut()
             // window.open("https://aventuras.co.in/","_blank")
           } else {
             window.location.reload();
@@ -1542,7 +1573,56 @@ const PayWithGrouptour = ({ location }) => {
       });
     }
   };
-
+  // const handlePaymentSubmitWithCoupons = async (e) => {
+  
+  //   e.preventDefault();
+  //   const userDataString = localStorage.getItem("user");
+  //   const userData = JSON.parse(userDataString);
+  //   if (userData && userData.jwt) {
+  //     try {
+  //       const payload = {
+  //         customer_name: userData.info.user.username,
+  //         customer_email: userData.info.user.email,
+  //         customer_mobile_number: parseInt(data.customer_mobile_number),
+  //         booking_amount: data.amount,
+  //         amount: parseFloat(data.total_amount),
+  //         payment_mode: data.PaymentMode,
+  //         discounted_amount: parseFloat(data.discounted_amount),
+  //         coupon_selected: data.coupon_selected,
+  //       };
+  //       let ob = payload;
+  //       console.log(ob)
+  //       // const res = await axios.post(
+  //       //   "https://aventuras.co.in/api/v1/payment/initiate_payment_with_coupon",
+  //       //   ob
+  //       // );
+  //       // if (res.data.data.success === true) {
+  //       //   const url = res.data.data.data.instrumentResponse.redirectInfo.url;
+  //       //   const userConfirmed = window.confirm(
+  //       //     "Are you sure you want to proceed with the payment?"
+  //       //   );
+  //       //   if (userConfirmed) {
+  //       //     window.open(url);
+  //       //     CouponPut()
+  //       //   } else {
+  //       //     window.location.reload();
+  //       //     notification.error({
+  //       //       message: "Payment Cancelled!",
+  //       //       duration: 2,
+  //       //     });
+  //       //   }
+  //       //   setData(null);
+  //       // }
+  //     } catch (err) {
+  //       // console.log(err)
+  //     }
+  //   } else {
+  //     notification.info({
+  //       message: "Login to Pay Now!",
+  //       duration: 2,
+  //     });
+  //   }
+  // };
   return (
     <>
       <div className="pay-page-container2">
@@ -1584,14 +1664,38 @@ const PayWithGrouptour = ({ location }) => {
                     </Button>
                   )}
                   {current === steps.length - 1 && (
+                 <>
+                              {data.coupon_selected ? (
+                  <>
                     <Button
                       className="mypayButton"
-                      style={{ backgroundColor: "green !important" }}
+                      style={{
+                        backgroundColor: data.coupon_selected
+                          ? "green"
+                          : "#008000",
+                      }}
+                      // onClick={handlePaymentSubmitWithCoupons}
+                    >
+                      Apply Coupon and Pay
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      className="mypayButton"
+                      style={{
+                        backgroundColor: data.coupon_selected
+                          ? "green"
+                          : "#008000",
+                      }}
                       onClick={handlePaymentSubmit}
-                      // onClick={CouponPut}
                     >
                       Pay
                     </Button>
+  
+                  </>
+                )}
+                 </>
                   )}
                 </div>
               </div>

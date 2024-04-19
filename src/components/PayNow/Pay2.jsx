@@ -9,6 +9,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { API } from "../../api/apirequest";
+import { Crop54 } from "@mui/icons-material";
 const Step1Content = ({
   data,
   setData,
@@ -431,10 +432,13 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
     console.log(selectedCoupon)
     setSelectedcouponId(selectedCoupon.id)
     settypeCouponUsed (selectedCoupon.attributes.coupon_category)
+    console.log(selectedCoupon)
     const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
     const percentageDiscount = parseFloat(
       selectedCoupon.attributes.discount_percentage
     );
+    console.log(flatDiscount,'<<<?>>')
+    console.log(percentageDiscount,'<<---')
     let discountedAmount = null;
     if (flatDiscount > 0) {
       discountedAmount = flatDiscount.toFixed(2);
@@ -452,6 +456,8 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
         coupon_selected: selectedCoupon.attributes.code,
       }));
       setShowDiscount(true);
+
+
     } else {
       setShowDiscount(false);
       setData((prevData) => ({
@@ -463,7 +469,8 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
     }
   };
 
-
+console.log(typeof(coupons.map((val)=>val.attributes.flat_amount)))
+console.log(coupons.map((val)=>val.attributes.discount_percentage))
 
   return (
     <div>
@@ -508,56 +515,55 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
             </div>
           </Card>
           {coupons.length > 0 ? (
-            <>
-              <div className="coupons-text">Apply Coupons :</div>
-              <Select
-                defaultValue="cancel"
-                size="large"
-                className="myselectcoupons"
-                placeholder="Apply Coupons"
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                filterSort={(optionA, optionB) =>
-                  (optionA?.label ?? "")
-                    .toLowerCase()
-                    .localeCompare((optionB?.label ?? "").toLowerCase())
-                }
-                options={[
-                  ...coupons.map((coupon) => ({
-                    value: `${coupon.attributes.code}`,
-                    label: `${coupon.attributes.code} | Discount for above ${coupon.attributes.flat_amount} INR`,
-                  })),
-                  { value: "cancel", label: "Apply Coupons" },
-                ]}
-                onChange={(value) => {
-                  if (value === "cancel") {
-                    setData((prevData) => ({
-                      ...prevData,
-                      discounted_amount: null,
-                      total_amount: initialAmount,
-                    }));
-                  }
-                  handleCouponChange(value);
-                }}
-              />
-              {showDiscount ? (
-                <>
-                  <div>
-                    <br />{" "}
-                    <span
-                      style={{ padding: ".2rem", backgroundColor: "palegreen" }}
-                    >
-                      {"\u2705"} Coupon Code Applied !
-                    </span>
-                  </div>
-                </>
-              ) : null}
-            </>
-          ) : null}
+  <>
+    <div className="coupons-text">Apply Coupons :</div>
+    <Select
+      defaultValue="cancel"
+      size="large"
+      className="myselectcoupons"
+      placeholder="Apply Coupons"
+      optionFilterProp="children"
+      filterOption={(input, option) =>
+        (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+      }
+      filterSort={(optionA, optionB) =>
+        (optionA?.label ?? "").toLowerCase().localeCompare((optionB?.label ?? "").toLowerCase())
+      }
+      options={[
+        { value: "cancel", label: "Apply Coupons" },
+        ...coupons.map((coupon) => ({
+          value: `${coupon.attributes.code}`,
+          label: `${coupon.attributes.code} | Discount of ${
+            Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
+              ? `${coupon.attributes.flat_amount} INR`
+              : ''
+          } ${
+         Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
+          }`
+        }))
+      ]}
+      onChange={(value) => {
+        if (value === "cancel") {
+          setData((prevData) => ({
+            ...prevData,
+            discounted_amount: null,
+            total_amount: initialAmount,
+          }));
+        }
+        handleCouponChange(value);
+      }}
+    />
+    {showDiscount ? (
+      <div>
+        <br /> 
+        <span style={{ padding: ".2rem", backgroundColor: "palegreen" }}>
+          {"\u2705"} Coupon Code Applied !
+        </span>
+      </div>
+    ) : null}
+  </>
+) : null}
+
         </Col>
         <Col span={12} className="step3tableColumn">
           <Card
@@ -1239,7 +1245,8 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
             "Are you sure you want to proceed with the payment?"
           );
           if (userConfirmed) {
-            window.open(url, "_blank");
+            window.open(url);
+            CouponPut()
           } else {
             window.location.reload();
             notification.error({

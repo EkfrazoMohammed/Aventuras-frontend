@@ -168,14 +168,17 @@ const Step1Content = ({
             <span
               style={{ display: "flex", flexDirection: "column", gap: "5px" }}
             >
-              <input
-                type="number"
-                name="amount"
-                onChange={handleChange}
-                required
-                value={data.amount}
-                placeholder={"Enter the Amount"}
-              />
+          <input
+  type="number" // Change type to text
+  inputMode="numeric" // Specify input mode as numeric
+  pattern="[0-9]*" // Allow only numeric input
+  name="amount"
+  onChange={handleChange}
+  required
+  value={data.amount}
+  placeholder="Enter the Amount"
+/>
+
               {errors.amount && (
                 <div className="error-text" style={{ color: "red" }}>
                   {errors.amount}
@@ -562,8 +565,8 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
     if (value === "cancel") {
       setShowDiscount(false);
     }
-
     selectedCoupon = coupons.find((coupon) => coupon.attributes.code === value);
+    console.log(selectedCoupon,'<<<<')
     setSelectedcouponId(selectedCoupon.id)
     settypeCouponUsed (selectedCoupon.attributes.coupon_category)
 
@@ -727,11 +730,17 @@ console.log(coupons)
                     .localeCompare((optionB?.label ?? "").toLowerCase())
                 }
                 options={[
+                  { value: "cancel", label: "Apply Coupons" },
                   ...coupons.map((coupon) => ({
                     value: `${coupon.attributes.code}`,
-                    label: `${coupon.attributes.code} | Discount for above ${coupon.attributes.flat_amount} INR`,
-                  })),
-                  { value: "cancel", label: "Apply Coupons" },
+                    label: `${coupon.attributes.code} | Discount of ${
+                      Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
+                        ? `${coupon.attributes.flat_amount} INR`
+                        : ''
+                    } ${
+                   Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
+                    }`
+                  }))
                 ]}
                 onChange={(value) => {
                   if (value === "cancel") {
@@ -1403,7 +1412,7 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
 
           setData((prevData) => ({
             ...prevData,
-            coupons: userCoupons, // Set user-specific coupons in data state
+            coupons: userCoupons // Set user-specific coupons in data state
           }));
           return userCoupons; // Return coupons specific to the user
         } else {
@@ -1557,11 +1566,16 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
     // Example: You can add rules to check for a valid amount format
     if (!/^\d+(\.\d{2})?$/.test(data.amount)) {
       newErrors.amount = "Enter the amount (atleast INR 1).";
-      notification.info({
-        message: "Enter the amount",
-      });
+      // notification.info({
+      //   message: "Enter the amount",
+      // });
       isValid = false;
-    } else {
+    } 
+    else if (data.amount == 0 || null) {
+      newErrors.amount = "Enter Amount atleast 1 INR.";
+      isValid = false;
+    }
+    else {  
       newErrors.amount = null;
     }
 
@@ -1725,6 +1739,7 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
             // Open the URL in a new tab
             window.open(url, "_blank");
             // window.open("https://aventuras.co.in/","_blank")
+            CouponPut();
           } else {
             window.location.reload();
             notification.error({
@@ -1746,7 +1761,56 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
       });
     }
   };
-
+  const handlePaymentSubmitWithCoupons = async (e) => {
+    
+    e.preventDefault();
+    const userDataString = localStorage.getItem("user");
+    const userData = JSON.parse(userDataString);
+    if (userData && userData.jwt) {
+      try {
+        const payload = {
+          customer_name: userData.info.user.username,
+          customer_email: userData.info.user.email,
+          customer_mobile_number: parseInt(data.customer_mobile_number),
+          booking_amount: data.amount,
+          amount: parseFloat(data.total_amount),
+          payment_mode: data.PaymentMode,
+          discounted_amount: parseFloat(data.discounted_amount),
+          coupon_selected: data.coupon_selected,
+        };
+        let ob = payload;
+        const res = await axios.post(
+          "https://aventuras.co.in/api/v1/payment/initiate_payment_with_coupon",
+          ob
+        );
+        if (res.data.data.success === true) {
+          const url = res.data.data.data.instrumentResponse.redirectInfo.url;
+          const userConfirmed = window.confirm(
+            "Are you sure you want to proceed with the payment?"
+          );
+          if (userConfirmed) {
+            window.open(url);
+            CouponPut()
+          } else {
+            window.location.reload();
+            notification.error({
+              message: "Payment Cancelled!",
+              duration: 2,
+            });
+          }
+          setData(null);
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      notification.info({
+        message: "Login to Pay Now!",
+        duration: 2,
+      });
+    }
+  };
+  console.log(data,'<<<<')
   return (
     <>
       <div className="pay-page-container2">
@@ -1800,15 +1864,39 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
                     </Button>
                   )}
                   {current === steps.length - 1 && (
-                    <Button
-                      className="mypayButton"
-                      style={{ backgroundColor: "green !important" }}
-                      
-                      onClick={handlePaymentSubmit}
-                      // onClick={CouponPut}
-                    >
-                      Pay
-                    </Button>
+                    <>
+                       {data.coupon_selected ? (
+                          <>
+                            <Button
+                              className="mypayButton"
+                              style={{
+                                backgroundColor: data.coupon_selected
+                                  ? "green"
+                                  : "#008000",
+                              }}
+                              onClick={handlePaymentSubmitWithCoupons}
+                            >
+                              Apply Coupon and Pay
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <Button
+                              className="mypayButton"
+                              style={{
+                                backgroundColor: data.coupon_selected
+                                  ? "green"
+                                  : "#008000",
+                              }}
+                              onClick={handlePaymentSubmit}
+                            >
+                              Pay
+                            </Button>
+          
+                          </>
+                        )}
+                    </>
+                     
                   )}
                 </div>
               </div>

@@ -70,7 +70,6 @@ const SimpleBookings = () => {
     useEffect(() => {
       fetchData();
     }, []);
-
   return (
     <div>
     <div className="simple-bookings-page-container">
@@ -108,6 +107,14 @@ const SimpleBookings = () => {
                  <div className='booking-card-desc'>
                  <span className='title'>Booking Amount:</span> <span className='value'> &#x20b9; {val?.attributes?.booking_amount}</span>
                 </div>
+                {
+                  val?.attributes?.coupon_selected ? 
+                  <div className='booking-card-desc'>
+                  <span className='title'>Coupon Applied:</span> <span className='value'>  {val?.attributes?.coupon_selected}</span>
+                 </div> : null
+
+                }
+             
 
                 <div className='booking-card-desc'>
                  <span className='title'>Amount Paid:</span> <span className='value'> &#x20b9; {val?.attributes?.received_amount}</span>
