@@ -46,7 +46,6 @@ const Step1Content = ({
       setmodalopen(false);
     }
   }, []);
-  console.log(data)
   return (
     <>
       {!togglepaynow ? <div className="">Login Required</div> : null}
@@ -399,7 +398,6 @@ const Step2Content = ({
   );
 };
 const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCouponUsed }) => {
-  console.log(coupons)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -921,7 +919,6 @@ const couponApi = (Param)=>{
   const value = {
     [Param] :couponStatus.map((item)=>({id:item.id}))
    }
-
   axios.put(url,value)
   .then((res)=>{
     console.log(res)
@@ -945,10 +942,6 @@ const couponApi = (Param)=>{
   
 console.log(couponStatus)    
 console.log(  couponStatus.map((item)=>({id:item.id})))  
-
-    
-
-  
     }
 
   useEffect(() => {
@@ -1229,6 +1222,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
           coupon_selected: data.coupon_selected,
         };
         let ob = payload;
+        console.log(ob)
         const res = await axios.post(
           "https://aventuras.co.in/api/v1/payment/initiate_payment_with_coupon",
           ob
@@ -1239,7 +1233,8 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
             "Are you sure you want to proceed with the payment?"
           );
           if (userConfirmed) {
-            window.open(url, "_blank");
+            window.open(url);
+            CouponPut()
           } else {
             window.location.reload();
             notification.error({
@@ -1250,7 +1245,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
           setData(null);
         }
       } catch (err) {
-        // console.log(err)
+        console.log(err)
       }
     } else {
       notification.info({

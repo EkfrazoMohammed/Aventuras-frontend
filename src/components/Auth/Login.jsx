@@ -75,8 +75,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login({toggle,setToggle,toggleRegister,settoggleRegister}) {
- console.log(toggle)
-  const [showMobileNumberDialog, setShowMobileNumberDialog] = useState(false);
+   const [showMobileNumberDialog, setShowMobileNumberDialog] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [titleHeading, setTitleHeading] = useState(false);
@@ -334,7 +333,6 @@ if(name === "mobile_number"){
       const Alldata = await axios.get(
         `https://admin.aventuras.co.in/api/users`
       );
-      console.log(Alldata)
       setuserData(Alldata);
 
 
@@ -486,7 +484,6 @@ if(name === "mobile_number"){
             identifier: user.identifier,
             password: user.password,
           };
-          console.log(user.identifier);
           const { data } = await axios.post(
             "https://admin.aventuras.co.in/api/auth/local/",
             payloadOb
@@ -721,7 +718,6 @@ if(name === "mobile_number"){
       console.log(error);
     }
   };
-console.log(loginInputError)
 const [a,setA] =useState();
 const [showGoogleOtp,setShowGoogleOtp] =useState();
 
@@ -758,9 +754,6 @@ const signUpWithSMS = async () => {
       }));
     }
 
-    console.log(oldusersmobile)
-
-    
     if (oldusersemail.includes(gUser.email)) {
       return (
         notification.error({
@@ -801,9 +794,7 @@ const signUpWithSMS = async () => {
         setUser(payloadob);
 
         let newOtp = generateOTP();
-        console.log(newOtp)
         setGeneratedOTP(newOtp);
-console.log(newOtp)
         const SMSPayload = {
           otp: newOtp,
           numbers: user.mobile_number,
@@ -904,17 +895,7 @@ const getCoupons = async () => {
 
     // Assuming the coupons are available in couponsResponse.data.data
     const coupons = couponsResponse.data.data.filter((c)=> c?.attributes?.max_user > 0 && c?.attributes?.validity >= today);
-  console.log(coupons)
     return coupons
-    // Now you can work with the coupons data
-    // return console.log("Available coupons:", coupons);
-
-    // Example: Extracting coupon IDs
-    // const couponIds = coupons.map((coupon) => coupon.id);
-    // console.log("Coupon IDs:", couponIds);
-
-    // Perform any further actions needed with the coupons
-    // ...
   } catch (error) {
     console.error("Error fetching coupons:", error);
   }
@@ -982,34 +963,6 @@ const verifyUserGoogleSMSOTP = async (e) => {
         "https://admin.aventuras.co.in/api/auth/local/register",
         payloadob
       );
-
-
-
-      const getCoupons = async () => {
-        try {
-          const couponsResponse = await axios.get(
-            "https://admin.aventuras.co.in/api/general-coupon-codes?populate=*"
-          );
-
-          // Assuming the coupons are available in couponsResponse.data.data
-          const coupons = couponsResponse.data.data;
-
-          // Now you can work with the coupons data
-          console.log("Available coupons:", coupons);
-
-          // Example: Extracting coupon IDs
-          const couponIds = coupons.map((coupon) => coupon.id);
-          console.log("Coupon IDs:", couponIds);
-
-          // Perform any further actions needed with the coupons
-          // ...
-        } catch (error) {
-          console.error("Error fetching coupons:", error);
-        }
-      };
-
-      // Call the function to retrieve coupons
-      // getCoupons();
 
       setShowMobileNumberDialog(false);
 
