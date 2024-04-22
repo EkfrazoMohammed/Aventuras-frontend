@@ -1573,56 +1573,56 @@ const PayWithGrouptour = ({ location }) => {
       });
     }
   };
-  // const handlePaymentSubmitWithCoupons = async (e) => {
+  const handlePaymentSubmitWithCoupons = async (e) => {
   
-  //   e.preventDefault();
-  //   const userDataString = localStorage.getItem("user");
-  //   const userData = JSON.parse(userDataString);
-  //   if (userData && userData.jwt) {
-  //     try {
-  //       const payload = {
-  //         customer_name: userData.info.user.username,
-  //         customer_email: userData.info.user.email,
-  //         customer_mobile_number: parseInt(data.customer_mobile_number),
-  //         booking_amount: data.amount,
-  //         amount: parseFloat(data.total_amount),
-  //         payment_mode: data.PaymentMode,
-  //         discounted_amount: parseFloat(data.discounted_amount),
-  //         coupon_selected: data.coupon_selected,
-  //       };
-  //       let ob = payload;
-  //       console.log(ob)
-  //       // const res = await axios.post(
-  //       //   "https://aventuras.co.in/api/v1/payment/initiate_payment_with_coupon",
-  //       //   ob
-  //       // );
-  //       // if (res.data.data.success === true) {
-  //       //   const url = res.data.data.data.instrumentResponse.redirectInfo.url;
-  //       //   const userConfirmed = window.confirm(
-  //       //     "Are you sure you want to proceed with the payment?"
-  //       //   );
-  //       //   if (userConfirmed) {
-  //       //     window.open(url);
-  //       //     CouponPut()
-  //       //   } else {
-  //       //     window.location.reload();
-  //       //     notification.error({
-  //       //       message: "Payment Cancelled!",
-  //       //       duration: 2,
-  //       //     });
-  //       //   }
-  //       //   setData(null);
-  //       // }
-  //     } catch (err) {
-  //       // console.log(err)
-  //     }
-  //   } else {
-  //     notification.info({
-  //       message: "Login to Pay Now!",
-  //       duration: 2,
-  //     });
-  //   }
-  // };
+    e.preventDefault();
+    const userDataString = localStorage.getItem("user");
+    const userData = JSON.parse(userDataString);
+    if (userData && userData.jwt) {
+      try {
+        const payload = {
+          customer_name: userData.info.user.username,
+          customer_email: userData.info.user.email,
+          customer_mobile_number: parseInt(data.customer_mobile_number),
+          booking_amount: data.amount,
+          amount: parseFloat(data.total_amount),
+          payment_mode: data.PaymentMode,
+          discounted_amount: parseFloat(data.discounted_amount),
+          coupon_selected: data.coupon_selected,
+        };
+        let ob = payload;
+        console.log(ob)
+        const res = await axios.post(
+          "https://aventuras.co.in/api/v1/payment/group_tour_initiate_payment_with_coupon",
+          ob
+        );
+        if (res.data.data.success === true) {
+          const url = res.data.data.data.instrumentResponse.redirectInfo.url;
+          const userConfirmed = window.confirm(
+            "Are you sure you want to proceed with the payment?"
+          );
+          if (userConfirmed) {
+            window.open(url);
+            CouponPut()
+          } else {
+            window.location.reload();
+            notification.error({
+              message: "Payment Cancelled!",
+              duration: 2,
+            });
+          }
+          setData(null);
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      notification.info({
+        message: "Login to Pay Now!",
+        duration: 2,
+      });
+    }
+  }; 
   return (
     <>
       <div className="pay-page-container2">
@@ -1674,9 +1674,9 @@ const PayWithGrouptour = ({ location }) => {
                           ? "green"
                           : "#008000",
                       }}
-                      // onClick={handlePaymentSubmitWithCoupons}
+                      onClick={handlePaymentSubmitWithCoupons}
                     >
-                      Apply Coupon and Pay
+                      Apply Coupon & Pay
                     </Button>
                   </>
                 ) : (

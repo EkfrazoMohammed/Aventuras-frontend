@@ -37,6 +37,7 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "react-snap": "^1.23.0",
     "react-toastify": "^9.1.2",
     "react-whatsapp-chat-widget": "^1.1.6",
     "react-whatsapp-widget": "^2.2.0",
