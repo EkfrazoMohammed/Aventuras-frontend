@@ -8,7 +8,7 @@ import {
   notification,
   Space,
 } from "antd";
-import { Card, Col, Row ,Select} from "antd";
+import { Card, Col, Row, Select } from "antd";
 
 import {
   LoadingOutlined,
@@ -635,7 +635,7 @@ const Step2Content = ({
   );
 };
 
-const Step3Content = ({ data,coupons,setSelectedcouponId,settypeCouponUsed ,setData}) => {
+const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, setData }) => {
   let arrayData = [data];
   console.log(arrayData);
   useEffect(() => {
@@ -648,7 +648,7 @@ const Step3Content = ({ data,coupons,setSelectedcouponId,settypeCouponUsed ,setD
     setCurrentPath(window.location.pathname);
   }, []);
   localStorage.setItem("pathName", currentPath);
-  
+
   const [initialAmount, setInitialAmount] = useState(data.total_amount);
   useEffect(() => {
     setInitialAmount(data.total_amount);
@@ -675,9 +675,9 @@ const Step3Content = ({ data,coupons,setSelectedcouponId,settypeCouponUsed ,setD
     console.log(selectedCoupon)
     setSelectedcouponId(selectedCoupon.id)
 
-    settypeCouponUsed (selectedCoupon.attributes.coupon_category)
+    settypeCouponUsed(selectedCoupon.attributes.coupon_category)
     const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
-    
+
     const percentageDiscount = parseFloat(
       selectedCoupon.attributes.discount_percentage
     );
@@ -708,7 +708,7 @@ const Step3Content = ({ data,coupons,setSelectedcouponId,settypeCouponUsed ,setD
       }));
     }
   };
-console.log(coupons,'<<<<<')
+  console.log(coupons, '<<<<<')
   return (
     <div>
       <Row
@@ -806,13 +806,11 @@ console.log(coupons,'<<<<<')
                   { value: "cancel", label: "Apply Coupons" },
                   ...coupons.map((coupon) => ({
                     value: `${coupon.attributes.code}`,
-                    label: `${coupon.attributes.code} | Discount of ${
-                      Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
+                    label: `${coupon.attributes.code} | Discount of ${Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
                         ? `${coupon.attributes.flat_amount} INR`
                         : ''
-                    } ${
-                   Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
-                    }`
+                      } ${Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
+                      }`
                   }))
                 ]}
                 onChange={(value) => {
@@ -1123,7 +1121,7 @@ const PayWithGrouptour = ({ location }) => {
     advance_amount: null,
     remaining_amount: null,
     total_amount: null,
-    coupons:null
+    coupons: null
   });
 
   const [yourData, setYourData] = useState({});
@@ -1246,76 +1244,76 @@ const PayWithGrouptour = ({ location }) => {
   };
 
 
-  useEffect(()=>{
+  useEffect(() => {
     getCouponsForUser()
-  },[])
-  const CouponPut = ()=>{
+  }, [])
+  const CouponPut = () => {
 
     const userID = localStorage.getItem('user_id')
-  
-  
-  
-      const url = `https://admin.aventuras.co.in/api/users/${userID}?populate=*`
-  
-  
-       let couponStatus 
-  
-  const couponApi = (Param)=>{
-    const value = {
-      [Param] :couponStatus.map((item)=>({id:item.id}))
-     }
-  
-    axios.put(url,value)
-    .then((res)=>{
-      console.log(res)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-  
-        if(typeCouponUsed === 'coupon_individual'){
-       couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_individual')
-       couponApi('coupon_codes');
-        }
-       else if(typeCouponUsed === 'coupon_general'){
-          couponStatus = mycoupons.filter((coup)=>coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_general')
-          couponApi('general_coupon_code');
-        }
-        else {
-          couponStatus = []
-        }
-    
-  console.log(couponStatus)    
-  console.log(  couponStatus.map((item)=>({id:item.id})))  
-  
-      
-  
-    
+
+
+
+    const url = `https://admin.aventuras.co.in/api/users/${userID}?populate=*`
+
+
+    let couponStatus
+
+    const couponApi = (Param) => {
+      const value = {
+        [Param]: couponStatus.map((item) => ({ id: item.id }))
       }
+
+      axios.put(url, value)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    if (typeCouponUsed === 'coupon_individual') {
+      couponStatus = mycoupons.filter((coup) => coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_individual')
+      couponApi('coupon_codes');
+    }
+    else if (typeCouponUsed === 'coupon_general') {
+      couponStatus = mycoupons.filter((coup) => coup?.id !== SelectedcouponId && coup?.attributes?.coupon_category === 'coupon_general')
+      couponApi('general_coupon_code');
+    }
+    else {
+      couponStatus = []
+    }
+
+    console.log(couponStatus)
+    console.log(couponStatus.map((item) => ({ id: item.id })))
+
+
+
+
+  }
   const getCouponsForUser = async () => {
 
     try {
       if (userData && userData.isLoggedin === true) {
         const today = new Date().toISOString().split("T")[0];
 
-        const general_coupons  = await API.get
-        (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
+        const general_coupons = await API.get
+          (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
 
         let general_coupons_code = []
 
-        if(general_coupons.data.data && general_coupons.data.data.length > 0){
+        if (general_coupons.data.data && general_coupons.data.data.length > 0) {
           console.log(general_coupons.data.data)
-          general_coupons_code =  general_coupons.data.data.filter(
+          general_coupons_code = general_coupons.data.data.filter(
             (coupon) => {
-          console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length)
+              console.log(coupon?.attributes?.users?.data.filter((u) => (u.attributes.username === userData?.username)).length)
 
-          if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
-              return true
-           }
-           else {
-            return false
-           }
+              if (coupon?.attributes?.users?.data.filter((u) => (u.attributes.username === userData?.username)).length > 0) {
+                return true
+              }
+              else {
+                return false
+              }
             }
           )
         }
@@ -1371,9 +1369,9 @@ const PayWithGrouptour = ({ location }) => {
           //   });
           // }
 
-       let allCoupon = [...general_coupons_code , ...userCoupons];
-       console.log(allCoupon)
-       setMyCoupons(allCoupon)
+          let allCoupon = [...general_coupons_code, ...userCoupons];
+          console.log(allCoupon)
+          setMyCoupons(allCoupon)
           setData((prevData) => ({
             ...prevData,
             coupons: userCoupons, // Set user-specific coupons in data state
@@ -1439,13 +1437,13 @@ const PayWithGrouptour = ({ location }) => {
     },
     {
       title: "Pay",
-      content: <Step3Content 
-      data={data}
-      setData={setData}
-      coupons={mycoupons}
-      settypeCouponUsed={settypeCouponUsed}
-      setSelectedcouponId={setSelectedcouponId}
-       />,
+      content: <Step3Content
+        data={data}
+        setData={setData}
+        coupons={mycoupons}
+        settypeCouponUsed={settypeCouponUsed}
+        setSelectedcouponId={setSelectedcouponId}
+      />,
       icon: (
         <img
           width="40"
@@ -1574,21 +1572,40 @@ const PayWithGrouptour = ({ location }) => {
     }
   };
   const handlePaymentSubmitWithCoupons = async (e) => {
-  
     e.preventDefault();
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
     if (userData && userData.jwt) {
       try {
+
+        // const payload = {
+        //   customer_name: userData.info.user.username,
+        //   customer_email: userData.info.user.email,
+        //   customer_mobile_number: parseInt(data.customer_mobile_number),
+        //   booking_amount: data.amount,
+        //   amount: parseFloat(data.total_amount),
+        //   payment_mode: data.PaymentMode,
+        //   discounted_amount: parseFloat(data.discounted_amount),
+        //   coupon_selected: data.coupon_selected,
+        // };
         const payload = {
+          amount: data.total_amount,
+          adults: data.adults,
+          advance_amount: data.advance_amount,
+          booking_amount: data.amount,
           customer_name: userData.info.user.username,
           customer_email: userData.info.user.email,
           customer_mobile_number: parseInt(data.customer_mobile_number),
-          booking_amount: data.amount,
-          amount: parseFloat(data.total_amount),
-          payment_mode: data.PaymentMode,
-          discounted_amount: parseFloat(data.discounted_amount),
+          customer_package_id: data.customer_package_id,
           coupon_selected: data.coupon_selected,
+          discounted_amount: parseFloat(data.discounted_amount),
+          initial_package_amount: data.initial_package_amount,
+          payment_mode: data.PaymentMode,
+          partialPayment: data.partialPayment,  
+          remaining_amount: data.remaining_amount,
+          selected_batch: yourBatchData,
+
+
         };
         let ob = payload;
         console.log(ob)
@@ -1622,7 +1639,7 @@ const PayWithGrouptour = ({ location }) => {
         duration: 2,
       });
     }
-  }; 
+  };
   return (
     <>
       <div className="pay-page-container2">
@@ -1664,38 +1681,40 @@ const PayWithGrouptour = ({ location }) => {
                     </Button>
                   )}
                   {current === steps.length - 1 && (
-                 <>
-                              {data.coupon_selected ? (
-                  <>
-                    <Button
-                      className="mypayButton"
-                      style={{
-                        backgroundColor: data.coupon_selected
-                          ? "green"
-                          : "#008000",
-                      }}
-                      onClick={handlePaymentSubmitWithCoupons}
-                    >
-                      Apply Coupon & Pay
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button
-                      className="mypayButton"
-                      style={{
-                        backgroundColor: data.coupon_selected
-                          ? "green"
-                          : "#008000",
-                      }}
-                      onClick={handlePaymentSubmit}
-                    >
-                      Pay
-                    </Button>
-  
-                  </>
-                )}
-                 </>
+
+                    <>
+                      {data.coupon_selected ? (
+                        <>
+                          <Button
+                            className="mypayButton"
+                            style={{
+                              backgroundColor: data.coupon_selected
+                                ? "green"
+                                : "#008000",
+                            }}
+                            onClick={handlePaymentSubmitWithCoupons}
+                          >
+                            Apply Coupon & Pay
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            className="mypayButton"
+                            style={{
+                              backgroundColor: data.coupon_selected
+                                ? "green"
+                                : "#008000",
+                            }}
+                            onClick={handlePaymentSubmit}
+                          >
+                            Pay
+                          </Button>
+
+                        </>
+                      )}
+                    </>
+
                   )}
                 </div>
               </div>
