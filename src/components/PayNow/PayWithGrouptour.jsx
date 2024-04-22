@@ -1589,22 +1589,22 @@ const PayWithGrouptour = ({ location }) => {
         //   coupon_selected: data.coupon_selected,
         // };
         const payload = {
+          amount: data.total_amount,
+          adults: data.adults,
+          advance_amount: data.advance_amount,
+          booking_amount: data.amount,
           customer_name: userData.info.user.username,
           customer_email: userData.info.user.email,
           customer_mobile_number: parseInt(data.customer_mobile_number),
           customer_package_id: data.customer_package_id,
+          coupon_selected: data.coupon_selected,
+          discounted_amount: parseFloat(data.discounted_amount),
+          initial_package_amount: data.initial_package_amount,
           payment_mode: data.PaymentMode,
-          adults: data.adults,
+          partialPayment: data.partialPayment,  
+          remaining_amount: data.remaining_amount,
           selected_batch: yourBatchData,
 
-          initial_package_amount: data.initial_package_amount,
-
-          booking_amount: data.amount,
-          advance_amount: data.advance_amount,
-          remaining_amount: data.remaining_amount,
-          partialPayment: data.partialPayment,
-
-          amount: data.total_amount,
         };
         let ob = payload;
         console.log(ob)

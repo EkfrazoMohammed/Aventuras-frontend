@@ -106,6 +106,9 @@ const AllGroupBookings = () => {
                  {/* <div className='booking-card-desc'>
                  <span className='title'>Payment Mode :</span> <span className='value'>{val?.attributes?.payment_mode}</span>
                     </div> */}
+                    {val?.attributes?.customer_package_id ?    <div className='booking-card-desc'>
+                 <span className='title'>PACKAGE ID:</span> <span className='value'> &#x20b9; {val?.attributes?.customer_package_id}</span>
+                </div> : null}
                  <div className='booking-card-desc'>
                  <span className='title'>Payment status :</span>  <span className='value'>{val?.attributes?.payment_status}</span>
                  
@@ -119,6 +122,18 @@ const AllGroupBookings = () => {
                  <div className='booking-card-desc'>
                  <span className='title'>Booking Amount:</span> <span className='value'> &#x20b9; {val?.attributes?.booking_amount}</span>
                 </div>
+                {val?.attributes?.coupon_selected ?    <div className='booking-card-desc'>
+                 <span className='title'>Coupon Applied :</span> <span className='value'> {val?.attributes?.coupon_selected}</span>
+                </div> : null}
+                {val?.attributes?.adults ?    <div className='booking-card-desc'>
+                 <span className='title'>Adults:</span> <span className='value'> &#x20b9; {val?.attributes?.adults}</span>
+                </div> : null}
+                  {val?.attributes?.batch_starts ?    <div className='booking-card-desc'>
+                 <span className='title'>Batch Starts:</span> <span className='value'> &#x20b9; {val?.attributes?.batch_starts
+                }</span></div> : null}
+                  {val?.attributes?.batch_ends ?    <div className='booking-card-desc'>
+                 <span className='title'>Batch Ends:</span> <span className='value'> &#x20b9; {val?.attributes?.batch_ends
+                  }</span></div> : null}
 
                 <div className='booking-card-desc'>
                  <span className='title'>Amount Paid:</span> <span className='value'> &#x20b9; {val?.attributes?.received_amount}</span>

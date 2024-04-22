@@ -177,10 +177,10 @@ export default function Login({toggle,setToggle,toggleRegister,settoggleRegister
          }
 
             setGeneratedOTP(newOtp);
-            let sendingMail = await axios.post(
-              "https://aventuras.co.in/api/v1/users/sendOTPMail",
-              mailData
-            );
+            // let sendingMail = await axios.post(
+            //   "https://aventuras.co.in/api/v1/users/sendOTPMail",
+            //   mailData
+            // );
       } catch (error) {
         console.log(error);
       }
