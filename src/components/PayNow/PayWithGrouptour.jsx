@@ -1572,12 +1572,12 @@ const PayWithGrouptour = ({ location }) => {
     }
   };
   const handlePaymentSubmitWithCoupons = async (e) => {
-
     e.preventDefault();
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
     if (userData && userData.jwt) {
       try {
+
         // const payload = {
         //   customer_name: userData.info.user.username,
         //   customer_email: userData.info.user.email,
@@ -1604,6 +1604,7 @@ const PayWithGrouptour = ({ location }) => {
           partialPayment: data.partialPayment,  
           remaining_amount: data.remaining_amount,
           selected_batch: yourBatchData,
+
 
         };
         let ob = payload;
@@ -1680,6 +1681,7 @@ const PayWithGrouptour = ({ location }) => {
                     </Button>
                   )}
                   {current === steps.length - 1 && (
+
                     <>
                       {data.coupon_selected ? (
                         <>
@@ -1712,6 +1714,7 @@ const PayWithGrouptour = ({ location }) => {
                         </>
                       )}
                     </>
+
                   )}
                 </div>
               </div>
