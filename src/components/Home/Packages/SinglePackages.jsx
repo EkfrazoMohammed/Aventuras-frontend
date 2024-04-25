@@ -670,6 +670,7 @@ const SinglePackages = () => {
   };
 
   const Itinerary = () => {
+    console.log(value,'<<<')
     return (
       <>
         <div className="single-line">

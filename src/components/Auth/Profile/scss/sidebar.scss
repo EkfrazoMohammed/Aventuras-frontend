@@ -67,8 +67,11 @@
         background-color: #ffe93d;
             // background-color: #eee;
             border-radius: 10px;
+            margin: 0.5rem;
  .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
-        color: #000;
+        color: #fff;
+        background-color:#00ccff ;
+     
     }  
             
     // .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
@@ -78,4 +81,23 @@
 
 
    
+}
+.css-10d9dml-MuiTabs-indicator {
+    width: 4px !important;
+    left: 0 !important;
+    background-color: #292929 !important;
+}
+@media(max-width:767px){
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+        min-width: 100% !important;
+    }
+}
+.no-booking-heading{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2.5rem;
+    font-weight: 600;
+    align-items: center;
+    font-size: 1.2rem;
 }

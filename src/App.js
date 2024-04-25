@@ -37,6 +37,7 @@ import ProfileDashboard from "./components/Auth/Profile/ProfileDashboard";
 import PayWithBookNow from "./components/PayNow/PayWithBookNow";
 import PayWithGrouptour from "./components/PayNow/PayWithGrouptour";
 import SearchDestination from "./components/Home/Destinations/SearchDestination";
+import ChooseUs from "./components/WhyChoose/ChooseUs";
 import {MenuOutlined,} from "@ant-design/icons";
 import {HelmetProvider} from "react-helmet-async";
 function App() {
@@ -117,6 +118,7 @@ function App() {
 
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<Contact />} />
+          <Route path="/Why_choose" element={<ChooseUs />} />
 
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

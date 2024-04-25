@@ -153,6 +153,7 @@ const SimpleBookings = () => {
             
             :<>
              <div className="no-booking-heading">
+             <img src="https://admin.aventuras.co.in/uploads/image_1_1_2a69dfc02b.png" style={{width:'100px'}} alt="" />
           No Bookings yet
             </div>
             </>}

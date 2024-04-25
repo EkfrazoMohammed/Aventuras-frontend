@@ -400,16 +400,17 @@ const Step2Content = ({
   );
 };
 const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCouponUsed }) => {
-  console.log(coupons)
-
+  coupons = coupons.filter((item)=> data.amount >= item.attributes.min_amount);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const [initialAmount, setInitialAmount] = useState(data.total_amount);
+
   useEffect(() => {
     setInitialAmount(data.total_amount);
   }, []);
+
   const [showDiscount, setShowDiscount] = useState(false);
 
   const handleCouponChange = (value) => {
@@ -430,22 +431,28 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
       return;
     }
     console.log(selectedCoupon)
+    console.log(selectedCoupon.attributes.max_value_percentage)
     setSelectedcouponId(selectedCoupon.id)
     settypeCouponUsed (selectedCoupon.attributes.coupon_category)
-    console.log(selectedCoupon)
+
     const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
+
     const percentageDiscount = parseFloat(
       selectedCoupon.attributes.discount_percentage
     );
+
     console.log(flatDiscount,'<<<?>>')
     console.log(percentageDiscount,'<<---')
+
     let discountedAmount = null;
     if (flatDiscount > 0) {
       discountedAmount = flatDiscount.toFixed(2);
+
     } else if (percentageDiscount > 0) {
-      const percentageAmount = (percentageDiscount / 100) * initialAmount;
+      const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
       discountedAmount = percentageAmount.toFixed(2);
     }
+
     if (discountedAmount !== null) {
       const newAmount = initialAmount - parseFloat(discountedAmount);
       const roundedAmount = Math.max(newAmount, 0).toFixed(2);
@@ -826,10 +833,8 @@ const Pay2 = () => {
         let general_coupons_code = []
 
         if(general_coupons.data.data && general_coupons.data.data.length > 0){
-          console.log(general_coupons.data.data)
           general_coupons_code =  general_coupons.data.data.filter(
             (coupon) => {
-console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length)
 
  if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
              return true
