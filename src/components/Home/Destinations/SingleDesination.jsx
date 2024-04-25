@@ -107,9 +107,13 @@ const SingleDestination = () => {
                            
                                     {
                                    packages.length===0 ?
-                                    (<><div className="section-title">
-                                    no packages found
-                                 </div></>
+                                    (<>
+                                    <div className="section-title">
+                                    no standard packages found
+                                     <div className="contact_text">Please contact us for custom Package</div>
+                                     <div className="contact_button" onClick={()=>navigate('/contact-us')}>Contact us</div>   
+                                 </div>
+                                 </>
                                      )
                                     :
                                     (<>

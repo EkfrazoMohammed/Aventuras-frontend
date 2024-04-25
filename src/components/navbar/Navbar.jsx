@@ -305,6 +305,16 @@ const Drop = ({ setClicked, clicked }) => {
                         </Link>
                       </div>
                     </li>
+                    <li className="navitem">
+                      <div>
+                        <Link
+                          onClick={() => setClicked(!clicked)}
+                          to="/Why_choose"
+                        >
+                          Why Choose Us?
+                        </Link>
+                      </div>
+                    </li>
                     <li className="dropdownOne showbig">
                       <div className="dropbtn">
                         {username ? <>
