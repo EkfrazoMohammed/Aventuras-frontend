@@ -63,7 +63,7 @@ const ChooseUs = () => {
 
 </div>
 <div className="image_section">
-    <img src="https://british-academy.in/images/about/choose-us.png" style={{width:'100%'}} alt="" />
+    <img src="https://admin.aventuras.co.in/uploads/choose_us_2f2a865aeb.png" style={{width:'100%'}} alt="" />
 </div>
 
    </div>

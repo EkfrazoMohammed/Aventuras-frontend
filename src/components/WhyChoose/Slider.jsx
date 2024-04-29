@@ -19,7 +19,7 @@ const [reviewData,setreviewData]=useState([]);
 
     var settings = {
         infinite: false,
-        speed: 3000,
+        speed: 1500,
         slidesToShow: 2,
         slidesToScroll: 2,
         initialSlide: 0,

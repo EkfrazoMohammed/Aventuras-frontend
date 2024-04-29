@@ -26,7 +26,7 @@ fetchData()
       infinite: true,
       centerPadding: "60px",
       slidesToShow: 3,
-      speed: 1000,
+      speed: 1500,
         responsive: [
           {
             breakpoint: 1024,
