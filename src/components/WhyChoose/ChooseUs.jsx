@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import  './Choose.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from './Slider'
@@ -7,6 +6,7 @@ import { API } from '../../api/apirequest';
 import VideoSlider from './Vedio'
 import PermMediaIcon from '@mui/icons-material/PermMedia';
 import ReactMarkdown from "react-markdown";
+import  './Choose.css'
 
 const ChooseUs = () => {
 

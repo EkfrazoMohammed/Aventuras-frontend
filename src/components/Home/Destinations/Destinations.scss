@@ -99,7 +99,10 @@
         }
       }
     }
-
+    .slick-track{
+      gap: 0 !important;
+      padding: 0 !important;
+    }
     .additional {
       position: relative;
       width: 100%;
