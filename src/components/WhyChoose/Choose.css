@@ -58,6 +58,7 @@ flex-direction: column;
 
 
 /* Slider css */
+
 .slider{
     max-width:1400px !important;
     width:90% !important;
@@ -75,7 +76,7 @@ flex-direction: column;
     border-radius: 10px;
 }
 .slick-track{
-    display: flex !important;
+    display: flex ;
     justify-content: center;
     gap: 1rem;
     padding: 1rem 0;
@@ -203,7 +204,27 @@ iframe{
         width: 100%;
         object-fit: contain;
     }
+    .slide_content{
+        height: 100%;
+        min-height: 300px;
+    }
+    .slide_text_container{
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        align-items: center;
+        justify-content: center;
+    }
+    .reveiw_text {
+  
+        width: 90%;
+    }
+    .review_image_container{
+        width: 30%;
+    }
 }
+
+
 
 @media(max-width:767px){
     .banner_overlay h3 {
