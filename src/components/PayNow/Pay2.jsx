@@ -1350,7 +1350,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
                       }}
                       onClick={handlePaymentSubmitWithCoupons}
                     >
-                      Apply Coupon and Pay
+                      Apply Coupon & Pay
                     </Button>
                   </>
                 ) : (
