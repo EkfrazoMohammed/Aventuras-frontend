@@ -1876,7 +1876,7 @@ console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username 
                               }}
                               onClick={handlePaymentSubmitWithCoupons}
                             >
-                              Apply Coupon and Pay
+                              Apply Coupon & Pay
                             </Button>
                           </>
                         ) : (
