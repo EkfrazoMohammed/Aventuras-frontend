@@ -540,12 +540,13 @@ console.log(coupons.map((val)=>val.attributes.discount_percentage))
         { value: "cancel", label: "Apply Coupons" },
         ...coupons.map((coupon) => ({
           value: `${coupon.attributes.code}`,
-          label: `${coupon.attributes.code} | Discount of ${
+          label: `${coupon.attributes.code} |  ${'Discount of' +
             Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
               ? `${coupon.attributes.flat_amount} INR`
               : ''
           } ${
-         Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
+            Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "% OFF UPTO " + coupon.attributes.max_value_percentage
+            + "rs" : ""
           }`
         }))
       ]}
