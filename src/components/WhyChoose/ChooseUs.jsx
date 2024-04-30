@@ -72,7 +72,7 @@ const ChooseUs = () => {
    <Slider data={chooseData}/>
 </div>
 <div className="name" style={{display:'flex',justifyContent:'center',flexDirection:'column',alignItems:'center'}}>
-<VideoSlider/>
+<VideoSlider />
 </div>
 
 <div className="content_container" style={{background:'#ffe207'}}>
