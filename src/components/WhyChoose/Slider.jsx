@@ -73,7 +73,7 @@ const [reviewData,setreviewData]=useState([]);
     </div>
     <div className="reveiw_text">{data.attributes.Review}</div>
    </div>
-   <div className="">-{data.attributes.Name}</div>  
+   <div className="" style={{fontWeight:'600'}}>-{data.attributes.Name}</div>  
          
          </div>
   )
