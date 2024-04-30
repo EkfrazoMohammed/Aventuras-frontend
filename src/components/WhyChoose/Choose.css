@@ -87,7 +87,7 @@ flex-direction: column;
     justify-content: space-around;
     gap: 1rem;
     padding: 1rem;
-
+  width: 100%;
 }
 .review_image_container{
   width: 16%;
