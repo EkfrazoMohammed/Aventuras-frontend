@@ -80,14 +80,14 @@ flex-direction: column;
     display: flex ;
     justify-content: center;
     gap: 1rem;
-    padding: 1rem 0;
+    padding-bottom:1rem ;
 }
 .slide_text_container{
     display: flex;
     justify-content: space-around;
     gap: 1rem;
     padding: 1rem;
-  width: 100%;
+  width: 100% !important;
 }
 .review_image_container{
   width: 16%;
@@ -111,7 +111,7 @@ flex-direction: column;
 }
 .review_heading{
     max-width: 1400px;
-    width: 100%;
+    width: 90%;
     font-size: 2.5rem;
     font-weight: 550;
     margin: 1rem 0;
@@ -263,9 +263,10 @@ iframe{
     .image_section{
         display: none;
     }
-    .review_heading{
-        font-size: 1.4rem;
-        gap: 0.2rem;
+    .review_heading {
+        font-size: 1.25rem;
+        gap: 0.1rem;
+        width: 100%;
     }
     .slider {
         width: 90% !important;

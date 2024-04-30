@@ -62,7 +62,7 @@ fetchData()
       <div className="review_heading" >
         Video Reviews 
 
-  <YouTubeIcon fontSize="2.5rem" sx={{color:'red'}}/>
+  <YouTubeIcon fontSize="large"	 sx={{color:'red'}} />
         </div>
         <Slider {...settings} className="slider">
       {video[0]?.map((val, index) => (
