@@ -685,7 +685,7 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
     if (flatDiscount > 0) {
       discountedAmount = flatDiscount.toFixed(2);
     } else if (percentageDiscount > 0) {
-      const percentageAmount = (percentageDiscount / 100) * initialAmount;
+      const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
       discountedAmount = percentageAmount.toFixed(2);
     }
     if (discountedAmount !== null) {
@@ -708,7 +708,12 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
       }));
     }
   };
-  console.log(coupons, '<<<<<')
+  
+
+
+  console.log(data.discounted_amount)
+  console.log(data.total_amount)
+
   return (
     <div>
       <Row
@@ -806,11 +811,14 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
                   { value: "cancel", label: "Apply Coupons" },
                   ...coupons.map((coupon) => ({
                     value: `${coupon.attributes.code}`,
-                    label: `${coupon.attributes.code} | Discount of ${Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
-                        ? `${coupon.attributes.flat_amount} INR`
+                    label: `${coupon.attributes.code} |  ${
+                      Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
+                        ? `Discount of  ${coupon.attributes.flat_amount} INR`
                         : ''
-                      } ${Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
-                      }`
+                    } ${
+                      Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "% OFF UPTO " + coupon.attributes.max_value_percentage
+                      + "rs" : ""
+                    }`
                   }))
                 ]}
                 onChange={(value) => {
@@ -913,6 +921,7 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
                       <td className="mylasttd"> GST on PG Charges (0%):</td>
                       <td style={{ width: "100%" }}>{data.convenienceGST}</td>
                     </tr>
+                    
                     {data.total_amount >= data.discounted_amount ? (
                       <>
                         {showDiscount ? (
@@ -928,7 +937,7 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
                                   }}
                                 >
                                   <td className="mylasttd">Coupon Discount:</td>
-                                  <td style={{ width: "100%" }}>
+                                  <td className="mylasttd">
                                     {`- ${parseInt(data.discounted_amount)}`}
                                   </td>
                                 </tr>
@@ -997,7 +1006,7 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
                       </td>
                       <td className="mylasttd">{data.convenience}</td>
                     </tr>
-
+         
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",
@@ -1009,7 +1018,31 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
                       <td className="mylasttd"> GST on PG Charges (18%):</td>
                       <td className="mylasttd">{data.convenienceGST}</td>
                     </tr>
-
+                    {data.total_amount >= data.discounted_amount ? (
+                      <>
+                        {showDiscount ? (
+                          <>
+                            {coupons.length > 0 ? (
+                              <>
+                                <tr
+                                  style={{
+                                    borderBottom: "0.5px solid grey",
+                                    display: "flex",
+                                    gap: "25px",
+                                    backgroundColor: "palegreen",
+                                  }}
+                                >
+                                  <td className="mylasttd">Coupon Discount:</td>
+                                  <td className="mylasttd">
+                                    {`- ${parseInt(data.discounted_amount)}`}
+                                  </td>
+                                </tr>
+                              </>
+                            ) : null}
+                          </>
+                        ) : null}
+                      </>
+                    ) : null}
                     <tr
                       style={{
                         borderBottom: "0.5px solid grey",

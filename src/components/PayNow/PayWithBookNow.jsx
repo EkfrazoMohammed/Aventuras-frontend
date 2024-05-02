@@ -560,79 +560,143 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
   }, []);
   const [showDiscount, setShowDiscount] = useState(false);
   let selectedCoupon = null;
-  const handleCouponChange = (value) => {
 
+  // Previously Used function to toggle coupon data
+  // const handleCouponChange = (value) => {
+
+  //   if (value === "cancel") {
+  //     setShowDiscount(false);
+  //   }
+  //   selectedCoupon = coupons.find((coupon) => coupon.attributes.code === value);
+  //   console.log(selectedCoupon,'<<<<')
+  //   setSelectedcouponId(selectedCoupon.id)
+  //   settypeCouponUsed (selectedCoupon.attributes.coupon_category)
+
+  //   let discountedAmount = null;
+  //   // Assuming you have the coupon_code_flat_amount stored in a variable
+  //   const couponCodeFlatAmount = parseFloat(
+  //     selectedCoupon.attributes.flat_amount
+  //   );
+
+  //   if (selectedCoupon !== null && selectedCoupon !== undefined) {
+  //     discountedAmount = parseFloat(
+  //       selectedCoupon.attributes.flat_amount
+  //     ).toFixed(2);
+
+  //     // Check if the flat amount is less than the initial amount
+  //     if (discountedAmount < initialAmount) {
+  //       setShowDiscount(true);
+  //       const newAmount = initialAmount - (discountedAmount || 0);
+  //       const roundedAmount = parseFloat(
+  //         newAmount < 0 ? initialAmount : newAmount
+  //       ).toFixed(2);
+
+  //       setData((prevData) => ({
+  //         ...prevData,
+  //         discounted_amount: parseFloat(
+  //           discountedAmount !== null ? discountedAmount : 0
+  //         ).toFixed(2),
+  //         total_amount: parseFloat(roundedAmount).toFixed(2),
+  //         coupon_selected: selectedCoupon.attributes.code,
+  //       }));
+  //     } else {
+  //       // If flat amount is not less than initial amount, don't apply the coupon
+  //       setShowDiscount(false);
+  //       discountedAmount = 0;
+  //       setData((prevData) => ({
+  //         ...prevData,
+  //         discounted_amount: null,
+  //         total_amount: parseFloat(initialAmount).toFixed(2),
+  //         coupon_selected: null,
+  //       }));
+  //     }
+  //   }
+  //   // if (selectedCoupon !== null && selectedCoupon !== undefined) {
+  //   //   setShowDiscount(true)
+  //   //   discountedAmount = parseFloat(selectedCoupon.attributes.flat_amount).toFixed(2);
+  //   //   const newAmount = initialAmount - (discountedAmount || 0);
+  //   //   const roundedAmount = parseFloat(newAmount < 0 ? initialAmount : newAmount).toFixed(2);
+
+  //   //   setData((prevData) => ({
+  //   //     ...prevData,
+  //   //     discounted_amount: parseFloat(
+  //   //       discountedAmount !== null ? discountedAmount : 0
+  //   //     ).toFixed(2),
+  //   //     total_amount: parseFloat(roundedAmount).toFixed(2),
+  //   //     coupon_selected:selectedCoupon.attributes.code,
+  //   //   }));
+  //   // } else {
+  //   //   setShowDiscount(false)
+  //   //   discountedAmount = 0;
+  //   //   setData((prevData) => ({
+  //   //     ...prevData,
+  //   //     discounted_amount: null,
+  //   //     total_amount: parseFloat(initialAmount).toFixed(2),
+  //   //     coupon_selected:null,
+  //   //   }));
+  //   // }
+  // };
+  
+  
+  const handleCouponChange = (value) => {
     if (value === "cancel") {
       setShowDiscount(false);
+      setData((prevData) => ({
+        ...prevData,
+        discounted_amount: null,
+        total_amount: parseFloat(initialAmount).toFixed(2),
+        coupon_selected: null,
+      }));
+      return;
     }
-    selectedCoupon = coupons.find((coupon) => coupon.attributes.code === value);
-    console.log(selectedCoupon,'<<<<')
+    const selectedCoupon = coupons.find(
+      (coupon) => coupon.attributes.code === value
+    );
+    if (!selectedCoupon) {
+      return;
+    }
+
     setSelectedcouponId(selectedCoupon.id)
     settypeCouponUsed (selectedCoupon.attributes.coupon_category)
 
-    let discountedAmount = null;
-    // Assuming you have the coupon_code_flat_amount stored in a variable
-    const couponCodeFlatAmount = parseFloat(
-      selectedCoupon.attributes.flat_amount
+    const flatDiscount = parseFloat(selectedCoupon.attributes.flat_amount);
+
+    const percentageDiscount = parseFloat(
+      selectedCoupon.attributes.discount_percentage
     );
 
-    if (selectedCoupon !== null && selectedCoupon !== undefined) {
-      discountedAmount = parseFloat(
-        selectedCoupon.attributes.flat_amount
-      ).toFixed(2);
 
-      // Check if the flat amount is less than the initial amount
-      if (discountedAmount < initialAmount) {
-        setShowDiscount(true);
-        const newAmount = initialAmount - (discountedAmount || 0);
-        const roundedAmount = parseFloat(
-          newAmount < 0 ? initialAmount : newAmount
-        ).toFixed(2);
 
-        setData((prevData) => ({
-          ...prevData,
-          discounted_amount: parseFloat(
-            discountedAmount !== null ? discountedAmount : 0
-          ).toFixed(2),
-          total_amount: parseFloat(roundedAmount).toFixed(2),
-          coupon_selected: selectedCoupon.attributes.code,
-        }));
-      } else {
-        // If flat amount is not less than initial amount, don't apply the coupon
-        setShowDiscount(false);
-        discountedAmount = 0;
-        setData((prevData) => ({
-          ...prevData,
-          discounted_amount: null,
-          total_amount: parseFloat(initialAmount).toFixed(2),
-          coupon_selected: null,
-        }));
-      }
+    let discountedAmount = null;
+    if (flatDiscount > 0) {
+      discountedAmount = flatDiscount.toFixed(2);
+
+    } else if (percentageDiscount > 0) {
+      const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
+      discountedAmount = percentageAmount.toFixed(2);
     }
-    // if (selectedCoupon !== null && selectedCoupon !== undefined) {
-    //   setShowDiscount(true)
-    //   discountedAmount = parseFloat(selectedCoupon.attributes.flat_amount).toFixed(2);
-    //   const newAmount = initialAmount - (discountedAmount || 0);
-    //   const roundedAmount = parseFloat(newAmount < 0 ? initialAmount : newAmount).toFixed(2);
 
-    //   setData((prevData) => ({
-    //     ...prevData,
-    //     discounted_amount: parseFloat(
-    //       discountedAmount !== null ? discountedAmount : 0
-    //     ).toFixed(2),
-    //     total_amount: parseFloat(roundedAmount).toFixed(2),
-    //     coupon_selected:selectedCoupon.attributes.code,
-    //   }));
-    // } else {
-    //   setShowDiscount(false)
-    //   discountedAmount = 0;
-    //   setData((prevData) => ({
-    //     ...prevData,
-    //     discounted_amount: null,
-    //     total_amount: parseFloat(initialAmount).toFixed(2),
-    //     coupon_selected:null,
-    //   }));
-    // }
+    if (discountedAmount !== null) {
+      const newAmount = initialAmount - parseFloat(discountedAmount);
+      const roundedAmount = Math.max(newAmount, 0).toFixed(2);
+      setData((prevData) => ({
+        ...prevData,
+        discounted_amount: parseFloat(discountedAmount).toFixed(2),
+        total_amount: roundedAmount,
+        coupon_selected: selectedCoupon.attributes.code,
+      }));
+      setShowDiscount(true);
+
+
+    } else {
+      setShowDiscount(false);
+      setData((prevData) => ({
+        ...prevData,
+        discounted_amount: null,
+        total_amount: parseFloat(initialAmount).toFixed(2),
+        coupon_selected: null,
+      }));
+    }
   };
 console.log(coupons)
   return (
@@ -733,12 +797,13 @@ console.log(coupons)
                   { value: "cancel", label: "Apply Coupons" },
                   ...coupons.map((coupon) => ({
                     value: `${coupon.attributes.code}`,
-                    label: `${coupon.attributes.code} | Discount of ${
+                    label: `${coupon.attributes.code} |  ${
                       Number(coupon.attributes.flat_amount) > 0 && Number(coupon.attributes.discount_percentage) === 0
-                        ? `${coupon.attributes.flat_amount} INR`
+                        ? `Discount of  ${coupon.attributes.flat_amount} INR`
                         : ''
                     } ${
-                   Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "%" : ""
+                      Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "% OFF UPTO " + coupon.attributes.max_value_percentage
+                      + "rs" : ""
                     }`
                   }))
                 ]}

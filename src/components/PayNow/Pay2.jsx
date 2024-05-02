@@ -430,8 +430,7 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
     if (!selectedCoupon) {
       return;
     }
-    console.log(selectedCoupon)
-    console.log(selectedCoupon.attributes.max_value_percentage)
+
     setSelectedcouponId(selectedCoupon.id)
     settypeCouponUsed (selectedCoupon.attributes.coupon_category)
 
@@ -441,8 +440,7 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
       selectedCoupon.attributes.discount_percentage
     );
 
-    console.log(flatDiscount,'<<<?>>')
-    console.log(percentageDiscount,'<<---')
+
 
     let discountedAmount = null;
     if (flatDiscount > 0) {
@@ -476,8 +474,7 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
     }
   };
 
-console.log(typeof(coupons.map((val)=>val.attributes.flat_amount)))
-console.log(coupons.map((val)=>val.attributes.discount_percentage))
+
 
   return (
     <div>
