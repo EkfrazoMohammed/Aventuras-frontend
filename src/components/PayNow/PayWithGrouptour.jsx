@@ -19,6 +19,7 @@ import {
 
 import axios from "axios";
 import "./PayNow2.scss";
+import "./Paygrouptour.css"
 import { API, baseURL } from "../../api/apirequest";
 
 const Step1Content = ({
