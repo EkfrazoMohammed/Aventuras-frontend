@@ -598,3 +598,6 @@ z-index: 1000 !important;
         :where(.css-dev-only-do-not-override-xu9wm8).ant-modal .ant-modal-footer {
         display: none !important;
         }
+        :where(.css-42nv3w).ant-modal-root .ant-modal-mask{
+            background-color: rgb(0 0 0 / 7%) !important;
+        }

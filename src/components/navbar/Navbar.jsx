@@ -322,10 +322,10 @@ const Drop = ({ setClicked, clicked }) => {
                             /\s|@/.test(username) ? (
                               <div className="" style={{fontSize:'1rem'}}>
 
-                                {`Hi ${username.split(/\s|@/)[0].substring(0, 10)}...`}
+                                {`Hi ${username.split(/\s|@/)[0].substring(0, 8)}...`}
                               </div>
                             ) : (
-                              `${username.substring(0, 14)}...`
+                              `${username.substring(0, 8)}...`
                             )
                           ) : (
                             /\s|@/.test(username) ? (

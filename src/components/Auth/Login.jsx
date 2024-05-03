@@ -261,7 +261,7 @@ if(name === "mobile_number"){
     errorLogin.mobile = "";
   }
   else{
-    errorLogin.mobile = "Enter a valid email address.";
+    errorLogin.mobile = "Enter a Valid Mobile Number.";
   }
 }
     if (name === "identifier") {
@@ -1175,7 +1175,8 @@ const verifyUserGoogleSMSOTP = async (e) => {
     }
   }
 };
-const [modalOpen, setModalOpen] = useState(false)
+const [disTextField, setdisTextField] = useState(false)
+
 
 
   return (
@@ -1251,6 +1252,7 @@ const [modalOpen, setModalOpen] = useState(false)
                                 label="Enter Mobile Number"
                                 error={loginInputError.mobile}
                                 helperText={loginInputError.mobile}
+                                disabled={disTextField}
                               />
               
                               {!a ? (
@@ -1262,6 +1264,8 @@ const [modalOpen, setModalOpen] = useState(false)
                                   sx={{ mt: 1, mb: 2 }}
                                   onClick={(e) => {
                                     signUpWithSMS();
+                                    setdisTextField(true)
+
                                   }}
                                   disabled={loginInputError.mobile}
                                 >
