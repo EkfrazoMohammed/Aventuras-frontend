@@ -706,7 +706,7 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
       }));
     }
   };
-console.log(coupons)
+console.log(data.PaymentMode)
   return (
     <div>
       <Row

@@ -192,13 +192,13 @@ const Step2Content = ({
     originalAmount + convenienceFeesCARD + convenienceGSTFeesCARD
   );
   const handleRadioChange = (selectedMethod) => {
-    if (selectedMethod === "CREDIT CARD" && method !== "CREDIT CARD") {
-      setMethod("CREDIT CARD");
+    if (selectedMethod === "CARD" && method !== "CARD") {
+      setMethod("CARD");
       setUPIIsChecked(false);
       setCARDIsChecked(true);
       setData((prevData) => ({
         ...prevData,
-        PaymentMode: "CREDIT CARD",
+        PaymentMode: "CARD",
         convenience: parseFloat(convenienceFeesCARD.toFixed(2)),
         convenienceGST: parseFloat(convenienceGSTFeesCARD.toFixed(2)),
         amount: parseFloat(originalAmount.toFixed(2)),
@@ -284,7 +284,7 @@ const Step2Content = ({
           </div>
           <div
             className="card_section"
-            onClick={() => handleRadioChange("CREDIT CARD")}
+            onClick={() => handleRadioChange("CARD")}
           >
             <div
               className=""
@@ -300,9 +300,9 @@ const Step2Content = ({
             >
               <input
                 name="UPIPay"
-                value="CREDIT CARD"
+                value="CARD"
                 type="radio"
-                checked={method === "CREDIT CARD"}
+                checked={method === "CARD"}
                 onChange={handleRadioChange}
               />
               <img
