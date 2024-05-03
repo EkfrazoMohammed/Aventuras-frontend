@@ -217,6 +217,8 @@ const Step2Content = ({
         total_amount: parseFloat(netAmountUPI.toFixed(2)),
       }));
     }
+
+    
   };
   return (
     <div>
@@ -1191,7 +1193,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
           customer_email: userData.info.user.email,
           customer_mobile_number: parseInt(data.customer_mobile_number),
           booking_amount: data.amount,
-          amount: parseFloat(data.total_amount),
+          amount: parseInt(data.total_amount),
           payment_mode: data.PaymentMode,
           discounted_amount: parseFloat(data.discounted_amount),
           coupon_selected: data.coupon_selected,
@@ -1228,7 +1230,6 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
     }
   };
   const handlePaymentSubmitWithCoupons = async (e) => {
-    
     e.preventDefault();
     const userDataString = localStorage.getItem("user");
     const userData = JSON.parse(userDataString);
@@ -1239,7 +1240,7 @@ console.log(  couponStatus.map((item)=>({id:item.id})))
           customer_email: userData.info.user.email,
           customer_mobile_number: parseInt(data.customer_mobile_number),
           booking_amount: data.amount,
-          amount: parseFloat(data.total_amount),
+          amount: parseInt(data.total_amount),
           payment_mode: data.PaymentMode,
           discounted_amount: parseFloat(data.discounted_amount),
           coupon_selected: data.coupon_selected,
