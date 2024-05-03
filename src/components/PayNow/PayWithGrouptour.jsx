@@ -636,6 +636,9 @@ const Step2Content = ({
 };
 
 const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, setData }) => {
+  coupons = coupons.filter((item)=> data.amount >= item.attributes.min_amount);
+  console.log(coupons)
+
   let arrayData = [data];
   console.log(arrayData);
   useEffect(() => {
@@ -685,8 +688,15 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
     if (flatDiscount > 0) {
       discountedAmount = flatDiscount.toFixed(2);
     } else if (percentageDiscount > 0) {
-      const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
-      discountedAmount = percentageAmount.toFixed(2);
+      console.log(selectedCoupon.attributes.max_value_percentage )
+      if(initialAmount < selectedCoupon.attributes.max_value_percentage){
+        const percentageAmount = (percentageDiscount / 100) * initialAmount;
+        discountedAmount = percentageAmount.toFixed(2);
+      }else{
+
+        const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
+        discountedAmount = percentageAmount.toFixed(2);
+      }
     }
     if (discountedAmount !== null) {
       const newAmount = initialAmount - parseFloat(discountedAmount);

@@ -447,8 +447,15 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
       discountedAmount = flatDiscount.toFixed(2);
 
     } else if (percentageDiscount > 0) {
-      const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
-      discountedAmount = percentageAmount.toFixed(2);
+      console.log(selectedCoupon.attributes.max_value_percentage )
+      if(initialAmount < selectedCoupon.attributes.max_value_percentage){
+        const percentageAmount = (percentageDiscount / 100) * initialAmount;
+        discountedAmount = percentageAmount.toFixed(2);
+      }else{
+
+        const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
+        discountedAmount = percentageAmount.toFixed(2);
+      }
     }
 
     if (discountedAmount !== null) {

@@ -11,17 +11,18 @@ import  './Choose.css'
 const ChooseUs = () => {
 
     const [chooseData,setchooseData]=useState([])
+    const[gallery,setGallery]=useState();
 
     useEffect(()=>{
         const getData = async()=>{
-            const res = await API.get('/api/choose-uses')
+            const res = await API.get('/api/choose-uses?populate=deep')
             console.log(res)
             setchooseData([res])
         }
         getData()
+       
     },[])
-    console.log(chooseData[0]?.data?.data?.map((val)=>val.attributes.content))
-    console.log(chooseData)
+    console.log(chooseData[0]?.data?.data[0]?.attributes?.gallery?.data?.map((i)=>i.attributes.url))
   return (
    <>
    <div className="banner_image">
@@ -72,7 +73,7 @@ const ChooseUs = () => {
    <Slider data={chooseData}/>
 </div>
 <div className="name" style={{display:'flex',justifyContent:'center',flexDirection:'column',alignItems:'center'}}>
-<VideoSlider />
+<VideoSlider data={chooseData} />
 </div>
 
 <div className="content_container" style={{background:'#ffe207'}}>
@@ -80,7 +81,9 @@ const ChooseUs = () => {
 Client Diaries
 
   <PermMediaIcon fontSize="2.5rem" sx={{color:'#000'}}/>
-        </div>    <div className="gallery_container">
+        </div>  
+          {/* <div className="gallery_container">
+
    <div className="gallery-first">
     <div className="small_section_first">
         <div className="image_container">
@@ -110,7 +113,7 @@ Client Diaries
         <img src="https://xtemko.stripocdn.email/content/guids/CABINET_441589ae823a236f0335e96c34bd27c78b9a070280f8a267e23f915b662cf3e8/images/copy_of_img20220808wa0016_mlt.jpg" alt="" />
     </div>
    </div>
-   <div className="gallery-third">
+   <div className="gallery-first">
     <div className="small_section_first">
         <div className="image_container">
         <img src="https://xtemko.stripocdn.email/content/guids/CABINET_441589ae823a236f0335e96c34bd27c78b9a070280f8a267e23f915b662cf3e8/images/thailand_ankit_gautam_rUN.jpg" alt="" />
@@ -130,6 +133,17 @@ Client Diaries
         </div>
     </div>
    </div>
+    </div> */}
+    <div className="gallery_container">
+        {
+            chooseData[0]?.data?.data[0]?.attributes?.gallery?.data?.map((val)=>
+            <div className="image_container">
+            <img src={`https://admin.aventuras.co.in/${val?.attributes?.url}`} alt="" />
+            </div>
+           )
+        }
+
+        
     </div>
 </div>
    </>

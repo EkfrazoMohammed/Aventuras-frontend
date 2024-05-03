@@ -5,21 +5,25 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import { API } from "../../api/apirequest";
 
 
-function VedioPlay() {
-  const [video,setVideo] =useState([])
+function VedioPlay({data}) {
+  const [video,setVideo] =useState()
+
 useEffect(()=>{
-  const fetchData = async () => {
-    try {
-      const resData = await API.get('/api/youtube-reviews');
-      setVideo([resData.data?.data?.map((val) => val.attributes)]);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-fetchData()
-},[])
+//   const fetchData = async () => {
+//     try {
+//       const resData = await API.get('/api/youtube-reviews');
+//       setVideo([resData.data?.data?.map((val) => val.attributes)]);
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
+// fetchData()
+
+setVideo(data[0]?.data?.data[0]?.attributes.youtube_Id)
 
 
+},[data])
+console.log(video)
     var settings = {
       className: "center",
       centerMode: true,
@@ -56,7 +60,7 @@ fetchData()
           }
         ]
       };
-
+      
   return (
     < >
       <div className="review_heading" >
@@ -65,14 +69,16 @@ fetchData()
   <YouTubeIcon fontSize="large"	 sx={{color:'red'}} />
         </div>
         <Slider {...settings} className="slider">
-      {video[0]?.map((val, index) => (
+      {video?.map((val, index) => (
         <div className="Vedio_slide_content"  key={index}>
           <div className="slide_text_container">
-            <iframe title={index}  src={`https://www.youtube.com/embed/${val.Youtube_Id}`} frameborder="0"/>
+            <iframe title={index}  src={`https://www.youtube.com/embed/${val.yt_id
+}`} frameborder="0"/>
           </div>
         </div>
       ))}
     </Slider>
+ 
 
 {/* <Slider {...settings} className="slider" >
 
