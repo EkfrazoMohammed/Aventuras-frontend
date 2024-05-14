@@ -54,12 +54,12 @@ const [reviewData,setreviewData]=useState([]);
     < >
       <div className="review_heading" >
         Client Reviews 
-        <StarIcon sx={{ color: "gold" }} />
-                    <StarIcon sx={{ color: "gold" }} />
-                    <StarIcon sx={{ color: "gold" }} />
-                    <StarIcon sx={{ color: "gold" }} />
+        <StarIcon sx={{ color: "yellow" }} />
+                    <StarIcon sx={{ color: "yellow" }} />
+                    <StarIcon sx={{ color: "yellow" }} />
+                    <StarIcon sx={{ color: "yellow" }} />
 
-                    <StarIcon sx={{ color: "gold" }} />
+                    <StarIcon sx={{ color: "yellow" }} />
         </div>
 {
   reviewData?.map((item)=>

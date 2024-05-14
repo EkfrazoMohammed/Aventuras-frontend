@@ -1205,7 +1205,7 @@ const SinglePackages = () => {
                             <span className="icon">
                               <AirportShuttleIcon />
                             </span>
-                            <span className="text">Cab transfer</span>
+                            <span className="text">Transfers</span>
                           </div>
                         </>
                       ) : (
@@ -1273,6 +1273,10 @@ const SinglePackages = () => {
                 </div>
 
                 <div className="right-content">
+                  <div className="form-container" >
+                    <div className="">Starting Price</div>
+                    <div className="" style={{fontWeight:'600',fontSize:'1.5rem',}}>&#8377; {value?.attributes?.Package_price}/- <span className="" style={{fontWeight:'50',fontSize:'1rem'}}>per person</span> </div>
+                  </div>
                   <div className="form-container">
                     <div className="packageId">
                       {value?.attributes?.package_id}

@@ -492,3 +492,32 @@
   border-radius: 50%;
   background-color: #ffd93d;
 }
+.price_tag_Container{
+  // background: linear-gradient(90deg, rgb(247, 151, 30) 0%, rgb(255, 210, 0) 100%) !important;
+  background: #ffd93d  !important;
+  width: fit-content;
+  padding: 0.3rem;
+  position: absolute;
+  top: 5%;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+.price_tag_Container img{
+  width: 15px;
+  height: 15px;
+  rotate: 270deg;
+}
+@media(max-width:767px){
+  .price_tag_Container {
+    padding: 0.2rem 0.15rem;
+    top: 5%;
+    left: 2.2%;
+}
+.price_tag_Container img {
+  width: 13px;
+  height: auto;
+}
+}
