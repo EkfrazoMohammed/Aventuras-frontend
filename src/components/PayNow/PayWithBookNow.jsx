@@ -679,8 +679,14 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
         discountedAmount = percentageAmount.toFixed(2);
       }else{
 
-        const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
+        const percentageAmount = (percentageDiscount / 100) *  initialAmount;
         discountedAmount = percentageAmount.toFixed(2);
+        if(discountedAmount > selectedCoupon.attributes.max_value_percentage ){
+          discountedAmount = selectedCoupon.attributes.max_value_percentage
+        }
+        else{
+           discountedAmount = percentageAmount.toFixed(2);
+        }
       }
     }
 

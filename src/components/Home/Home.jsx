@@ -18,7 +18,8 @@ const Home = (props) => {
         '/api/group-tours?populate=*',
         '/api/themes?populate=*',
         '/api/customer-reviews?populate=*',
-        '/api/contact-details'
+        '/api/contact-details',
+        '/api/all-packages?populate=deep'
     ]
 
     useEffect(() => {

@@ -20,7 +20,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            gap: 1rem;
+            gap: 2rem;
             line-height: 1.5rem;
 
 
@@ -78,7 +78,9 @@
                         width: 100%;
                         height: auto;
                         font-size: 1.1rem;
-
+                        box-shadow: rgba(36, 39, 44, 0.33) 1px 1px 10px;
+                        border-radius: 20px;
+                        padding: 2rem;
                     }
 
                     .list-container {
@@ -130,3 +132,99 @@
         }
     }
 }
+.about_main-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.about-team-section{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    width: 98%;
+    justify-content: space-evenly;
+}
+.card{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: justify;
+    margin: 1.5rem 0rem;
+    box-shadow: rgba(36, 39, 44, 0.33) 1px 1px 10px;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+.card-image-container{
+ width: 150px;
+ height: 150px;
+
+}
+.card-image-container img {
+    width: 100%;
+    border-radius: 75px;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.card-description{
+    line-height: 1.6rem;
+    color: #000000cb;
+    letter-spacing: 1px;
+}
+.card-heading{
+    text-align: center;
+    border-bottom:  2px solid gold;
+}
+
+.heading_team{
+    font-weight: 600;
+    border-bottom: 2px solid gold;
+padding: 0.8rem;
+color: #29292f;
+
+}
+@media(max-width:1024px){
+    .card{
+        width: 367px;
+        gap: 1rem;
+    }
+    .heading_team{
+        text-align: center;
+        line-height: 2.5rem;
+    }
+}
+
+@media(max-width:767px){
+    .card{
+        margin: 1rem 0.5rem ;
+    }
+    .heading_team{
+font-size: 1.3rem;
+padding: 0;
+line-height: 2rem;
+text-align: left;
+    }
+    .card-description {
+        line-height: 1.5rem;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-align: left;
+    }
+    .card-heading{
+        font-size: 0.8rem;
+    }
+}
+.para p {
+    display: flex;
+    gap: 0.5rem;
+    align-items: start;
+}
+.para p::before {
+content: '*';
+margin-top: 5px;
+font-size: 2rem;
+font-weight: 600;
+}
+

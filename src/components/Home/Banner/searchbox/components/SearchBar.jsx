@@ -12,8 +12,11 @@ export const SearchBar = ({ setResults }) => {
       try {
         
         let d = await API.get(`/api/all-destinations?populate=*`)
+        let p = await API.get(`/api/all-packages?populate=deep`)
+       
        let filter = d.data.data
-        setData(filter)  
+       let filter2 = p.data.data
+        setData(filter.concat(filter2))  
 
       } catch (err) {
         console.log(err)

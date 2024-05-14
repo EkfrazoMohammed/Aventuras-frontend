@@ -402,6 +402,7 @@ const Step2Content = ({
   );
 };
 const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCouponUsed }) => {
+
   coupons = coupons.filter((item)=> data.amount >= item.attributes.min_amount);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -416,6 +417,7 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
   const [showDiscount, setShowDiscount] = useState(false);
 
   const handleCouponChange = (value) => {
+
     if (value === "cancel") {
       setShowDiscount(false);
       setData((prevData) => ({
@@ -449,19 +451,27 @@ const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCoupon
       discountedAmount = flatDiscount.toFixed(2);
 
     } else if (percentageDiscount > 0) {
-      console.log(selectedCoupon.attributes.max_value_percentage )
+
+      
       if(initialAmount < selectedCoupon.attributes.max_value_percentage){
         const percentageAmount = (percentageDiscount / 100) * initialAmount;
         discountedAmount = percentageAmount.toFixed(2);
       }else{
 
-        const percentageAmount = (percentageDiscount / 100) * selectedCoupon.attributes.max_value_percentage;
+        const percentageAmount = (percentageDiscount / 100) * initialAmount;
         discountedAmount = percentageAmount.toFixed(2);
+        if(discountedAmount > selectedCoupon.attributes.max_value_percentage ){
+          discountedAmount = selectedCoupon.attributes.max_value_percentage
+        }
+        else{
+           discountedAmount = percentageAmount.toFixed(2);
+        }
       }
     }
 
     if (discountedAmount !== null) {
       const newAmount = initialAmount - parseFloat(discountedAmount);
+
       const roundedAmount = Math.max(newAmount, 0).toFixed(2);
       setData((prevData) => ({
         ...prevData,
