@@ -689,16 +689,16 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
     if (flatDiscount > 0) {
       discountedAmount = flatDiscount.toFixed(2);
     } else if (percentageDiscount > 0) {
-      console.log(selectedCoupon.attributes.max_value_percentage )
-      if(initialAmount < selectedCoupon.attributes.max_value_percentage){
+      console.log(selectedCoupon.attributes.max_discount_amount )
+      if(initialAmount < selectedCoupon.attributes.max_discount_amount){
         const percentageAmount = (percentageDiscount / 100) * initialAmount;
         discountedAmount = percentageAmount.toFixed(2);
       }else{
 
         const percentageAmount = (percentageDiscount / 100) * initialAmount;
         discountedAmount = percentageAmount.toFixed(2);
-        if(discountedAmount > selectedCoupon.attributes.max_value_percentage ){
-          discountedAmount = selectedCoupon.attributes.max_value_percentage
+        if(discountedAmount > selectedCoupon.attributes.max_discount_amount ){
+          discountedAmount = selectedCoupon.attributes.max_discount_amount
         }
         else{
            discountedAmount = percentageAmount.toFixed(2);
@@ -833,7 +833,7 @@ const Step3Content = ({ data, coupons, setSelectedcouponId, settypeCouponUsed, s
                         ? `Discount of  ${coupon.attributes.flat_amount} INR`
                         : ''
                     } ${
-                      Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "% OFF UPTO " + coupon.attributes.max_value_percentage
+                      Number(coupon.attributes.flat_amount) === 0 && coupon.attributes.discount_percentage > 0 ? coupon.attributes.discount_percentage + "% OFF UPTO " + coupon.attributes.max_discount_amount
                       + "rs" : ""
                     }`
                   }))
