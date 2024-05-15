@@ -59,7 +59,7 @@ getData()
  
           </div>
         </div>
-           <h1 className="heading_team" >Meet Our Team. The ideal set of extraordinary people</h1>
+           <h1 className="heading_team" >Meet Our Team <br /> The ideal set of extraordinary people</h1>
       </div>
     );
   })
@@ -82,7 +82,7 @@ getData()
            </div>
       <div className="card-heading">
        <h2>{val.member_name}</h2>
-       <h3>{val.designation}r</h3>
+       <h3>{val.designation}</h3>
       </div>
       <div className="card-description">{val.profile_description}
 </div>
