@@ -26,7 +26,6 @@ setVideo(data[0]?.data?.data[0]?.attributes.youtube_Id)
 console.log(video)
     var settings = {
       className: "center",
-      centerMode: true,
       infinite: true,
       centerPadding: "60px",
       slidesToShow: 3,
