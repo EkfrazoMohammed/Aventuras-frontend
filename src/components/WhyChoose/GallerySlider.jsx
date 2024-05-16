@@ -54,7 +54,7 @@ const GallerySlider = ({ data }) => {
       <Slider {...settings} className='pc_gallery'>
         {chunkedData.map((chunk, index) => (
           <div key={index} className="slide">
-            <div className="section">
+            <div className="section_gallery">
               {chunk.slice(0, 4).map((val, idx) => (
                 <img
                   key={idx}
@@ -64,7 +64,7 @@ const GallerySlider = ({ data }) => {
                 />
               ))}
             </div>
-            <div className="section">
+            <div className="section_gallery">
               {chunk.slice(4, 8).map((val, idx) => (
                 <img
                   key={idx}
@@ -80,7 +80,7 @@ const GallerySlider = ({ data }) => {
       <Slider {...settings} className='mobile_gallery'>
         {mobileChunked.map((chunk, index) => (
           <div key={index} className="slide">
-            <div className="section">
+            <div className="section_gallery">
               {chunk.slice(0, 2).map((val, idx) => (
                 <img
                   key={idx}
@@ -90,7 +90,7 @@ const GallerySlider = ({ data }) => {
                 />
               ))}
             </div>
-            <div className="section">
+            <div className="section_gallery">
               {chunk.slice(2, 4).map((val, idx) => (
                 <img
                   key={idx}

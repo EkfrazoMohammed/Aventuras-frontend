@@ -33,7 +33,7 @@ const AllPackages = () => {
         getData();
         window.scrollTo(0, 0);
     }, [])
-
+console.log(data,"<====")
     return (
         <div className="section">
             <div className="banner">
@@ -81,6 +81,14 @@ const AllPackages = () => {
 
                                                 }
                                             </div>
+                                            {
+                                                val.attributes.Package_price ? <div className="price_tag_Container" >
+                                                <img src="https://admin.aventuras.co.in/uploads/images_removebg_preview_731b92d245.png" alt="" />
+                                                Starting  &#8377;{val.attributes.Package_price} 
+                                                </div> :
+                                          null
+                                            }
+                                
                                             <div className="card-overlay">
                                                 <div className="upper">
                                                     <div className="card-title">
