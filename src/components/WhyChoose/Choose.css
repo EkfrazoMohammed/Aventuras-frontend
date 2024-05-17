@@ -63,7 +63,7 @@ gap: 2.5rem;
 
 .slider{
     max-width:1200px !important;
-    width:90% !important;
+    width:100% !important;
     display:flex;
     gap:1rem;
     flex-direction:column;
@@ -86,6 +86,7 @@ gap: 2.5rem;
     gap: 1rem;
     padding-bottom:1rem ;
 }
+
 .slide_text_container{
     display: flex;
     justify-content: space-around;
@@ -98,8 +99,8 @@ gap: 2.5rem;
 
 }
 .review_image_container img  {
-    width: 100%;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
 
 }
@@ -128,6 +129,7 @@ gap: 2.5rem;
 iframe{
     height: 400px;
     width: 100%;
+    border-radius: 20px;
 }
 
 /* gallery section Images */
@@ -223,12 +225,13 @@ iframe{
     margin: 1.3rem !important;
     display: flex;  
     letter-spacing: 1.2px;
+    align-items: center;
 }
 .list p::before{
     margin: 0;
-    content: "*";
+    content: "\27A4";
     color: #292929;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     height: 30px;
     height: 30px;
     width: 30px;
@@ -269,7 +272,7 @@ iframe{
 } 
 .regonition-card{
     height: 500px;
-    width: 400px;
+    width: 100%;
     box-shadow: rgba(36, 39, 44, 0.33) 1px 1px 10px;
     padding: 0.5rem;
     border-radius: 10px;
@@ -285,6 +288,7 @@ iframe{
     justify-content: space-evenly;
     gap: 1rem;
     max-width: 1200px;
+    width: 100%;
 }
 .section_gallery{
     display: flex;
@@ -341,6 +345,7 @@ display: none;
     }
     .regognition-container{
         flex-direction: column;
+
     }
     .pc_gallery{
         display: none;
@@ -442,6 +447,7 @@ display: none;
     .regognition-container{
         flex-direction: column;
         padding: 1rem;
+        align-items: center;
     }
     .regonition-card{
         width: 100%;

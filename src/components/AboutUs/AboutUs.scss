@@ -221,13 +221,13 @@ text-align: left;
 .para p {
     display: flex;
     gap: 0.5rem;
-    align-items: start;
-    font-weight: 399;
+    align-items: baseline;
+    font-weight: 400;
 }
 .para p::before {
-content: '*';
+    content: "\27A4";
 margin-top: 5px;
-font-size: 2rem;
+font-size: 1.3rem;
 font-weight: 600;
 }
 
