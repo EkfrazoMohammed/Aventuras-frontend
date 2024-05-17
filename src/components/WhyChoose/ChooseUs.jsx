@@ -8,6 +8,7 @@ import PermMediaIcon from '@mui/icons-material/PermMedia';
 import ReactMarkdown from "react-markdown";
 import  './Choose.css'
 import GallerySlider from "./GallerySlider"
+import CertificateSlider from './CertificateSlider';
 
 const ChooseUs = () => {
 
@@ -23,6 +24,7 @@ const ChooseUs = () => {
         getData()
        
     },[])
+    console.log(chooseData)
   return (
    <>
   
@@ -77,20 +79,15 @@ const ChooseUs = () => {
 </div>
 <div className="main_slider_wrapper" >
     <div className="review_heading">
-
-    Recognition Certificates
+ 
+    <span>Recognition Certificates</span>
+    <span>
+        <img src="https://admin.aventuras.co.in/uploads/icons8_certificate_48_73631861b4.png" style={{width:'48px'}} alt="" />
+    </span>
     </div>
 
     <div className="regognition-container">
-        <div className="regonition-card">
-            <img src="https://admin.aventuras.co.in/uploads/Second_certification_df4a4be2f8.png" alt="" />
-        </div>
-        <div className="regonition-card">
-            <img src="https://admin.aventuras.co.in/uploads/first_Certification_d7d50a1a65.png" alt="" />
-        </div>
-        <div className="regonition-card">
-            <img src="https://admin.aventuras.co.in/uploads/third_certification_b4a224ba1b.png" alt="" />
-        </div>
+        <CertificateSlider data={chooseData[0]?.data?.data[0]?.attributes?.Regognition_certificates?.Certificate_images?.data}/>
     </div>
 </div>
 <div className="main_slider_wrapper" >
@@ -101,7 +98,7 @@ const ChooseUs = () => {
 <div className="review_heading" >
 Client Diaries
 
-  <PermMediaIcon fontSize="5rem" sx={{color:'#00C2FF'}}/>
+<img src="https://admin.aventuras.co.in/uploads/icons8_photo_gallery_50_63ab3d68e1.png" style={{width:'48px'}} alt="" />
         </div>  
     <div className="gallery_container">
         <GallerySlider data={chooseData[0]?.data?.data[0]?.attributes?.gallery?.data} />
