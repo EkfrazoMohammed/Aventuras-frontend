@@ -61,7 +61,11 @@ const SpecialPackages = ({ data, loading }) => {
           <Skeleton active />
         ) : (
           <>
-            <div className="section-title">Special Packages</div>
+            <div className="section-title">
+              <span className="line-text"></span>
+              <span className="text_line-heading">Special Packages</span>
+              <span className="line-text"></span>
+              </div>
             <div>
               <Slider {...settings} className="card-container">
                 {data.data.sort((a, b) => (a.attributes.priority > b.attributes.priority ? 1 : -1)).map((val) => {

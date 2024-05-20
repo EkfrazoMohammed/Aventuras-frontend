@@ -25,7 +25,10 @@ const Holidays = ({ data, loading }) => {
             :
             (<>
               <div className="section-title">
-                Family And Group Holidays
+              <span className='line-text'></span>
+                <span className='text_line-heading'>Family And Group Holidays</span>
+              <span className='line-text'></span>
+
               </div>
               <div className="content-wrapper">
                 <div className="additional top">

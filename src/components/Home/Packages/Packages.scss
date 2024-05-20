@@ -290,7 +290,7 @@
       max-width: 370px;
       min-width: 300px;
       height: auto;
-      margin: 3rem auto;
+      margin: 2rem auto;
       // padding: 1rem;
       // gap: .8rem;
       padding: 0.5rem;
@@ -300,6 +300,8 @@
 
       .section-title {
         font-size: 1.2rem;
+        justify-content: space-around;
+        align-items: center;
       }
 
       .card-container {
@@ -524,4 +526,14 @@
   width: 13px;
   height: auto;
 }
+.line-text{
+  width: 20%;
+  height: 0.08px;
+  background-color: gold;
 }
+
+.text_line-heading{
+  white-space: nowrap;
+}
+}
+

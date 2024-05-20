@@ -56,7 +56,10 @@ const Theme = ({ data, loading }) => {
             :
             (<>
               <div className="section-title">
-                Theme
+              <span className='line-text'></span>
+              <span className='text_line-heading'>Theme</span>
+              <span className='line-text'></span>
+
               </div>
               <div>
                 <Slider {...settings} className="card-container">

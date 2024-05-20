@@ -66,9 +66,9 @@ const AllDestinations = () => {
                                                                     <div className="left">
                                                                         {val?.attributes?.packages} Packages
                                                                     </div>
-                                                                    <div className="right">
+                                                                    {/* <div className="right">
                                                                         {val?.attributes?.activities} Activities
-                                                                    </div>
+                                                                    </div> */}
                                                                 </div>
                                                             </div>
                                                         </div>

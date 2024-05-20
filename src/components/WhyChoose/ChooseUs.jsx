@@ -30,7 +30,7 @@ const ChooseUs = () => {
   
     <div className="banner_overlay">
     
-    Why <span className='border_text'>Choose</span>  <span className='Colored_text'> Us ?</span>
+    Why Choose  <span className='Colored_text'> Us ?</span>
    </div>
    <div className="content_container">
    <div className="description_section">
