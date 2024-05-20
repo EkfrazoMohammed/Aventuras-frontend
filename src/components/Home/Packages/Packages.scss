@@ -53,6 +53,10 @@
       a,
       Link {
         color: #000 !important;
+
+        @media (max-width: 767px) {
+width: 46%;
+        }
       }
 
       .card-content {
@@ -520,7 +524,7 @@
   .price_tag_Container {
     padding: 0.2rem 0.15rem;
     top: 5%;
-    left: 2.2%;
+    left: 0.54%;
 }
 .price_tag_Container img {
   width: 13px;
