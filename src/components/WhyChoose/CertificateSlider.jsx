@@ -38,6 +38,7 @@ console.log(data?.data?.map((item)=> item.attributes.url))
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
+              initialSlide:0
                 }
           }
         ]
