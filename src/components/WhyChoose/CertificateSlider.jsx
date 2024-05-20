@@ -10,39 +10,41 @@ function CertificateSlider(data) {
 console.log(data?.data?.map((item)=> item.attributes.url))
 
 
-    var settings = {
-        infinite: false,
-        speed: 1500,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 0,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              dots: true
+var settings = {
+  className: "center",
+  infinite: true,
+  centerPadding: "60px",
+  slidesToShow: 3,
+  speed: 1500,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          infinite: false,
+          slidesToShow: 1,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 480,  
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+
             }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 2,
-              initialSlide: 2
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              initialSlide:0
-                }
-          }
-        ]
-      };
+      }
+    ]
+  };
   return (
     < >
 
