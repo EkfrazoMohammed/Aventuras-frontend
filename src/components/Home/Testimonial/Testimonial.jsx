@@ -14,7 +14,7 @@ const Testimonial = ({ data, contactData, loading }) => {
 
   const ref = useRef();
   return (
-    <div className="" style={{display:'flex',alignItems:'center',flexDirection:'column',margin:'3rem 0'}}>
+    <div className="" style={{display:'flex',alignItems:'center',flexDirection:'column',margin:'2rem 0'}}>
     <Slider/>
 
     </div>

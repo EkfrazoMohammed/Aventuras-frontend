@@ -62,7 +62,9 @@ const TopDestinations = ({ data, loading }) => {
             (<>
 
               <div className="section-title">
-                Top Destinations
+              <span className="line-text"></span>
+              <span className='text_line-heading'>Top Destinations</span>
+                <span className="line-text"></span>
               </div>
 
               <div>
@@ -96,9 +98,9 @@ const TopDestinations = ({ data, loading }) => {
                                       <div className="left">
                                         {val?.attributes?.all_destination?.data?.attributes?.packages} Packages
                                       </div>
-                                      <div className="right">
+                                      {/* <div className="right">
                                         {val?.attributes?.all_destination?.data?.attributes?.activities} Activities
-                                      </div>
+                                      </div> */}
                                     </div>
                                   </div>
                                 </div>
