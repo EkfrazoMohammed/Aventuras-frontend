@@ -98,9 +98,9 @@ const TopDestinations = ({ data, loading }) => {
                                       <div className="left">
                                         {val?.attributes?.all_destination?.data?.attributes?.packages} Packages
                                       </div>
-                                      {/* <div className="right">
-                                        {val?.attributes?.all_destination?.data?.attributes?.activities} Activities
-                                      </div> */}
+                                      <div className="right">
+                                        {/* {val?.attributes?.all_destination?.data?.attributes?.activities} Activities */}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

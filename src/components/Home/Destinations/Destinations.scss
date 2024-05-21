@@ -423,8 +423,13 @@
 }
 
 @media (max-width: 767px) {
+  .left{
+    padding: 0.5rem;
+  }
   .slick-prev {
+
     left: -25px;
+   
   }
 
   .slick-next {
