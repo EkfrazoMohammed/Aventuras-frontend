@@ -61,6 +61,9 @@
                   }
         @media (max-width: 767px) {
 width: 46%;
+min-width: 133px;
+max-width: 160px;
+
         }
       }
 
@@ -365,9 +368,12 @@ height: 300px;
                 color: #000;
                 font-style: normal;
                 font-weight: 600;
-                font-size: .65rem;
+                font-size: .60rem;
                 line-height: 15px;
                 height: 25px;
+                @media (max-width:320px){
+                  font-size: 0.55rem;
+                }
               }
 
               .card-package {
@@ -387,7 +393,7 @@ height: 300px;
             .card-package-id {
               background-color: #ffd93d;
               // width: 65%;
-              width: 75%;
+              width: 80%;
               height: auto;
               margin: 0 auto;
               padding: 0.5rem 0.2rem;
@@ -397,7 +403,7 @@ height: 300px;
               font-size: 0.6rem;
               font-weight: 500;
               top: 100%;
-              left: 15%;
+              left: 10%;
             }
           }
 
