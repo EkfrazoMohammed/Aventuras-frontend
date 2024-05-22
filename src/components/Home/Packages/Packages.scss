@@ -362,15 +362,19 @@ height: 300px;
               margin: 0 auto;
               padding: 0.5rem;
               background-color: #fff;
-              border-radius: 0;
+              border-radius: 10px;
 
               .card-title {
                 color: #000;
                 font-style: normal;
                 font-weight: 600;
-                font-size: .60rem;
-                line-height: 15px;
-                height: 25px;
+                font-size: 12px;
+                height: 36px;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2; /* Change this line if you want. In this case it trimmed the text to 3 lines. */
+                  overflow: hidden;
+                
                 @media (max-width:320px){
                   font-size: 0.55rem;
                 }
@@ -402,7 +406,7 @@ height: 300px;
               border-bottom-left-radius: 10px;
               font-size: 0.6rem;
               font-weight: 500;
-              top: 100%;
+              top: 90%;
               left: 10%;
             }
           }

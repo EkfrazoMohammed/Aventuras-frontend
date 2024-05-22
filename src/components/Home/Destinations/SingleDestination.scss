@@ -408,12 +408,16 @@
                 font-style: normal;
                 font-weight: 600;
                 font-size: 1rem;
-                line-height: 30px;
+
 
                 @media (max-width:767px) {
-                  font-size: 0.60rem;
-                  line-height: 15px;
-                  
+                  font-size: 12px;
+                  height: 35px;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2; /* Change this line if you want. In this case it trimmed the text to 3 lines. */
+                  overflow: hidden;
+                  line-height: 18px;
                 }
            
               }
@@ -432,6 +436,7 @@
                 @media (max-width:767px) {
                   font-size: .6rem !important;
                   font-weight: 500;
+                  margin: 0.5rem 0;
                   
                 }
               }
@@ -452,7 +457,7 @@
            width: 80%;
            position: absolute;
            left: 10%;
-           bottom: -10% ;
+           bottom: -16% ;
             }
           }
         }
