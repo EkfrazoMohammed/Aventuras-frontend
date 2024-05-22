@@ -76,7 +76,7 @@
       a,
       Link {
         color: #000 !important;
-        max-width: 300px;
+width: 300px;
         box-shadow: 0 0 0 #00000030, 0 8px 6px #0000003b;
         border-radius: 10px;
 
@@ -345,6 +345,7 @@
       @media (max-width:767px) {
         padding: 0.5rem !important;
         gap: 0.5rem !important;
+        
         
       }
 
