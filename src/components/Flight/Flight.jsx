@@ -17,12 +17,19 @@ const demo_url='https://test.api.amadeus.com/v2/shopping/flight-offers?originLoc
 const Flight = () => {
    
 
+
+      
     const [currentPath,setCurrentPath]=useState();
 
     useEffect(()=>{
-      setCurrentPath(window.location.pathname)
-    },[])
+
+        setCurrentPath(window.location.pathname)
+      
+
+    },[currentPath])
     localStorage.setItem('pathName',currentPath)
+
+
     return (
         <>
             {/* <FlightPageForm /> */}

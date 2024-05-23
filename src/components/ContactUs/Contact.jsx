@@ -14,6 +14,7 @@ import { notification } from "antd";
 import { Skeleton } from "antd";
 import CallIcon from "@mui/icons-material/Call";
 import MailIcon from "@mui/icons-material/Mail";
+import axios from "axios";
 const theme = createTheme();
 
 export default function Contact() {
@@ -159,12 +160,28 @@ export default function Contact() {
     // }
     // console.log(data)
   };
+  const [bannerData,setBannerData]=useState([])
+useEffect(()=>{
+const getDataBanner =  async()=>{
+const res = await API.get('/api/contact-banners?populate=deep')
 
+.then((res)=>{
+  console.log(res.data.data)
+  setBannerData(res.data.data)
+})
+.catch(err=>console.log(err))
+}
+getDataBanner()
+},[])
+console.log(bannerData,'<<<')
   return (
     <>
       <div className="contact-page-container">
         <div className="banner">
-          <img src="https://admin.aventuras.co.in/uploads/contact123_5db3bb8964.png" />
+           
+          
+              <img src={`https://admin.aventuras.co.in${bannerData[0]?.attributes?.BannerImage?.data?.attributes?.url}`} />
+            
         </div>
 
         <ThemeProvider theme={theme}>
