@@ -434,6 +434,12 @@ display: none;
     }
     .list p{
         font-size: 0.72rem;
+      
+            margin: 0rem !important;
+            display: flex;
+            letter-spacing: normal;
+            align-items: center;
+    
     }
     .text_conatiner-sbout-us {
         background: #fff !important;
