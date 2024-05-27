@@ -26,7 +26,9 @@ const SingleTheme = () => {
                 let d = await API.get(`/api/themes/${id}?populate=deep`)
                 setValue(d.data.data)
                 let filterData = d.data.data.attributes.all_packages.data.map((v) => {
-                    return v;
+                    if(v.attributes.publishedAt !== null){
+                        return  v;
+                    }
                 });
                 setPackages(filterData)
                 let images = d?.data?.data?.attributes?.images?.data?.map((v) => {
