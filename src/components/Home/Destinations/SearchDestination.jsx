@@ -193,9 +193,9 @@ const SearchDestination = () => {
 
                                                 {groupPackages.length > 0 ? <>
 
-                                                    {/* <div className="section-title-second">
+                                                    <div className="section-title-second">
                                                         Group packages at {value[0]?.attributes?.name}
-                                                    </div> */}
+                                                    </div>
                                                     <div className="card-container">
 
                                                         {

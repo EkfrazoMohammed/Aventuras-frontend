@@ -445,3 +445,21 @@
     margin: 0 7px;
   }
 }
+.section-title-second{
+  color: #00c2ff;
+  font-weight: 500;
+  font-size: 2.5rem;
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+@media (max-width: 767px) {
+  .section-title-second{
+    font-size: 1.5rem;
+  justify-content: center;
+  text-align: center;
+  line-height: 2rem;
+  }
+}
