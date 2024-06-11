@@ -7,9 +7,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import {API,baseURL} from "../../../api/apirequest";
 
 const TopDestinations = ({ data, loading }) => {
-  console.log(data);
-
-  const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+ const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
     // <span {...props}><img src={`https://admin.aventuras.co.in/uploads/arrow_right_b4d68d463d.png?updated_at=2023-03-24T12:13:32.807Z`}/></span>
     // <img src={KeyboardArrowUpIcon} alt="nextArrow" {...props} />
     <span {...props}>&larr;</span>

@@ -9,8 +9,7 @@ import { Skeleton } from "antd";
 import { baseURL } from "../../../api/apirequest";
 
 const SpecialPackages = ({ data, loading }) => {
-  console.log(data.data);
-  useEffect(() => {
+   useEffect(() => {
     let filterImage = data.data.map((item) => {
       return item?.attributes?.package_images?.data?.map((i, index) => {
         return i;
@@ -52,8 +51,7 @@ const SpecialPackages = ({ data, loading }) => {
       },
     ],
   };
-  console.log(data.data.sort((a, b) => (a.attributes.priority > b.attributes.priority ? 1 : -1)).map((val) => 
-    val.attributes.all_package))
+
   return (
     <div className="section">
       <div className="packages-container">
