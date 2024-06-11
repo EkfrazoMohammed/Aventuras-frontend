@@ -5,7 +5,7 @@ const GallerySlider = ({ data }) => {
   var settings = {
     dots: false,
     infinite: false,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
 
