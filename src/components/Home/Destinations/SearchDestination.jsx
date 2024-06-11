@@ -169,6 +169,12 @@ const SearchDestination = () => {
                                                     </>
                                                 </div>
                                                 {groupPackages.length > 0 ? <>
+
+
+                                                    <div className="section-title-second">
+                                                        Group packages at {value[0]?.attributes?.name}
+                                                    </div>
+
                                                     <div className="card-container">
                                                         {
                                                             groupPackages.sort((a, b) => a.id > b.id ? 1 : -1).map((val) => {
