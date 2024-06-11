@@ -1,97 +1,98 @@
 import React from "react";
 import Slider from "react-slick";
 import StarIcon from '@mui/icons-material/Star';
-import {useEffect,useState} from 'react'
+import { useEffect, useState } from 'react'
 import { API } from '../../api/apirequest';
 
 
 
 function AutoPlay() {
 
-const [reviewData,setreviewData]=useState([]);
-  useEffect(()=>{
-    const getData = async()=>{
-        const res = await API.get('api/customer-reviews?populate=*')
+  const [reviewData, setreviewData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const res = await API.get('api/customer-reviews?populate=*')
 
-        setreviewData([res])      }
+      setreviewData([res])
+    }
     getData()
-},[])
+  }, [])
 
-    var settings = {
-        infinite: false,
-        speed: 1500,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 0,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 2,
-              initialSlide: 2
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-                }
-          }
-        ]
-      };
-      console.log(reviewData)
+  var settings = {
+    infinite: false,
+    speed: 1500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  };
+
   return (
     < >
       <div className="review_heading" >
-        Client Reviews 
+        Client Reviews
         <span>
 
-        <StarIcon sx={{ color: "gold" }} />
-                    <StarIcon sx={{ color: "gold" }} />
-                    <StarIcon sx={{ color: "gold" }} />
-                    <StarIcon sx={{ color: "gold" }} />
+          <StarIcon sx={{ color: "gold" }} />
+          <StarIcon sx={{ color: "gold" }} />
+          <StarIcon sx={{ color: "gold" }} />
+          <StarIcon sx={{ color: "gold" }} />
 
-                    <StarIcon sx={{ color: "gold" }} />
+          <StarIcon sx={{ color: "gold" }} />
         </span>
-        </div>
-{
-  reviewData?.map((item)=>
-      <Slider {...settings} className="slider">
-{
-  item.data.data.map((data)=>
-    <div className="slide_content">
-    <div className="slide_text_container">
-    <div className="review_image_container">
-        <img src={`https://admin.aventuras.co.in/${data.attributes.Image.data.attributes.url}`} alt="" />
-    </div>
-    <div className="reveiw_text">{data.attributes.Review}</div>
-   </div>
-   <div className="" style={{fontWeight:'600'}}>-{data.attributes.Name}</div>  
-         
-         </div>
-  )
-}
- 
-       </Slider>
+      </div>
+      {
+        reviewData?.map((item) =>
+          <Slider {...settings} className="slider">
+            {
+              item.data.data.map((data) =>
+                <div className="slide_content">
+                  <div className="slide_text_container">
+                    <div className="review_image_container">
+                      <img src={`https://admin.aventuras.co.in/${data.attributes.Image.data.attributes.url}`} alt="" />
+                    </div>
+                    <div className="reveiw_text">{data.attributes.Review}</div>
+                  </div>
+                  <div className="" style={{ fontWeight: '600' }}>-{data.attributes.Name}</div>
 
-)
+                </div>
+              )
+            }
 
-}
-       
+          </Slider>
 
+        )
+
+      }
 
 
-        {/* <div className="slide_content">
+
+
+      {/* <div className="slide_content">
         <div className="slide_text_container">
         <div className="review_image_container">
             <img src="https://admin.aventuras.co.in//uploads/Neeulm_Valley_AJK_Arang_Kel_162cbe6d23.jpg" alt="" />
