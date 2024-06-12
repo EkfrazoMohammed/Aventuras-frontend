@@ -402,7 +402,7 @@ const Step2Content = ({
   );
 };
 const Step3Content = ({ data, coupons, setData,setSelectedcouponId,settypeCouponUsed }) => {
-
+console.log(coupons)
   coupons = coupons.filter((item)=> data.amount >= item.attributes.min_amount);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -847,28 +847,21 @@ const Pay2 = () => {
         const general_coupons  = await API.get
         (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
 
-        let general_coupons_code = []
-
-        if(general_coupons.data.data && general_coupons.data.data.length > 0){
-          general_coupons_code =  general_coupons.data.data.filter(
-            (coupon) => {
-
- if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
-             return true
-           }
-           else {
-            return false
-           }
-            }
-          )
+        let general_coupons_code = [];
+        
+        if (general_coupons.data.data && general_coupons.data.data.length > 0) {
+            general_coupons_code = general_coupons.data.data.filter(coupon => {
+                const userExists = coupon.attributes.users.data.some(u => u.attributes.username === userData.username);
+                return userExists;
+            });
         }
 
         const coupons = await API.get(
           `/api/coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`
         );
 
+        let userCoupons = [];
         if (coupons.data.data && coupons.data.data.length > 0) {
-          let userCoupons = [];
           userCoupons = coupons.data.data.filter(
             (coupon) => {
               return (
@@ -877,57 +870,23 @@ const Pay2 = () => {
               )
             }
           );
-          // if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
-          //   userCoupons.push({
-          //     "id": 30,
-          //     "attributes": {
-          //       "code": userData.info.user.coupon_name,
-          //       "flat_amount": userData.info.user.coupon_amount,
-          //       "validity": "2024-02-10",
-          //       "createdAt": "2024-01-04T05:42:19.459Z",
-          //       "updatedAt": "2024-01-08T07:21:14.020Z",
-          //       "publishedAt": "2024-01-04T05:42:20.480Z",
-          //       "coupon_used": false,
-          //       "coupon_type": "FLAT_DISCOUNT",
-          //       "discount_percentage": "0"
-          //     }
-          //   });
-          // }
-
-          setMyCoupons(userCoupons);
-
-
-
-          // if (userData.info.user.coupon_amount && userData.info.user.coupon_name) {
-          //   userCoupons.push({
-          //     "id": 30,
-          //     "attributes": {
-          //       "code": userData.info.user.coupon_name,
-          //       "flat_amount": userData.info.user.coupon_amount,
-          //       "validity": "2024-02-10",
-          //       "createdAt": "2024-01-04T05:42:19.459Z",
-          //       "updatedAt": "2024-01-08T07:21:14.020Z",
-          //       "publishedAt": "2024-01-04T05:42:20.480Z",
-          //       "coupon_used": false,
-          //       "coupon_type": "FLAT_DISCOUNT",
-          //       "discount_percentage": "0"
-          //     }
-          //   });
-          // }
 
        let allCoupon = [...general_coupons_code , ...userCoupons];
-       console.log(allCoupon)
        setMyCoupons(allCoupon)
+
           setData((prevData) => ({
             ...prevData,
             coupons: userCoupons, // Set user-specific coupons in data state
           }));
+
           return userCoupons; // Return coupons specific to the user
         } else {
+          setMyCoupons(general_coupons_code)
         }
       } else {
         return [];
       }
+
     } catch (error) {
       console.error("Error fetching coupons:", error);
       return [];

@@ -1441,72 +1441,60 @@ const PayWithBookNow = ({ location }) => {
 
 
   const getCouponsForUser = async () => {
+
     try {
       if (userData && userData.isLoggedin === true) {
-        // Get today's date
-        // const currentDate = new Date().toISOString();
-
-        //         const coupons = await API.get("/api/coupon-codes?populate=*");
-        // Get today's date in the format "YYYY-MM-DD"
         const today = new Date().toISOString().split("T")[0];
-
 
         const general_coupons  = await API.get
         (`api/general-coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`)
 
-        let general_coupons_code = []
+        let general_coupons_code = [];
         
-        if(general_coupons.data.data && general_coupons.data.data.length > 0){
-          console.log(general_coupons.data.data)
-          general_coupons_code =  general_coupons.data.data.filter(
-            (coupon) => {
-console.log(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length)
-
- if(coupon?.attributes?.users?.data.filter((u)=> (u.attributes.username === userData?.username)).length > 0){
-             return true
-           }
-           else {
-            return false
-           }
-            }
-          )
+        if (general_coupons.data.data && general_coupons.data.data.length > 0) {
+            general_coupons_code = general_coupons.data.data.filter(coupon => {
+                const userExists = coupon.attributes.users.data.some(u => u.attributes.username === userData.username);
+                return userExists;
+            });
         }
 
-        // Fetch coupons based on validity
         const coupons = await API.get(
           `/api/coupon-codes?populate=*&filter[attributes][validity][$gte]=${today}`
         );
-     
-        if (coupons.data && coupons.data.data.length > 0) {
-          const userCoupons = coupons.data.data.filter(
-            (coupon) =>
-              coupon?.attributes?.validity >= today 
-              &&
-              coupon?.attributes?.user?.data?.attributes?.username ===
-                userData?.username
-          );
-          let allCoupon = [...general_coupons_code , ...userCoupons];
 
-          setMyCoupons(allCoupon);
+        let userCoupons = [];
+        if (coupons.data.data && coupons.data.data.length > 0) {
+          userCoupons = coupons.data.data.filter(
+            (coupon) => {
+              return (
+                coupon?.attributes?.validity >= today &&
+                coupon?.attributes?.user?.data?.attributes?.username === userData?.username
+              )
+            }
+          );
+
+       let allCoupon = [...general_coupons_code , ...userCoupons];
+       setMyCoupons(allCoupon)
 
           setData((prevData) => ({
             ...prevData,
-            coupons: userCoupons // Set user-specific coupons in data state
+            coupons: userCoupons, // Set user-specific coupons in data state
           }));
+
           return userCoupons; // Return coupons specific to the user
         } else {
-          console.log("No coupons available.");
-          return []; // Return an empty array when no coupons are available
+          setMyCoupons(general_coupons_code)
         }
       } else {
-        console.log("User not logged in.");
-        return []; // Return an empty array if the user is not logged in
+        return [];
       }
+
     } catch (error) {
       console.error("Error fetching coupons:", error);
-      return []; // Return an empty array if there's an error
+      return [];
     }
   };
+
   const CouponPut = ()=>{
 
     const userID = localStorage.getItem('user_id')
