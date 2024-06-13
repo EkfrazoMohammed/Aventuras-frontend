@@ -118,13 +118,13 @@ export default function Login({toggle,setToggle,toggleRegister,settoggleRegister
   const initialUser = { password: "", identifier: "" };
   const [user, setUser] = useState(initialUser);
   const [gUser, setGuser] = useState();
-
+const [googleObject,setGoogleObject]=useState()
   const path = localStorage.getItem("pathName");
-
+  
   const handleGoogleLoginSuccess = async (response) => {
 
     const userObject = jwt_decode(response.credential);
-
+    setGoogleObject(userObject)
     if (userObject !== null && oldusersemail.includes(userObject.email)) {
       try {
         setUser({ identifier: userObject.email });
@@ -152,9 +152,9 @@ export default function Login({toggle,setToggle,toggleRegister,settoggleRegister
             storeUser(data);
 
             if (path) {
-              navigate(path);
+              // navigate(path);
             } else {
-              navigate("/");
+              // navigate("/");
             }
             notification.success({
               message: "Login Successful",
@@ -495,10 +495,10 @@ if(name === "mobile_number"){
             storeUser(data);
   
             if (path) {
-              navigate(path);
+              // navigate(path);
 
             } else {
-              navigate("/");
+              // navigate("/");
             }
             notification.success({
               message: "Login Successful",
@@ -577,7 +577,7 @@ if(name === "mobile_number"){
         );
         if (data.jwt) {
           storeUser(data);
-          navigate("/");
+          // navigate("/");
           notification.success({
             message: "Login Successful",
             duration: 5,
@@ -729,6 +729,7 @@ const [showGoogleOtp,setShowGoogleOtp] =useState();
 
 const signUpWithSMS = async () => {
   try {
+    console.log(googleObject)
     if (!gUser.email) {      // Check if the field being changed is the email field
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -790,6 +791,11 @@ const signUpWithSMS = async () => {
         setM(false);
 
         const randomTwoDigitNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 2-digit number
+      
+
+
+  
+
         let genearatedUsername = gUser.email + randomTwoDigitNumber; // Concatenate it with the email
 
         let payloadob = {
@@ -803,7 +809,6 @@ const signUpWithSMS = async () => {
         let newOtp = generateOTP();
         console.log(newOtp)
         setGeneratedOTP(newOtp);
-console.log(newOtp)
         const SMSPayload = {
           otp: newOtp,
           numbers: user.mobile_number,
@@ -955,7 +960,6 @@ const update =  () => {
 
 const verifyUserGoogleSMSOTP = async (e) => {
   e.preventDefault();
-
   // Check if the entered OTP is not equal to the generated OTP
   if (user.otp !== generatedOTP) {
     // alert("Invalid OTP");
@@ -965,6 +969,7 @@ const verifyUserGoogleSMSOTP = async (e) => {
     });
   } else {
     try {
+      console.log(googleObject)
       const randomTwoDigitNumber = Math.floor(Math.random() * 9000) + 1000; // Generate a random 2-digit number
       let genearatedNewUsername =
         user.username.replace(/\s/g, "") + randomTwoDigitNumber;
@@ -975,7 +980,8 @@ const verifyUserGoogleSMSOTP = async (e) => {
         secretkey: user.password,
         username: genearatedNewUsername,
         mobile_number: gUser.mobileGuser,
-        general_coupon_code:regsiterCoupon
+        general_coupon_code:regsiterCoupon,
+        googleUser:googleObject.name
 
       };
       const res = await axios.post(

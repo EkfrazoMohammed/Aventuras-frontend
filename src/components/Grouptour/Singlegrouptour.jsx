@@ -172,7 +172,8 @@ const Singlegrouptour = () => {
           const initialQuery = {
             package_id: `${d.data.data[0]?.attributes?.package_id}`,
             package_name: `${d.data.data[0]?.attributes?.name}`,
-            user_name: `${userData.info.user.username}`,
+            // user_name: `${userData.info.user.username}`,
+            user_name: `${userData.info.user.googleUser}`,
             contact_number: `${userData.info.user.mobile_number}`,
             email_id: `${userData.info.user.email}`,
             current_location: "",

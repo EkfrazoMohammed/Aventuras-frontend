@@ -237,7 +237,8 @@ const SinglePackages = () => {
           const initialQuery = {
             package_id: `${d.data.data[0]?.attributes?.package_id}`,
             package_name: `${d.data.data[0]?.attributes?.name}`,
-            user_name: `${userData.info.user.username}`,
+            user_name: `${userData.info.user.googleUser}`,
+            // user_name: `${userData.info.user.username}`,
             contact_number: `${userData.info.user.mobile_number}`,
             email_id: `${userData.info.user.email}`,
             current_location: "",
@@ -1838,50 +1839,7 @@ const SinglePackages = () => {
                               </span>
                             )}
                           </div>
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                          >
-                            <input
-                              type="text"
-                              placeholder="Trip start Location"
-                              onChange={handleChangeNew}
-                              name="current_location"
-                              value={data2.current_location}
-                            />
-                            <label
-                              style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                width: "100%",
-                                gap: ".2rem",
-                              }}
-                            >
-                              <input
-                                type="checkbox"
-                                onChange={handleCheckboxChange2}
-                                checked={fetchCityName2}
-                              />{" "}
-                              Use current location
-                            </label>
-                          </div>
-                          <div className="mytravellersinput1">
-                            <div className="mytravellersinput">
-                              Travellers:
-                              <Counter
-                                count={data2.adults}
-                                onCountChange={updateAdults2}
-                              />
-                            </div>
-                            <input
-                              className="myjourneydate"
-                              type="date"
-                              placeholder="Enter Journey start date"
-                              name="trip_start_date"
-                              onChange={handleChangeNew}
-                              defaultValue={today}
-                              min={today}
-                            />
-                          </div>
+                    
                           {contextHolder}
                           <button
                             className="form-button"

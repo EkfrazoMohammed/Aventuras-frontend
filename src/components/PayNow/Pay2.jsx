@@ -68,6 +68,7 @@ const Step1Content = ({
               value={data.customer_name}
               onChange={handleChange}
               placeholder={"Enter your name"}
+              disabled={true}
             />
             {errors.customer_name && (
               <div
@@ -95,6 +96,8 @@ const Step1Content = ({
               onChange={handleChange}
               value={data.customer_email}
               placeholder={"Enter Your Email "}
+              disabled={true}
+
             />
             {errors.customer_email && (
               <div
@@ -122,6 +125,8 @@ const Step1Content = ({
               onChange={handleChange}
               value={data.customer_mobile_number}
               placeholder={"Enter Mobile Number"}
+              disabled={true}
+
             />
             {errors.customer_mobile_number && (
               <div
