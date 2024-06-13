@@ -237,9 +237,9 @@ useEffect(()=>{
               storeUser(data);
   
               if (path) {
-                navigate(path);
+                // navigate(path);
               } else {
-                navigate("/");
+                // navigate("/");
               }
               notification.success({
                 message: "Login Successful",
@@ -599,7 +599,7 @@ useEffect(()=>{
                update()
 
                 if (path) {
-                  navigate(path);
+                  // navigate(path);
                   // alert("navigated")
                 } 
                 else {

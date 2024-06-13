@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  Link,
-  NavLink,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { API } from "../../api/apirequest";
 
 import { Skeleton, notification, Popover } from "antd";
-import {
-  CloseOutlined,
-  MenuOutlined
-} from "@ant-design/icons";
+import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 
 import "./Navbar.scss";
 import "./RNav.css";
 import { userData } from "../Auth/helper";
-import { Modal } from 'antd';
+import { Modal } from "antd";
 import Login from "../Auth/Login";
 
 const Drop = ({ setClicked, clicked }) => {
@@ -24,8 +16,8 @@ const Drop = ({ setClicked, clicked }) => {
   const [domestic, setDomestic] = useState([]);
   const [theme, setTheme] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [toggle, setToggle] = useState(true)
-  const [toggleRegister, settoggleRegister] = useState(false)
+  const [toggle, setToggle] = useState(true);
+  const [toggleRegister, settoggleRegister] = useState(false);
 
   const getData = async () => {
     try {
@@ -86,7 +78,7 @@ const Drop = ({ setClicked, clicked }) => {
     notification.success({
       message: "User Logged out!",
       placement: "top",
-      duration: 2
+      duration: 2,
     });
     location.reload();
   }
@@ -109,18 +101,46 @@ const Drop = ({ setClicked, clicked }) => {
     };
   }, [clicked]);
 
-  const [hidepop, sethidepop] = useState(false)
+  const [hidepop, sethidepop] = useState(false);
   const content = (
-
     <div className="toolTip_main_wrapper">
       <div className="tooltip_header">
-        <div className="tooltip_div" onClick={() => sethidepop(false)}> <span className="closePop"><CloseOutlined /></span> </div>
-        <img src="https://admin.aventuras.co.in/uploads/image_1_1_2a69dfc02b.png" width={'40px'} alt="" />
+        <div className="tooltip_div" onClick={() => sethidepop(false)}>
+          {" "}
+          <span className="closePop">
+            <CloseOutlined />
+          </span>{" "}
+        </div>
+        <img
+          src="https://admin.aventuras.co.in/uploads/image_1_1_2a69dfc02b.png"
+          width={"40px"}
+          alt=""
+        />
         <p className="tooltip_heading">Welcome to Aventuras</p>
       </div>
       <div className="tooltip_button_wrapper">
-        <button className="tooltip_button" onClick={() => { setModalOpen(true); setToggle(true); sethidepop(false); settoggleRegister(false) }}>Login </button>
-        <button className="tooltip_button" onClick={() => { setModalOpen(true); setToggle(false); sethidepop(false); settoggleRegister(true) }}>SignUp</button>
+        <button
+          className="tooltip_button"
+          onClick={() => {
+            setModalOpen(true);
+            setToggle(true);
+            sethidepop(false);
+            settoggleRegister(false);
+          }}
+        >
+          Login{" "}
+        </button>
+        <button
+          className="tooltip_button"
+          onClick={() => {
+            setModalOpen(true);
+            setToggle(false);
+            sethidepop(false);
+            settoggleRegister(true);
+          }}
+        >
+          SignUp
+        </button>
       </div>
     </div>
   );
@@ -152,7 +172,6 @@ const Drop = ({ setClicked, clicked }) => {
               </div>
 
               <ul className={clicked ? "menuList" : "menuList close"}>
-
                 <div className="menuIconMobile" onClick={handleClick}>
                   {clicked ? <CloseOutlined /> : null}
                 </div>
@@ -281,21 +300,62 @@ const Drop = ({ setClicked, clicked }) => {
 
                     <li className="navitem">
                       <div>
-                        <Link onClick={() => setClicked(!clicked)} to="/pay-now">
+                        <Link
+                          onClick={() => setClicked(!clicked)}
+                          to="/pay-now"
+                        >
                           Pay Now
                         </Link>
                       </div>
                     </li>
+                    <li className="dropdownOne">
+                      <Link to="/all-themes">
+                        <div className="dropbtn">
+                          Why Choose Us? <span className="arrowa"></span>
+                        </div>
+                      </Link>
 
-                    <li className="navitem">
+                      <div className="dropdowncontent">
+                        <li className="multidropdown">
+                          <div className="multidropdowncontent">
+                            <div className="location">
+                              <Link
+                                onClick={() => setClicked(!clicked)}
+                                to="/Why_choose"
+                              >
+                                Why Choose Us?
+                              </Link>
+                            </div>
+                            <div className="location">
+                              <Link
+                                onClick={() => setClicked(!clicked)}
+                                to="/contact-us"
+                              >
+                                Contact us
+                              </Link>
+                            </div>
+                            <div className="location">
+                              <Link
+                                onClick={() => setClicked(!clicked)}
+                                to="/about-us"
+                              >
+                                About Us
+                              </Link>
+                            </div>
+                          </div>
+                        </li>
+                      </div>
+                    </li>
+
+                    {/* <li className="navitem">
                       <div>
                         <Link onClick={() => setClicked(!clicked)} to="/about-us">
                           About Us
                         </Link>
                       </div>
-                    </li>
+                    </li> */}
 
-                    <li className="navitem contact-button">
+                    {/* <li className="navitem contact-button">
                       <div>
                         <Link
                           onClick={() => setClicked(!clicked)}
@@ -304,8 +364,8 @@ const Drop = ({ setClicked, clicked }) => {
                           Contact us
                         </Link>
                       </div>
-                    </li>
-                    <li className="navitem">
+                    </li> */}
+                    {/* <li className="navitem">
                       <div>
                         <Link
                           onClick={() => setClicked(!clicked)}
@@ -314,38 +374,40 @@ const Drop = ({ setClicked, clicked }) => {
                           Why Choose Us?
                         </Link>
                       </div>
-                    </li>
+                    </li> */}
                     <li className="dropdownOne showbig">
                       <div className="dropbtn">
-                        {username ? <>
-                          {username.length > 14 ? (
-                            /\s|@/.test(username) ? (
-                              <div className="" style={{fontSize:'1rem'}}>
-
-                                {`Hi ${username.split(/\s|@/)[0].substring(0, 8)}...`}
-                              </div>
-                            ) : (
-                              `${username.substring(0, 8)}...`
-                            )
-                          ) : (
-                            /\s|@/.test(username) ? (
+                        {username ? (
+                          <>
+                            {username.length > 14 ? (
+                              /\s|@/.test(username) ? (
+                                <div className="" style={{ fontSize: "1rem" }}>
+                                  {`Hi ${username
+                                    .split(/\s|@/)[0]
+                                    .substring(0, 8)}...`}
+                                </div>
+                              ) : (
+                                `${username.substring(0, 8)}...`
+                              )
+                            ) : /\s|@/.test(username) ? (
                               `Hi ${username.split(/\s|@/)[0]}`
                             ) : (
                               username
-                            )
-                          )}</>
-                          : (
-                            <Popover
-                              open={hidepop}
-                              trigger="click"
-                              content={content}
-                              onClick={() => { sethidepop(true); }}
-                              title={null} >
-                              Login
-                            </Popover>
-
-                          )}
-
+                            )}
+                          </>
+                        ) : (
+                          <Popover
+                            open={hidepop}
+                            trigger="click"
+                            content={content}
+                            onClick={() => {
+                              sethidepop(true);
+                            }}
+                            title={null}
+                          >
+                            Login
+                          </Popover>
+                        )}
                       </div>
 
                       {username ? (
@@ -354,7 +416,10 @@ const Drop = ({ setClicked, clicked }) => {
                             <li className="multidropdown">
                               <div className="multidropdowncontent">
                                 <Link to="/myprofile">My Profile</Link>
-                                <Link className="location" onClick={refreshPage}>
+                                <Link
+                                  className="location"
+                                  onClick={refreshPage}
+                                >
                                   Logout
                                 </Link>
                               </div>
@@ -376,7 +441,13 @@ const Drop = ({ setClicked, clicked }) => {
                         </>
                       ) : (
                         <>
-                          <Link onClick={() => { setModalOpen(true); setToggle(true); settoggleRegister(false) }}>
+                          <Link
+                            onClick={() => {
+                              setModalOpen(true);
+                              setToggle(true);
+                              settoggleRegister(false);
+                            }}
+                          >
                             {username ? null : "Login"}
                           </Link>
                         </>
@@ -390,7 +461,7 @@ const Drop = ({ setClicked, clicked }) => {
         )}
       </div>
       <Modal
-        style={{ textAlign: 'center' }}
+        style={{ textAlign: "center" }}
         className="modalLogin"
         centered
         open={modalOpen}
@@ -400,10 +471,14 @@ const Drop = ({ setClicked, clicked }) => {
         }}
         destroyOnClose={true}
       >
-        <Login toggle={toggle} setToggle={setToggle} toggleRegister={toggleRegister} settoggleRegister={settoggleRegister} />
+        <Login
+          toggle={toggle}
+          setToggle={setToggle}
+          toggleRegister={toggleRegister}
+          settoggleRegister={settoggleRegister}
+        />
       </Modal>
     </>
-
   );
 };
 

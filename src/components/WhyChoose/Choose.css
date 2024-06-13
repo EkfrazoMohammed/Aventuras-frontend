@@ -74,11 +74,15 @@ gap: 2.5rem;
     align-items: center;
     background-color: #fff;
     flex-direction: column;
-    height: 200px;
+    height: 230px;
     border-radius: 10px;
     box-shadow: 1px 1px 5px rgb(36 39 44 / 40%);
     border: 1px solid #0000001a;
+     color: #000;
+}
 
+a {
+    text-decoration: none !important;
 }
 .slick-track{
     display: flex ;
@@ -95,8 +99,9 @@ gap: 2.5rem;
   width: 100% !important;
 }
 .review_image_container{
-  width: 16%;
-
+  width: 15%;
+  display: flex;
+  align-items:center;
 }
 .review_image_container img  {
     width: 90px;
@@ -108,11 +113,12 @@ gap: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 75%;
     line-height: 1.5rem;
     font-weight: 400;
     gap: 0.5rem;
     position: relative;
+    font-size: 0.9rem;
 }
 .review_heading{
     max-width: 1200px;

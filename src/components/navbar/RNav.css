@@ -130,7 +130,9 @@
 .menuIconMobile {
   display: none;
 }
-
+.location{
+  font-weight: 400;
+}
 @media (max-width:767px) {
   .menuIconMobile {
     position: absolute;

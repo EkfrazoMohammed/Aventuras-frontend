@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import  './Choose.css'
 import GallerySlider from "./GallerySlider"
 import CertificateSlider from './CertificateSlider';
+import Featured from './Featured';
 
 const ChooseUs = () => {
 
@@ -103,6 +104,11 @@ Client Diaries
     <div className="gallery_container">
         <GallerySlider data={chooseData[0]?.data?.data[0]?.attributes?.gallery?.data} />
     </div>
+</div>
+
+
+<div className="main_slider_wrapper" >
+   <Featured data={chooseData[0]?.data?.data[0]?.attributes?.Featured}/>
 </div>
    </>
   )
