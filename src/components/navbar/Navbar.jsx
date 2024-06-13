@@ -309,7 +309,7 @@ const Drop = ({ setClicked, clicked }) => {
                       </div>
                     </li>
                     <li className="dropdownOne">
-                      <Link to="/all-themes">
+                      <Link to="/Why_choose">
                         <div className="dropbtn">
                           Why Choose Us? <span className="arrowa"></span>
                         </div>
