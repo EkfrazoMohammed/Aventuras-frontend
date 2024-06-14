@@ -9,11 +9,10 @@ import { Link } from "react-router-dom";
 
 function Featured({data}) {
 
-var settings = {
+  var settings = {
     className: "center",
+    infinite: true,
     slidesToShow: 2,
-    infinite: false,
-
     speed: 1500,
       responsive: [
         {
@@ -21,7 +20,8 @@ var settings = {
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-   
+            infinite: true,
+            dots: true
           }
         },
         {
@@ -37,7 +37,7 @@ var settings = {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-
+            initialSlide: 0,
               }
         }
       ]

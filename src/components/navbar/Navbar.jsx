@@ -64,7 +64,9 @@ const Drop = ({ setClicked, clicked }) => {
     getData();
   }, []);
 
-  const { username } = userData();
+  const { info,username } = userData();
+  console.log(userData())
+
   const handleClick = () => {
     setClicked(!clicked);
   };
@@ -380,19 +382,19 @@ const Drop = ({ setClicked, clicked }) => {
                         {username ? (
                           <>
                             {username.length > 14 ? (
-                              /\s|@/.test(username) ? (
+                              /\s|@/.test(info.user.googleUser) ? (
                                 <div className="" style={{ fontSize: "1rem" }}>
-                                  {`Hi ${username
+                                  {`Hi ${info.user.googleUser
                                     .split(/\s|@/)[0]
                                     .substring(0, 8)}...`}
                                 </div>
                               ) : (
-                                `${username.substring(0, 8)}...`
+                                `${info.user.googleUser.substring(0, 8)}...`
                               )
-                            ) : /\s|@/.test(username) ? (
-                              `Hi ${username.split(/\s|@/)[0]}`
+                            ) : /\s|@/.test(info.user.googleUser) ? (
+                              `Hi ${info.user.googleUser.split(/\s|@/)[0]}`
                             ) : (
-                              username
+                              info.user.googleUser
                             )}
                           </>
                         ) : (
@@ -434,13 +436,17 @@ const Drop = ({ setClicked, clicked }) => {
                     <li className="navitem showsmall">
                       {username ? (
                         <>
+                          <Link to="/contact-us">Conatct Us</Link>
+                          <Link to="/about-us">About Us</Link>
                           <Link to="/myprofile">My Profile</Link>
-                          <Link className="location" onClick={refreshPage}>
+                          <Link className="location" style={{fontWeight:'500'}} onClick={refreshPage}>
                             Logout
                           </Link>
                         </>
                       ) : (
                         <>
+                               <Link to="/contact-us">Conatct Us</Link>
+                               <Link to="/about-us">About Us</Link>
                           <Link
                             onClick={() => {
                               setModalOpen(true);
